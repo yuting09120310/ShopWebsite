@@ -1,0 +1,595 @@
+- var theme_customizer      = true;
+- var sidebar               = true;
+- var slick                 = true;
+- var header_slider         = true;
+- var animate               = true;
+- var scrollbar             = true;
+- var height_equal          = true;
+doctype html
+html(lang='en')
+  include ../../components/header-files
+  body
+    include ../../components/loader
+    include ../../components/taptop
+    // page-wrapper Start
+    #pageWrapper.page-wrapper.compact-wrapper
+      include ../../components/header
+      // Page Body Start
+      .page-body-wrapper
+        include ../../components/sidebar
+        .page-body
+          .container-fluid
+            .page-title
+              .row
+                .col-6
+                  h4
+                    | Helper Classes
+                .col-6
+                  ol.breadcrumb
+                    li.breadcrumb-item
+                      a(href='index.html')                                        
+                        svg.stroke-icon
+                          use(href='../assets/svg/icon-sprite.svg#stroke-home')
+                    li.breadcrumb-item Ui Kits
+                    li.breadcrumb-item.active Helper Classes
+          // Container-fluid starts
+          .container-fluid
+            .row
+              .col-12
+                .card
+                  .card-header
+                    h4 Borders And Displays
+                    p.f-m-light.mt-1 
+                     | Use border utilities to add or remove an element's borders.
+                  .card-body
+                    .row.g-3
+                      .col-xl-4.col-sm-6
+                        .border-wrapper.h-100.border
+                          h6.mb-3 Additive Border 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border
+                            | .border
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border-top
+                            | .border-top
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border-bottom
+                            | .border-bottom
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border-start
+                            | .border-start
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border-end
+                            | .border-end
+                      .col-xl-4.col-sm-6
+                        .border-wrapper.h-100.border
+                          h6.mb-3 Subtractive Border
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border.border-0 
+                            | .border-0
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border.border-top-0 
+                            | .border-top-0
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border.border-end-0 
+                            | .border-end-0
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border.border-bottom-0 
+                            | .border-bottom-0
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light.border.border-start-0 
+                            | .border-start-0
+                      .col-xl-4.col-sm-12
+                        .border-wrapper.h-100.border
+                          h6.mb-3 Additive Radius
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded
+                            | .rounded
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-top
+                            | .rounded-top
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-end
+                            | .rounded-end
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-bottom
+                            | .rounded-bottom
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-start
+                            | .rounded-start
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-pill
+                            | .rounded-pill
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-circle
+                            | .rounded-circle
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-radius.radius-wrapper.rounded-0
+                            | .rounded-0
+              .col-12
+                .card
+                  .card-header
+                    h4 Styles In Borders
+                    p.f-m-light.mt-1 
+                      | Use the different styles of borders like:
+                      code border radius/border-color/border-width
+                      | . Use of any components.
+                  .card-body
+                    .row.g-3
+                      .col-xxl-3.col-sm-6
+                        .border-wrapper.h-100.alert-light-light.dark-helper
+                          h6.mb-3 Custom Border-radius Class
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-0.bg-light.border
+                            span .b-r-0
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-1.bg-light.border
+                            span .b-r-1
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-2.bg-light.border
+                            span .b-r-2
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-3.bg-light.border
+                            span .b-r-3
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-4.bg-light.border
+                            span .b-r-4
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-5.bg-light.border
+                            span .b-r-5
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-6.bg-light.border
+                            span .b-r-6
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-7.bg-light.border
+                            span .b-r-7
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-8.bg-light.border
+                            span .b-r-8
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-9.bg-light.border
+                            span .b-r-9
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.b-r-10.bg-light.border
+                            span .b-r-10
+                      .col-xxl-3.col-sm-6
+                        .border-wrapper.h-100.alert-light-light.dark-helper
+                          h6.mb-3 Border Color
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-primary.border
+                            span .border-primary
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-secondary.border
+                            span .border-secondary
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-success.border
+                            span .border-success
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-danger.border
+                            span .border-danger
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-warning.border
+                            span .border-warning
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-info.border
+                            span .border-info
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-dark.border
+                            span .border-dark
+                      .col-xxl-3.col-sm-6
+                        .border-wrapper.h-100.alert-light-light.dark-helper
+                          h6.mb-3 Border-Width
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-1.border 
+                            span .border-1
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-2.border 
+                            span .border-2
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-3.border 
+                            span .border-3
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-4.border 
+                            span .border-4
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-5.border 
+                            span .border-5
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-6.border 
+                            span .border-6
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-7.border 
+                            span .border-7
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-8.border 
+                            span .border-8
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-9.border 
+                            span .border-9
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.border-10.border 
+                            span .border-10 
+                      .col-xxl-3.col-sm-6
+                        .border-wrapper.alert-light-light.h-100.dark-helper
+                          h6.mb-3 Text Colors
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-primary C 
+                            span .txt-primary
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-secondary C 
+                            span .txt-secondary
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-success C 
+                            span .txt-success
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-danger C 
+                            span .txt-danger
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-warning C 
+                            span .txt-warning
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-info C 
+                            span .txt-info
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-dark C 
+                            span .txt-dark
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.helper-text.border.txt-light.bg-dark C 
+                            span .txt-light 
+              .col-12
+                .card
+                  .card-header
+                    h4 Background Colors 
+                    p.f-m-light.mt-1 
+                      | Use the 
+                      code .bg-* 
+                      | and 
+                      code .alert-light-*
+                      | colors in cuba theme.Use of any components.
+                  .card-body
+                    .row.g-3
+                      .col-xl-4.col-sm-6
+                        .border-wrapper.h-100.border
+                          h6.mb-3 Dark Background
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-primary
+                            | .bg-primary 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-secondary
+                            | .bg-secondary 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-success
+                            | .bg-success 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-danger
+                            | .bg-danger 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-warning
+                            | .bg-warning 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-info
+                            | .bg-info 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-dark
+                            | .bg-dark 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.bg-light
+                            | .bg-light 
+                      .col-xl-4.col-sm-6
+                        .border-wrapper.h-100.border
+                          h6.mb-3 Light Backgrounds
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-primary 
+                            | .alert-light-primary 
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-secondary
+                            | .alert-light-secondary
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-success
+                            | .alert-light-success
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-danger
+                            | .alert-light-danger
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-warning
+                            | .alert-light-warning
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-info
+                            | .alert-light-info
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-dark
+                            | .alert-light-dark
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.alert-light-light
+                            | .alert-light-light
+                      .col-xl-4.col-sm-12
+                        .border-wrapper.h-100.border
+                          h6.mb-3 Extended Background Colors
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.light-card 
+                            | .light-card
+                          .d-flex.align-items-center.mb-2.gap-2
+                            .helper-box.light-background.border
+                            | .light-background  
+              .col-12
+                .card
+                  .card-header
+                    h4 Border Color
+                    p.f-m-light.mt-1 
+                      | Use the 
+                      code .b-*/.b-t-*/.b-b-*/.b-l-*/.b-r-*
+                      | class for borders.
+                  .card-body 
+                      .gradient-border
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-primary.border.fill-wrapper 
+                          | .b-primary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-primary.border.fill-wrapper 
+                          | .b-t-primary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-primary.border.fill-wrapper 
+                          | .b-b-primary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-primary.border.fill-wrapper 
+                          | .b-l-primary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-primary.border.fill-wrapper 
+                          | .b-r-primary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-secondary.border.fill-wrapper 
+                          | .b-secondary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-secondary.border.fill-wrapper 
+                          | .b-t-secondary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-secondary.border.fill-wrapper 
+                          | .b-b-secondary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-secondary.border.fill-wrapper 
+                          | .b-l-secondary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-secondary.border.fill-wrapper 
+                          | .b-r-secondary
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-success.border.fill-wrapper 
+                          | .b-success
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-success.border.fill-wrapper 
+                          | .b-t-success
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-success.border.fill-wrapper 
+                          | .b-b-success
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-success.border.fill-wrapper 
+                          | .b-l-success
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-success.border.fill-wrapper 
+                          | .b-r-success
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-danger.border.fill-wrapper 
+                          | .b-danger
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-danger.border.fill-wrapper 
+                          | .b-t-danger
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-danger.border.fill-wrapper 
+                          | .b-b-danger
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-danger.border.fill-wrapper 
+                          | .b-l-danger
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-danger.border.fill-wrapper 
+                          | .b-r-danger
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-warning.border.fill-wrapper 
+                          | .b-warning
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-warning.border.fill-wrapper 
+                          | .b-t-warning
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-warning.border.fill-wrapper 
+                          | .b-b-warning
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-warning.border.fill-wrapper 
+                          | .b-l-warning
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-warning.border.fill-wrapper 
+                          | .b-r-warning
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-info.border.fill-wrapper 
+                          | .b-info
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-info.border.fill-wrapper 
+                          | .b-t-info
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-info.border.fill-wrapper 
+                          | .b-b-info
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-info.border.fill-wrapper 
+                          | .b-l-info
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-info.border.fill-wrapper 
+                          | .b-r-info
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-dark.border.fill-wrapper 
+                          | .b-dark
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-dark.border.fill-wrapper 
+                          | .b-t-dark
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-dark.border.fill-wrapper 
+                          | .b-b-dark
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-dark.border.fill-wrapper 
+                          | .b-l-dark
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-dark.border.fill-wrapper 
+                          | .b-r-dark
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-light.border.fill-wrapper 
+                          | .b-light
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-t-light.border.fill-wrapper 
+                          | .b-t-light
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-b-light.border.fill-wrapper 
+                          | .b-b-light
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-l-light.border.fill-wrapper 
+                          | .b-l-light
+                        .d-flex.align-items-center.mb-2.gap-2
+                          .helper-box.b-r-light.border.fill-wrapper 
+                          | .b-r-light
+              .col-xl-6
+                .card.height-equal
+                  .card-header
+                    h4 Images Sizes
+                    p.f-m-light.mt-1 
+                      | Use the width and height of images class like: 
+                      code .img-*
+                      | and
+                      code .img-h-*
+                      | .
+                  .card-body 
+                    .gradient-border.gap-3
+                      img.img-10.img-h-10(src="../assets/images/blog/comment.jpg", alt="img-size-10") 
+                      img.img-20.img-h-20(src="../assets/images/blog/comment.jpg", alt="img-size-20")
+                      img.img-30.img-h-30(src="../assets/images/blog/comment.jpg", alt="img-size-30")
+                      img.img-40.img-h-40(src="../assets/images/blog/comment.jpg", alt="img-size-40")
+                      img.img-50.img-h-50(src="../assets/images/blog/comment.jpg", alt="img-size-50")
+                      img.img-60.img-h-60(src="../assets/images/blog/comment.jpg", alt="img-size-60")
+                      img.img-70.img-h-70(src="../assets/images/blog/comment.jpg", alt="img-size-70")
+                      img.img-80.img-h-80(src="../assets/images/blog/comment.jpg", alt="img-size-80")
+                      img.img-90.img-h-90(src="../assets/images/blog/comment.jpg", alt="img-size-90")
+                      img.img-100.img-h-100(src="../assets/images/blog/comment.jpg", alt="img-size-100")                         
+              .col-xl-6
+                .card.height-equal
+                  .card-header
+                    h4 Font-Style
+                    p.f-m-light.mt-1 
+                    | Use the font-style like: 
+                    code  .f-s-* [normal/italic/oblique/initial/inherit]
+                    | .
+                  .card-body 
+                      p.f-s-normal 
+                        | This is a .f-s-normal font-style 
+                      p.f-s-italic
+                        | This is a .f-s-italic font-style 
+                      p.f-s-oblique
+                        | This is a .f-s-oblique font-style 
+                      p.f-s-initial
+                        | This is a .f-s-initial font-style 
+                      p.f-s-inherit
+                        | This is a .f-s-inherit font-style 
+              .col-xl-6
+                .card.height-equal
+                  .card-header
+                    h4 Font Weight 
+                    p.f-m-light.mt-1 
+                      | Use the font-weight classes like: 
+                      code .f-w-* [100/300/400/600/700/900]
+                  .card-body
+                    .d-flex.align-items-center.mb-2.gap-2
+                      .f-w-100 
+                        | You can set light font weight heading .f-w-100
+                    .d-flex.align-items-center.mb-2.gap-2
+                      .f-w-300
+                        | You can set light font weight heading .f-w-300
+                    .d-flex.align-items-center.mb-2.gap-2
+                      .f-w-400
+                        | You can set light font weight heading .f-w-400
+                    .d-flex.align-items-center.mb-2.gap-2
+                      .f-w-600
+                        | You can set bolder font weight heading .f-w-600
+                    .d-flex.align-items-center.mb-2.gap-2
+                      .f-w-700
+                        | You can set bold font weight heading .f-w-700
+                    .d-flex.align-items-center.mb-2.gap-2
+                      .f-w-900
+                        | You can set bold font weight heading .f-w-900
+              .col-xl-6
+                .card.height-equal
+                  .card-header
+                    h4 Text Colors
+                    p.f-m-light.mt-1 
+                      | Use the text color for 
+                      code .font-*
+                      |  class.
+                  .card-body 
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-primary 
+                      | This is a font-primary text used class as .font-primary
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-secondary
+                      | This is a font-secondary text used class as .font-secondary 
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-success
+                      | This is a font-success text used class as .font-success
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-danger
+                      | This is a font-danger text used class as .font-danger
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-warning
+                      | This is a font-warning text used class as .font-warning
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-info
+                      | This is a font-info text used class as .font-info
+                    .d-flex.align-items-center.mb-2.gap-2
+                    .font-dark
+                      | This is a font-dark text used class as .font-dark
+              .col-12
+                .card
+                  .card-header
+                    h4 Font Sizes
+                    p.f-m-light.mt-1 
+                      | Use the font-size for 
+                      code .f-* [14/16/18/20/22/24/26/28/30/32/34/36/38/40]
+                      | .
+                  .card-body 
+                    .gradient-border 
+                      .font-wrapper.border
+                        .f-14
+                          | Font-size .f-14
+                      .font-wrapper.border
+                        .f-16
+                          | Font-size .f-16
+                      .font-wrapper.border
+                        .f-18
+                          | Font-size .f-18
+                      .font-wrapper.border
+                        .f-20
+                          | Font-size .f-20
+                      .font-wrapper.border
+                        .f-22
+                          | Font-size .f-22
+                      .font-wrapper.border
+                        .f-24
+                          | Font-size .f-24
+                      .font-wrapper.border
+                        .f-26
+                          | Font-size .f-26
+                      .font-wrapper.border
+                        .f-28
+                          | Font-size .f-28
+                      .font-wrapper.border
+                        .f-30
+                          | Font-size .f-30
+                      .font-wrapper.border
+                        .f-32
+                          | Font-size .f-32
+                      .font-wrapper.border
+                        .f-34
+                          | Font-size .f-34
+                      .font-wrapper.border
+                        .f-36
+                          | Font-size .f-36
+                      .font-wrapper.border
+                        .f-38
+                          | Font-size .f-38
+                      .font-wrapper.border
+                        .f-40
+                          | Font-size .f-40
+          // Container-fluid Ends
+        include ../../components/footer
+    include ../../components/footer-files

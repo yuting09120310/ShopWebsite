@@ -1,0 +1,54 @@
+/**=====================
+     15. Helper CSS start
+==========================**/
+
+.border-wrapper {
+    padding: 20px;
+}
+
+.helper-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 25%;
+
+    &.helper-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+    }
+}
+
+.helper-radius {
+    width: 60px;
+    height: 30px;
+}
+
+.fill-wrapper {
+    background-color: $light-color;
+}
+
+.gradient-border {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    @media (max-width: 1200px) {
+        gap: calc(13px + (22 - 13) * ((100vw - 320px) / (1200 - 320)));
+    }
+}
+
+.radius-wrapper {
+    background-color: $light-semi-gray;
+}
+
+.font-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+/**=====================
+     15. Helper CSS end
+==========================**/

@@ -1,0 +1,84 @@
+﻿@model AlexBlogMVC.BackEnd.Models.Admin
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Admin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AdminNum" />
+            <div class="form-group">
+                <label asp-for="GroupNum" class="control-label"></label>
+                <input asp-for="GroupNum" class="form-control" />
+                <span asp-validation-for="GroupNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminAcc" class="control-label"></label>
+                <input asp-for="AdminAcc" class="form-control" />
+                <span asp-validation-for="AdminAcc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminPwd" class="control-label"></label>
+                <input asp-for="AdminPwd" class="form-control" />
+                <span asp-validation-for="AdminPwd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminName" class="control-label"></label>
+                <input asp-for="AdminName" class="form-control" />
+                <span asp-validation-for="AdminName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdminPublish" class="control-label"></label>
+                <input asp-for="AdminPublish" class="form-control" />
+                <span asp-validation-for="AdminPublish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastLogin" class="control-label"></label>
+                <input asp-for="LastLogin" class="form-control" />
+                <span asp-validation-for="LastLogin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateTime" class="control-label"></label>
+                <input asp-for="CreateTime" class="form-control" />
+                <span asp-validation-for="CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Creator" class="control-label"></label>
+                <input asp-for="Creator" class="form-control" />
+                <span asp-validation-for="Creator" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditTime" class="control-label"></label>
+                <input asp-for="EditTime" class="form-control" />
+                <span asp-validation-for="EditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Editor" class="control-label"></label>
+                <input asp-for="Editor" class="form-control" />
+                <span asp-validation-for="Editor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ip" class="control-label"></label>
+                <input asp-for="Ip" class="form-control" />
+                <span asp-validation-for="Ip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

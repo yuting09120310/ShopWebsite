@@ -1,0 +1,181 @@
+// /*! -----------------------------------------------------------------------------------
+
+//     Template Name: Cuba Admin
+//     Template URI: http://admin.pixelstrap.com/cuba/theme
+//     Description: This is Admin theme
+//     Author: Pixelstrap
+//     Author URI: https://themeforest.net/user/pixelstrap
+
+// -----------------------------------------------------------------------------------
+
+
+//  */
+
+// *** utils ***
+
+
+@import "utils/variables";
+
+:root {
+    --theme-deafult: #3949ab;
+    --theme-secondary: #4fc3f7;
+    --light-background: rgba(242, 243, 247, 0.7);
+    --body-font-color: #2F2F3B;
+    --chart-border: #ECF3FA;
+    --recent-chart-bg: #FCFCFD;
+    --light-bg: #F6F7F9;
+    --white: #fff;
+    --light2: #F5F6F9;
+    --sidebar-border: rgba(0,0,0,0.1);
+    --chart-text-color: rgba(82, 82, 108, 0.8);
+    --recent-dashed-border: rgba(82, 82, 108, 0.3);
+    --chart-dashed-border: rgba(82, 82, 108, 0.2);
+    --chart-progress-light: rgba(82, 82, 108, 0.1);
+    --recent-box-bg: #F2F4F7;
+    --recent-border: rgba(97, 101, 122, 0.25);
+    --course-light-btn: #F2F3F7;
+    --course-bg: #F7F7F7;
+    --balance-profie-bg: #E0DFEF;
+    --view-grid-bg: #ECF3FA80;
+    --view-border-marker: #cfcdfc;
+
+    --fc-button-bg-color: var(--theme-deafult);
+    --fc-button-active-bg-color: var(--theme-deafult);
+    --fc-button-active-border-color: var(--theme-deafult);
+    --fc-button-border-color: var(--theme-deafult); 
+    --fc-button-hover-bg-color: var(--theme-deafult);
+    --fc-button-hover-border-color: var(--theme-deafult);
+}
+
+body[class='dark-only'] {
+    --light-background: rgba(31, 32, 40 , 0.65);
+    --recent-chart-bg: #262932;
+    --light-bg: #1d1e26;
+    --white: #262932;
+    --sidebar-border: rgba(255,255,255,0.1);
+    --light2: #1d1e26;
+    --chart-border: #374558;
+    --recent-box-bg: #1d1e26;
+    --recent-border: #374558;
+    --body-font-color: rgba(255,255,255,0.6);
+    --course-light-btn: var(--light-bg);
+    --view-grid-bg: var(--light-bg);
+    --view-border-marker: #2c2c45d4;
+}
+
+$primary-color: #3949ab;
+$secondary-color : #4fc3f7;
+$gradient-primary: linear-gradient($secondary-color, $primary-color);
+$gradient-primary-direction: linear-gradient(to right, lighten($primary-color, 10%), darken($primary-color, 8%));
+$gradient-secondary-direction: linear-gradient(to right, lighten($secondary-color, 10%), darken($secondary-color, 5%));
+$all-focus-outline-color: $primary-color;
+$code-tag-color: $primary-color;
+$list-group-active-bg-color: $primary-color;
+$list-group-active-border-color: $primary-color;
+$tour-color: $primary-color;
+$main-header-right-toggle-color : $primary-color;
+$main-header-right-nav-icon-color : $primary-color;
+$light-body-bg-color: rgba($primary-color, 0.10);
+$page-body-bg-color: $light-color;
+$pre-tag-bg-color: rgba($primary-color, 0.05);
+// *** base ***
+@import "base/reset";
+@import "base/typography";
+
+
+//  *** components ***
+@import "components/according.scss";
+@import "components/alert.scss";
+@import "components/avatars.scss";
+@import "components/badge.scss";
+@import "components/bookmark.scss";
+@import "components/breadcrumb.scss";
+@import "components/builders.scss";
+
+@import "components/buttons.scss";
+
+@import "components/card.scss";
+@import "components/color.scss";
+@import "components/datatable.scss";
+@import "components/datepicker.scss";
+@import "components/dropdown.scss";
+@import "components/form-builder.scss";
+@import "components/form-input.scss";
+@import "components/form-wizard.scss";
+@import "components/forms.scss";
+@import "components/form_builder-2.scss";
+@import "components/icons.scss";
+@import "components/list.scss";
+@import "components/loader.scss";
+@import "components/popover.scss";
+@import "components/print.scss";
+@import "components/radio.scss";
+@import "components/ribbon.scss";
+@import "components/switch.scss";
+@import "components/tab.scss";
+@import "components/table.scss";
+@import "components/touchspin.scss";
+@import "components/tour.scss";
+@import "components/tree.scss";
+@import "components/typeahead-search.scss";
+
+
+
+//	*** pages ***
+
+@import "pages/blog.scss";
+@import "pages/bookmark-app.scss";
+@import "pages/cart.scss";
+@import "pages/chart.scss";
+@import "pages/chat.scss";
+@import "pages/checkout.scss";
+@import "pages/comingsoon.scss";
+@import "pages/contacts.scss";
+@import "pages/dashboard_2.scss";
+@import "pages/dashboard_default.scss";
+@import "pages/ecommerce.scss";
+@import "pages/email-application.scss";
+@import "pages/errorpage.scss";
+@import "pages/faq.scss";
+@import "pages/file.scss";
+@import "pages/gallery.scss";
+@import "pages/internationalization.scss";
+@import "pages/job-search.scss";
+@import "pages/jsgrid.scss";
+@import "pages/kanban.scss";
+@import "pages/knowledgebase.scss";
+@import "pages/landing.scss";
+@import "pages/language.scss";
+@import "pages/learning.scss";
+@import "pages/login.scss";
+@import "pages/megaoption.scss";
+@import "pages/order-history.scss";
+@import "pages/page.scss";
+@import "pages/pricing.scss";
+@import "pages/progress.scss";
+@import "pages/projectlist.scss";
+@import "pages/social-app.scss";
+@import "pages/task.scss";
+@import "pages/timeline-v.scss";
+@import "pages/timeliny.scss";
+@import "pages/user-profile.scss";
+@import "pages/wishlist.scss";
+
+
+/* ---------------------
+	*** themes ***
+-----------------------*/
+@import "themes/dark.scss";
+@import "themes/theme-customizer.scss";
+
+// *** layout *** 
+
+@import "layout/footer.scss";
+@import "layout/grid.scss";
+@import "layout/header.scss";
+@import "layout/navs.scss";
+@import "layout/search.scss";
+@import "layout/select2.scss";
+@import "layout/sidebar.scss";
+@import "layout/rtl.scss";
+@import "layout/box-layout.scss";

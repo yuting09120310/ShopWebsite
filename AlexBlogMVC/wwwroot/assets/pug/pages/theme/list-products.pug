@@ -1,0 +1,188 @@
+- var theme_customizer      = true;
+- var tooltip               = true;
+- var owlcarousel           = true;
+- var rating                = true;
+- var datatable             = true;
+- var ecommerce             = true;
+- var product_list          = true;
+- var sidebar               = true;
+- var slick                 = true;
+- var header_slider         = true;
+- var animate               = true;
+- var scrollbar             = true;
+
+doctype html
+html(lang='en')
+  include ../../components/header-files
+  body
+    include ../../components/loader
+    include ../../components/taptop
+    // page-wrapper Start
+    #pageWrapper.page-wrapper.compact-wrapper
+      include ../../components/header
+      // Page Body Start
+      .page-body-wrapper
+        include ../../components/sidebar
+        .page-body
+          .container-fluid
+            .page-title
+              .row
+                .col-6
+                  h3
+                    | Product list
+
+                .col-6
+                  ol.breadcrumb
+                    li.breadcrumb-item
+                      a(href='index.html')                                        
+                        svg.stroke-icon
+                          use(href='../assets/svg/icon-sprite.svg#stroke-home')
+                    li.breadcrumb-item ECommerce
+                    li.breadcrumb-item.active Product list
+          // Container-fluid starts
+          .container-fluid
+            .row
+              // Individual column searching (text inputs) Starts
+              .col-sm-12
+                .card
+                  .card-header
+                    h5 Individual column searching (text inputs) 
+                    span
+                      | The searching functionality provided by DataTables is useful for quickly search through the information in the table - however the search is global, and you may wish to present controls that search on specific columns.
+                  .card-body
+                    .table-responsive.product-table
+                      table#basic-1.display
+                        thead
+                          tr
+                            th Image
+                            th Details
+                            th Amount
+                            th Stock
+                            th Start date
+                            th Action
+                        tbody
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-1.png', alt='')
+                            td
+                              h6  Red Shirt
+                              span Wild West - Red Cotton Blend Regular Fit Men's Formal Shirt.
+                            td $10
+                            td.font-success In Stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-2.png', alt='')
+                            td
+                              h6  blue Shirt
+                              p Vida Loca - Blue Denim Fit Men's Casual Shirt.
+                            td $10
+                            td.font-primary Low Stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-3.png', alt='')
+                            td
+                              h6 Men Solid Denim Jacket
+                              p The Dry State - Blue Denim Regular Fit Men's Denim Jacket.
+                            td $10
+                            td.font-danger out of stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-4.png', alt='')
+                            td
+                              h6 Cyclamen
+                              p  Stylish co-ord Set 2 piece dress for women
+                            td $10
+                            td.font-primary Low Stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-5.png', alt='')
+                            td
+                              h6 Women shorts 
+                              p Women Shorts Set
+                            td $10
+                            td.font-success In Stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-6.png', alt='')
+                            td
+                              h6  Women Top
+                              p Women's Top
+                            td $10
+                            td.font-primary Low Stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-1.png', alt='')
+                            td
+                              h6  Red shirt 
+                              p Wild West - Red Cotton Blend Regular Fit Men's Formal Shirt.
+                            td $10
+                            td.font-danger out of stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-2.png', alt='')
+                            td
+                              h6  Blue shirt 
+                              p Vida Loca - Blue Denim Fit Men's Casual Shirt.
+                            td $10
+                            td.font-danger out of stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-3.png', alt='')
+                            td
+                              h6  Men Solid Denim Jacket
+                              p The Dry State - Blue Denim Regular Fit Men's Denim Jacket.
+                            td $10
+                            td.font-success In Stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+                          tr
+                            td
+                              img(src='../assets/images/ecommerce/product-table-4.png', alt='')
+                            td
+                              h6  Cyclamen
+                              p Stylish co-ord Set 2 piece dress for women
+                            td $10
+                            td.font-danger out of stock
+                            td 2011/04/25
+                            td
+                              button.btn.btn-danger.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Delete
+                              button.btn.btn-success.btn-xs(type='button', data-original-title='btn btn-danger btn-xs', title='') Edit
+              // Individual column searching (text inputs) Ends
+
+          // Container-fluid Ends
+        include ../../components/footer
+    include ../../components/footer-files

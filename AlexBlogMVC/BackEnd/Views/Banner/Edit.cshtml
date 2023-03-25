@@ -1,0 +1,114 @@
+﻿@model AlexBlogMVC.BackEnd.Models.Banner
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Banner</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BannerNum" />
+            <div class="form-group">
+                <label asp-for="Lang" class="control-label"></label>
+                <input asp-for="Lang" class="form-control" />
+                <span asp-validation-for="Lang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductClass" class="control-label"></label>
+                <input asp-for="ProductClass" class="form-control" />
+                <span asp-validation-for="ProductClass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerSort" class="control-label"></label>
+                <input asp-for="BannerSort" class="form-control" />
+                <span asp-validation-for="BannerSort" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerTitle" class="control-label"></label>
+                <input asp-for="BannerTitle" class="form-control" />
+                <span asp-validation-for="BannerTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerDescription" class="control-label"></label>
+                <input asp-for="BannerDescription" class="form-control" />
+                <span asp-validation-for="BannerDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerContxt" class="control-label"></label>
+                <input asp-for="BannerContxt" class="form-control" />
+                <span asp-validation-for="BannerContxt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerImg1" class="control-label"></label>
+                <input asp-for="BannerImg1" class="form-control" />
+                <span asp-validation-for="BannerImg1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerImgUrl" class="control-label"></label>
+                <input asp-for="BannerImgUrl" class="form-control" />
+                <span asp-validation-for="BannerImgUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerImgAlt" class="control-label"></label>
+                <input asp-for="BannerImgAlt" class="form-control" />
+                <span asp-validation-for="BannerImgAlt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerPublish" class="control-label"></label>
+                <input asp-for="BannerPublish" class="form-control" />
+                <span asp-validation-for="BannerPublish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerPutTime" class="control-label"></label>
+                <input asp-for="BannerPutTime" class="form-control" />
+                <span asp-validation-for="BannerPutTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateTime" class="control-label"></label>
+                <input asp-for="CreateTime" class="form-control" />
+                <span asp-validation-for="CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Creator" class="control-label"></label>
+                <input asp-for="Creator" class="form-control" />
+                <span asp-validation-for="Creator" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditTime" class="control-label"></label>
+                <input asp-for="EditTime" class="form-control" />
+                <span asp-validation-for="EditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Editor" class="control-label"></label>
+                <input asp-for="Editor" class="form-control" />
+                <span asp-validation-for="Editor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ip" class="control-label"></label>
+                <input asp-for="Ip" class="form-control" />
+                <span asp-validation-for="Ip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BannerOffTime" class="control-label"></label>
+                <input asp-for="BannerOffTime" class="form-control" />
+                <span asp-validation-for="BannerOffTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

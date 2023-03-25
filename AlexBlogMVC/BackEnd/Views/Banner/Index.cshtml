@@ -1,0 +1,131 @@
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.Banner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerSort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerContxt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerImg1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerImgUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerImgAlt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerPublish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerPutTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerOffTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerContxt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerImg1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerImgUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerImgAlt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerPublish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerPutTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerOffTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BannerNum">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BannerNum">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BannerNum">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
