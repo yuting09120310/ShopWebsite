@@ -55,8 +55,8 @@
                     {
                         <li class="sidebar-list">
                             <a class="sidebar-link sidebar-title" href="@module.MenuGroupUrl">
-                                <i class="@module.MenuGroupIcon"></i>
-                                <span style="padding-left:10px">@module.MenuGroupName</span>
+                                <i class="@module.MenuGroupIcon" style="width:10px"></i>
+                                <span style="margin-left:10px">@module.MenuGroupName</span>
                             </a>
                             <ul class="sidebar-submenu">
                                 @foreach (var function in moduleFunctions.Where(x => x.MenuGroupId == module.MenuGroupId))
