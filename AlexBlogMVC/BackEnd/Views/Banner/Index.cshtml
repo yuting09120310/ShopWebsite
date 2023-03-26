@@ -4,12 +4,116 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-6">
+                <h3>廣告列表</h3>
+            </div>
+            <div class="col-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <svg class="stroke-icon">
+                                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">廣告管理</li>
+                    <li class="breadcrumb-item active">廣告設定</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Zero Configuration  Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pb-0 card-no-border">
+                    <h3>廣告列表</h3>
+                    <hr />
+                    @*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
+                    *@
+                </div>
+                <div class="card-body">
+
+
+                    <div class="table-responsive">
+                        <table class="display" id="basic-1">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerTitle)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerDescription)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerContxt)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerImg1)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerPublish)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreateTime)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerDescription)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerContxt)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerImg1)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerPublish)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreateTime)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.BannerNum">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.BannerNum">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.BannerNum">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -129,3 +233,4 @@
 }
     </tbody>
 </table>
+*@
