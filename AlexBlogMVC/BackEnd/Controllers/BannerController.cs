@@ -9,13 +9,12 @@ using AlexBlogMVC.BackEnd.Models;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
-    public class BannerController : Controller
+    public class BannerController : GenericController
     {
-        private readonly BlogMvcContext _context;
 
-        public BannerController(BlogMvcContext context)
+        public BannerController(BlogMvcContext context):base(context)
         {
-            _context = context;
+            getMenu();
         }
 
         // GET: Banner

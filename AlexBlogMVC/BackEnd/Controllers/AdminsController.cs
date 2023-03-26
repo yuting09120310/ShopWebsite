@@ -1,36 +1,29 @@
 ﻿using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
-    public class AdminsController : Controller
+    public class AdminsController : GenericController
     {
         private readonly BlogMvcContext _context;
-
-        public AdminsController(BlogMvcContext context)
+        public AdminsController(BlogMvcContext context) : base(context)
         {
             _context = context;
         }
 
+        //當每個action被執行都會呼叫getMenu
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            getMenu();
+            base.OnActionExecuting(context);
+        }
+
+
         // GET: Admins
         public async Task<IActionResult> Index()
         {
-            var module = from c in _context.MenuGroups
-                         where c.MenuGroupPublish == true
-                         orderby c.MenuGroupNum ascending
-                         select c;
-            TempData["module"] = module.ToList();
-
-
-            var moduleFun = from c in _context.MenuSubs
-                            join
-                                            s in _context.AdminRoles on c.MenuSubNum equals s.MenuSubNum
-                            where c.MenuSubPublish == true && s.GroupNum == 1
-                            select c;
-
-            TempData["moduleFun"] = moduleFun.ToList();
-
 
             return _context.Admins != null ?
                         View(await _context.Admins.ToListAsync()) :
