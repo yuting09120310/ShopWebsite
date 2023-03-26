@@ -16,6 +16,22 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
+            var module = from c in _context.MenuGroups
+                         where c.MenuGroupPublish == true
+                         orderby c.MenuGroupNum ascending
+                         select c;
+            TempData["module"] = module.ToList();
+
+
+            var moduleFun = from c in _context.MenuSubs
+                            join
+                                            s in _context.AdminRoles on c.MenuSubNum equals s.MenuSubNum
+                            where c.MenuSubPublish == true && s.GroupNum == 1
+                            select c;
+
+            TempData["moduleFun"] = moduleFun.ToList();
+
+
             return _context.Admins != null ?
                         View(await _context.Admins.ToListAsync()) :
                         Problem("Entity set 'BlogMvcContext.Admins'  is null.");
