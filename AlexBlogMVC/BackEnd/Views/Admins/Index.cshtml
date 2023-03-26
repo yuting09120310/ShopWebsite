@@ -90,9 +90,10 @@
                                             @Html.DisplayFor(modelItem => item.CreateTime)
                                         </td>
                                         <td>
-                                            <a asp-action="Edit" asp-route-id="@item.AdminNum">Edit</a> |
-                                            <a asp-action="Details" asp-route-id="@item.AdminNum">Details</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.AdminNum">Delete</a>
+                                            <ul class="action">
+                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.AdminNum"><i class="icon-pencil-alt"></i></a></li>
+                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.AdminNum"><i class="icon-trash"></i></a></li>
+                                            </ul>
                                         </td>
                                     </tr>
                                 }
