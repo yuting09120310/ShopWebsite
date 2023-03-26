@@ -7,11 +7,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class AdminsController : GenericController
     {
-        private readonly BlogMvcContext _context;
-        public AdminsController(BlogMvcContext context) : base(context)
-        {
-            _context = context;
-        }
+        public AdminsController(BlogMvcContext context) : base(context){}
+
 
         //當每個action被執行都會呼叫getMenu
         public override void OnActionExecuting(ActionExecutingContext context)

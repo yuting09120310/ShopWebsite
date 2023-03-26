@@ -6,16 +6,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class BannerController : GenericController
     {
 
-        public BannerController(BlogMvcContext context):base(context)
+        public BannerController(BlogMvcContext context):base(context){}
+
+
+        //當每個action被執行都會呼叫getMenu
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             getMenu();
+            base.OnActionExecuting(context);
         }
+
 
         // GET: Banner
         public async Task<IActionResult> Index()
