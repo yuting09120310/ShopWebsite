@@ -4,11 +4,108 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-6">
+                <h3>編輯帳號</h3>
+            </div>
+            <div class="col-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <svg class="stroke-icon">
+                                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">帳號管理</li>
+                    <li class="breadcrumb-item">帳號設定</li>
+                    <li class="breadcrumb-item active">編輯帳號</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h4>Admin</h4>
-<hr />
-<div class="row">
+
+<div class="card">
+    <div class="card-header">
+        <h5>編輯帳號</h5>
+    </div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="AdminNum" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3 row">
+                        <label asp-for="GroupNum" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="GroupNum" class="form-control" />
+                       </div>
+                        <span asp-validation-for="GroupNum" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminAcc" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="AdminAcc" class="form-control" />
+                       </div>
+                        <span asp-validation-for="AdminAcc" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminPwd" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="AdminPwd" class="form-control" />
+                       </div>
+                        <span asp-validation-for="AdminPwd" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="AdminName" class="form-control" />
+                       </div>
+                        <span asp-validation-for="AdminName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminPublish" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="AdminPublish" class="form-control">
+                                <option value="true">啟用</option>
+                                <option value="false">關閉</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="AdminPublish" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="AdminName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="AdminName" class="text-danger"></span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input class="btn btn-light" type="reset" value="Cancel">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@*<div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -77,7 +174,7 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -45,10 +45,12 @@
 
 
                     <div class="table-responsive">
-                        <table class="display" id="basic-1">
+                        <table class="display" id="datatable">
                             <thead>
                                 <tr>
-                                   
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerNum)
+                                    </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.BannerTitle)
                                     </th>
@@ -56,25 +58,33 @@
                                         @Html.DisplayNameFor(model => model.BannerDescription)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.BannerContxt)
+                                        @Html.DisplayNameFor(model => model.BannerImgUrl)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.BannerImg1)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.BannerPublish)
+                                        @Html.DisplayNameFor(model => model.BannerPutTime)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.CreateTime)
                                     </th>
-                                    <th></th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EditTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerOffTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BannerPublish)
+                                    </th>
+                                    <th>處理</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerNum)
+                                        </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.BannerTitle)
                                         </td>
@@ -82,16 +92,22 @@
                                             @Html.DisplayFor(modelItem => item.BannerDescription)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.BannerContxt)
+                                            @Html.DisplayFor(modelItem => item.BannerImgUrl)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.BannerImg1)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.BannerPublish)
+                                            @Html.DisplayFor(modelItem => item.BannerPutTime)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreateTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EditTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerOffTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BannerPublish)
                                         </td>
                                         <td>
                                             <ul class="action">
@@ -111,127 +127,31 @@
 </div>
 
 
-
-
-
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Lang)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductClass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerSort)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerContxt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerImg1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerImgUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerImgAlt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerPublish)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerPutTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EditTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Editor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BannerOffTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductClass)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerSort)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerContxt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerImg1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerImgUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerImgAlt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerPublish)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerPutTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EditTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Editor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BannerOffTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BannerNum">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BannerNum">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BannerNum">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-*@
+<script>
+    //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('#datatable').DataTable({
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 項結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                "infoPostFix": "",
+                "search": "搜尋:",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
+                },
+                "aria": {
+                    "sortAscending": ": 升冪排列",
+                    "sortDescending": ": 降冪排列"
+                }
+            }
+        });
+    });
+</script>

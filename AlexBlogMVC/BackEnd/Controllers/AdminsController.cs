@@ -27,6 +27,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                         Problem("Entity set 'BlogMvcContext.Admins'  is null.");
         }
 
+
         // GET: Admins/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -45,11 +46,13 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(admin);
         }
 
+
         // GET: Admins/Create
         public IActionResult Create()
         {
             return View();
         }
+
 
         // POST: Admins/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -67,6 +70,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(admin);
         }
 
+
         // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -76,12 +80,14 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
 
             var admin = await _context.Admins.FindAsync(id);
+            admin.AdminPwd = "";
             if (admin == null)
             {
                 return NotFound();
             }
             return View(admin);
         }
+
 
         // POST: Admins/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
