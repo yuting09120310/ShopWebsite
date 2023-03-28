@@ -1,0 +1,137 @@
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.News>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsSort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsContxt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsImg1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsImgUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsImgAlt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsPublish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsViews)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsPutTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsOffTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsContxt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsImg1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsImgUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsImgAlt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsPublish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsViews)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsPutTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsOffTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NewsNum">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NewsNum">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NewsNum">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

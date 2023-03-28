@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.NewsClass>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClassSort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClassId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClassName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClassLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClassPre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsClassPublish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ip)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClassSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClassId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClassLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClassPre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsClassPublish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NewsClassNum">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NewsClassNum">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NewsClassNum">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
