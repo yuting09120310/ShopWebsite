@@ -1,0 +1,83 @@
+﻿@model AlexBlogMVC.BackEnd.Models.ProductClass
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProductClass</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductClassSort" class="control-label"></label>
+                <input asp-for="ProductClassSort" class="form-control" />
+                <span asp-validation-for="ProductClassSort" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductClassId" class="control-label"></label>
+                <input asp-for="ProductClassId" class="form-control" />
+                <span asp-validation-for="ProductClassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductClassName" class="control-label"></label>
+                <input asp-for="ProductClassName" class="form-control" />
+                <span asp-validation-for="ProductClassName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductClassLevel" class="control-label"></label>
+                <input asp-for="ProductClassLevel" class="form-control" />
+                <span asp-validation-for="ProductClassLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductClassPre" class="control-label"></label>
+                <input asp-for="ProductClassPre" class="form-control" />
+                <span asp-validation-for="ProductClassPre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductClassPublish" class="control-label"></label>
+                <input asp-for="ProductClassPublish" class="form-control" />
+                <span asp-validation-for="ProductClassPublish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateTime" class="control-label"></label>
+                <input asp-for="CreateTime" class="form-control" />
+                <span asp-validation-for="CreateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Creator" class="control-label"></label>
+                <input asp-for="Creator" class="form-control" />
+                <span asp-validation-for="Creator" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditTime" class="control-label"></label>
+                <input asp-for="EditTime" class="form-control" />
+                <span asp-validation-for="EditTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Editor" class="control-label"></label>
+                <input asp-for="Editor" class="form-control" />
+                <span asp-validation-for="Editor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ip" class="control-label"></label>
+                <input asp-for="Ip" class="form-control" />
+                <span asp-validation-for="Ip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

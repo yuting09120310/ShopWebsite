@@ -17,7 +17,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             base.OnActionExecuting(context);
         }
 
-
+        [CheckRole(1,"L")]
         // GET: Admins
         public async Task<IActionResult> Index()
         {

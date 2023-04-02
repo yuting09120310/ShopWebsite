@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.ProductClass>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClassSort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClassId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClassName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClassLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClassPre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductClassPublish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EditTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Editor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ip)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClassSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClassId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClassLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClassPre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductClassPublish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EditTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Editor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductClassNum">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductClassNum">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductClassNum">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

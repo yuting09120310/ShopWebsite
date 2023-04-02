@@ -29,81 +29,97 @@
 </div>
 
 
-<div class="container-fluid">
-    <div class="row">
-      <!-- Zero Configuration  Starts-->
-      <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header pb-0 card-no-border">
-                    <h3>帳號列表</h3>
-                    <hr />
-@*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
-*@                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="display" id="datatable">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AdminNum)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.GroupNum)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AdminAcc)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AdminName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AdminPublish)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.CreateTime)
-                                    </th>
-                                    <th>處理</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Zero Configuration  Starts-->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header pb-0 card-no-border">
+                        <h3>帳號列表</h3>
+                        <hr />
+                        @*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
+                    *@
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display" id="datatable">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AdminNum)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.GroupNum)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AdminAcc)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AdminName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AdminPublish)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreateTime)
-                                        </td>
-                                        <td>
-                                            <ul class="action">
-                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.AdminNum"><i class="icon-pencil-alt"></i></a></li>
-                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.AdminNum"><i class="icon-trash"></i></a></li>
-                                            </ul>
-                                        </td>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.AdminNum)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.GroupNum)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.AdminAcc)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.AdminName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.AdminPublish)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CreateTime)
+                                        </th>
+                                        <th>處理</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AdminNum)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.GroupNum)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AdminAcc)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AdminName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AdminPublish)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreateTime)
+                                            </td>
+                                            <td>
+                                                <ul class="action">
+                                                    <li class="edit"> <a asp-action="Edit" asp-route-id="@item.AdminNum"><i class="icon-pencil-alt"></i></a></li>
+                                                    <li class="delete"><a asp-action="Delete" asp-route-id="@item.AdminNum"><i class="icon-trash"></i></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-      </div>
+        </div>
     </div>
-</div>
+}
 
+
+<script>
+    var errorMessage = decodeURIComponent("@Html.Raw(TempData["ErrorMessage"] ?? "")");
+    if (errorMessage !== "") {
+        alert(errorMessage);
+        history.go(-1);
+    }
+</script>
 
 <script>
     //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示

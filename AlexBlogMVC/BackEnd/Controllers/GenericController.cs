@@ -1,5 +1,6 @@
 ﻿using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlexBlogMVC.BackEnd.Controllers
@@ -32,6 +33,42 @@ namespace AlexBlogMVC.BackEnd.Controllers
                             select c;
 
             TempData["moduleFun"] = moduleFun.ToList();
+        }
+
+
+
+
+        public class CheckRoleAttribute : ActionFilterAttribute
+        {
+            private int _menuSubNum;
+            private string _action;
+
+            public CheckRoleAttribute(int menuSubNum, string action)
+            {
+                _menuSubNum = menuSubNum;
+                _action = action;
+            }
+
+            public override void OnActionExecuting(ActionExecutingContext context)
+            {
+                var controller = context.Controller as GenericController;
+                if (controller != null)
+                {
+                    controller.CheckRole(_menuSubNum, _action);
+                }
+
+                base.OnActionExecuting(context);
+
+            }
+        }
+
+        protected void CheckRole(int menuSubNum, string action)
+        {
+            var role = _context.AdminRoles.Where(x => x.GroupNum == 1 && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
+            if (!role.Any())
+            {
+                TempData["ErrorMessage"] = "您沒有權限執行此操作。";
+            }
         }
     }
 }

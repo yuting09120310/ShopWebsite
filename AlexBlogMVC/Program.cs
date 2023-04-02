@@ -1,6 +1,8 @@
 using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,6 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 });
 
 builder.Services.AddDbContext<BlogMvcContext>();
-
 
 var app = builder.Build();
 
