@@ -13,6 +13,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         //當每個action被執行都會呼叫getMenu
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            ViewBag.AdminName = HttpContext.Session.GetString("AdminName");
             getMenu();
             base.OnActionExecuting(context);
         }
