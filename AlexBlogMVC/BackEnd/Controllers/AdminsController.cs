@@ -22,32 +22,14 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
-
             return _context.Admins != null ?
                         View(await _context.Admins.ToListAsync()) :
                         Problem("Entity set 'BlogMvcContext.Admins'  is null.");
         }
 
 
-        // GET: Admins/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null || _context.Admins == null)
-            {
-                return NotFound();
-            }
-
-            var admin = await _context.Admins
-                .FirstOrDefaultAsync(m => m.AdminNum == id);
-            if (admin == null)
-            {
-                return NotFound();
-            }
-
-            return View(admin);
-        }
-
-
+        [LoginState(1, "C")]
+        [GetMenu]
         // GET: Admins/Create
         public IActionResult Create()
         {
@@ -58,6 +40,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // POST: Admins/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [LoginState(1, "C")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     @{
@@ -151,7 +155,20 @@
         }
         <!-- Page Sidebar Ends-->
         <div class="page-body">
-          @RenderBody()
+            @{
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    // 錯誤訊息
+                    @Html.Raw(errorMessage)
+
+                    //忽略子視圖
+                    IgnoreBody();
+                }
+                else
+                {
+                    @RenderBody()
+                }
+            }
         </div>
         <!-- footer start-->
         <footer class="footer">
@@ -161,6 +178,7 @@
         </footer>
       </div>
     </div>
+
     @{
         Html.RenderPartial("_ScriptPartial");
     }
