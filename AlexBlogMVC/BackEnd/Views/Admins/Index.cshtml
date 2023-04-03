@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/BackEnd/Views/Shared/_Layout.cshtml";
+
+    var errorMessage = TempData["ErrorMessage"] as string;
 }
 
 <div class="container-fluid">
@@ -29,11 +31,7 @@
 </div>
 
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-else
+@if (TempData["ErrorMessage"] == null)
 {
     <div class="container-fluid">
         <div class="row">
@@ -113,13 +111,10 @@ else
 }
 
 
-<script>
-    var errorMessage = decodeURIComponent("@Html.Raw(TempData["ErrorMessage"] ?? "")");
-    if (errorMessage !== "") {
-        alert(errorMessage);
-        history.go(-1);
-    }
-</script>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    @Html.Raw(errorMessage)
+}
 
 <script>
     //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示
