@@ -1,4 +1,5 @@
-﻿using AlexBlogMVC.BackEnd.Models;
+﻿using AlexBlogMVC.BackEnd.Attributes;
+using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -10,16 +11,14 @@ namespace AlexBlogMVC.BackEnd.Controllers
         public AdminsController(BlogMvcContext context) : base(context){}
 
 
-        //當每個action被執行都會呼叫getMenu
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            ViewBag.AdminName = HttpContext.Session.GetString("AdminName");
-            getMenu();
             base.OnActionExecuting(context);
         }
 
 
-        [LoginState(1,"L")]
+        [LoginState(1,"R")]
+        [GetMenu]
         // GET: Admins
         public async Task<IActionResult> Index()
         {

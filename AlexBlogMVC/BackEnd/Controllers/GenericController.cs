@@ -15,11 +15,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
             _context = context;
         }
 
+        // 呼叫每一個action都會執行
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            ViewBag.AdminName = HttpContext.Session.GetString("AdminName");
+        }
+
 
         //取得選單
         public void getMenu()
         {
-            //int UserRoleId = Convert.ToInt16(HttpContext.Session.GetString("UserRoleId"));
+            int GroupNum = Convert.ToInt16(HttpContext.Session.GetString("GroupNum"));
 
             var module = from c in _context.MenuGroups
                          where c.MenuGroupPublish == true
@@ -31,53 +37,14 @@ namespace AlexBlogMVC.BackEnd.Controllers
             var moduleFun = from c in _context.MenuSubs
             join
                                             s in _context.AdminRoles on c.MenuSubNum equals s.MenuSubNum
-                            where c.MenuSubPublish == true && s.GroupNum == 1
+                            where c.MenuSubPublish == true && s.GroupNum == GroupNum
                             select c;
 
             TempData["moduleFun"] = moduleFun.ToList();
         }
 
-
-        // 權限判斷
-        public class LoginStateAttribute : ActionFilterAttribute
-        {
-            private int _menuSubNum;
-            private string _action;
-
-            public LoginStateAttribute(int menuSubNum, string action)
-            {
-                _menuSubNum = menuSubNum;
-                _action = action;
-            }
-
-            public override void OnActionExecuting(ActionExecutingContext context)
-            {
-                var controller = context.Controller as GenericController;
-
-                if(controller != null)
-                {
-                    bool res = false;
-                    res = controller.LoginState();
-
-                    // 如果沒登入 就直接retrue
-                    if (res == false)
-                    {
-                        return;
-                    }
-
-                    // 如果沒權限 就直接retrue
-                    res = controller.CheckRole(_menuSubNum, _action);
-                    if (res == false)
-                    {
-                        return;
-                    }
-                }
-
-                base.OnActionExecuting(context);
-
-            }
-        }
-
+        
+        // 登入判斷
         public bool LoginState()
         {
             string AdminNum = "" + HttpContext.Session.GetString("AdminNum");
@@ -91,7 +58,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        protected bool CheckRole(int menuSubNum, string action)
+        //權限判斷
+        public bool CheckRole(int menuSubNum, string action)
         {
             var role = _context.AdminRoles.Where(x => x.GroupNum == 1 && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
             if (!role.Any())
@@ -104,6 +72,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             return true;
         }
+
 
 
         
