@@ -4,92 +4,172 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@*<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsClassSort)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsClassId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsClassName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsClassLevel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsClassPre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewsClassPublish)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EditTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Editor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ip)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsClassSort)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsClassId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsClassName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsClassLevel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsClassPre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewsClassPublish)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EditTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Editor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ip)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.NewsClassNum">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.NewsClassNum">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NewsClassNum">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+*@
+
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-6">
+                <h3>消息類別列表</h3>
+            </div>
+            <div class="col-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <svg class="stroke-icon">
+                                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">消息管理</li>
+                    <li class="breadcrumb-item active">消息類別</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Zero Configuration  Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pb-0 card-no-border">
+                    <h3>消息管理列表</h3>
+                    <hr />
+                    @*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
+                    *@
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NewsClassSort)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NewsClassId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NewsClassName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NewsClassLevel)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NewsClassPre)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NewsClassPublish)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreateTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Creator)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EditTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Editor)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Ip)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsClassSort)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsClassId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsClassName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsClassLevel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsClassPre)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsClassPublish)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreateTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Creator)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EditTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Editor)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ip)
+                                        </td>
+                                        <td>
+                                            <ul class="action">
+                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.NewsClassNum"><i class="icon-pencil-alt"></i></a></li>
+                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.NewsClassNum"><i class="icon-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('#datatable').DataTable({
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 項結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                "infoPostFix": "",
+                "search": "搜尋:",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
+                },
+                "aria": {
+                    "sortAscending": ": 升冪排列",
+                    "sortDescending": ": 降冪排列"
+                }
+            }
+        });
+    });
+</script>

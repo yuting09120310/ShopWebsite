@@ -56,6 +56,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
         // GET: Admins/Edit/5
+        [LoginState(1, "U")]
+        [GetMenu]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null || _context.Admins == null)
@@ -76,6 +78,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // POST: Admins/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [LoginState(1, "U")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)
@@ -109,6 +112,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
         // GET: Admins/Delete/5
+        [LoginState(1, "D")]
+        [GetMenu]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null || _context.Admins == null)
