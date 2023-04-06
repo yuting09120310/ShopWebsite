@@ -2,15 +2,12 @@
 
 @{
     ViewData["Title"] = "Index";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "消息類別列表", new string[] { "消息管理", "消息類別" } } };
 }
 
-@*<h1>Index</h1>
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-*@
 
 <div class="container-fluid">
     <div class="page-title">
