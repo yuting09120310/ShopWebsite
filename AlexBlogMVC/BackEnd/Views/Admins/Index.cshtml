@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.Admin>
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.AdminViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -51,7 +51,7 @@
                                         @Html.DisplayNameFor(model => model.AdminNum)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupNum)
+                                        @Html.DisplayNameFor(model => model.GroupName)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.AdminAcc)
@@ -76,7 +76,7 @@
                                             @Html.DisplayFor(modelItem => item.AdminNum)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.GroupNum)
+                                            @Html.DisplayFor(modelItem => item.GroupName)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.AdminAcc)

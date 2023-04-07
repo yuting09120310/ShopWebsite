@@ -10,7 +10,7 @@ public partial class Admin
     public long AdminNum { get; set; }
 
     [Display(Name = "群組")]
-    public int? GroupNum { get; set; }
+    public long? GroupNum { get; set; }
 
     [Display(Name = "帳號")]
     public string? AdminAcc { get; set; }

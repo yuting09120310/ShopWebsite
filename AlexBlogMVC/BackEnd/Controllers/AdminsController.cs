@@ -1,5 +1,6 @@
 ﻿using AlexBlogMVC.BackEnd.Attributes;
 using AlexBlogMVC.BackEnd.Models;
+using AlexBlogMVC.BackEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -17,14 +18,33 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        [LoginState(1,"R")]
+        [LoginState(1, "R")]
         [GetMenu]
         // GET: Admins
         public async Task<IActionResult> Index()
         {
-            return _context.Admins != null ?
-                        View(await _context.Admins.ToListAsync()) :
-                        Problem("Entity set 'BlogMvcContext.Admins'  is null.");
+            var admins = await _context.Admins.ToListAsync();
+            var adminGroups = await _context.AdminGroups.ToListAsync();
+
+            var viewModel = from a in admins
+                            join g in adminGroups on a.GroupNum equals g.GroupNum into ag
+                            from subg in ag.DefaultIfEmpty()
+                            select new AdminViewModel
+                            {
+                                AdminNum = a.AdminNum,
+                                AdminAcc = a.AdminAcc,
+                                AdminName = a.AdminName,
+                                AdminPublish = a.AdminPublish,
+                                AdminPwd = a.AdminPwd,
+                                CreateTime = a.CreateTime,
+                                Creator = a.Creator,
+                                EditTime = a.EditTime,
+                                Editor = a.Editor,
+                                GroupNum = a.GroupNum,
+                                GroupName = subg?.GroupName
+                            };
+
+            return View(viewModel);
         }
 
 
