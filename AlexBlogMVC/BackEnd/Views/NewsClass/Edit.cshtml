@@ -2,9 +2,11 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "編輯消息類別", new string[] { "消息管理", "消息類別", "編輯消息類別" } } };
 }
 
-<h1>Edit</h1>
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
 
 <h4>NewsClass</h4>
 <hr />

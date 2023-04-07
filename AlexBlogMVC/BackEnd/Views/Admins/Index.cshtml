@@ -3,32 +3,11 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/BackEnd/Views/Shared/_Layout.cshtml";
-
-    var errorMessage = TempData["ErrorMessage"] as string;
+    var breadcrumbDict = new Dictionary<string, string[]> { { "帳號列表", new string[] { "帳號管理", "帳號設定" } } };
 }
 
-<div class="container-fluid">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-6">
-                <h3>帳號列表</h3>
-            </div>
-            <div class="col-6">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">
-                            <svg class="stroke-icon">
-                                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">帳號管理</li>
-                    <li class="breadcrumb-item active">帳號設定</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
 
 
 <div class="container-fluid">

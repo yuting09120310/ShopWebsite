@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "編輯群組", new string[] { "帳號管理", "群組設定", "編輯群組" } } };
 }
 
-<h1>Edit</h1>
+@Html.Partial("_PageTitlePartial", breadcrumbDict);
 
 <h4>AdminGroup</h4>
 <hr />
