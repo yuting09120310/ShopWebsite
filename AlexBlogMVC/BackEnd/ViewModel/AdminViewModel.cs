@@ -30,13 +30,13 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         public DateTime? CreateTime { get; set; }
 
         [Display(Name = "建立人")]
-        public int? Creator { get; set; }
+        public long? Creator { get; set; }
 
         [Display(Name = "編輯時間")]
         public DateTime? EditTime { get; set; }
 
         [Display(Name = "編輯人")]
-        public int? Editor { get; set; }
+        public long? Editor { get; set; }
 
         [Display(Name = "建立IP")]
         public string? Ip { get; set; }

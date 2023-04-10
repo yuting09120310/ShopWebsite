@@ -9,6 +9,11 @@ namespace AlexBlogMVC.BackEnd.Attributes
         private int _menuSubNum;
         private string _action;
 
+        /// <summary>
+        /// 判斷是否有登入以及權限
+        /// </summary>
+        /// <param name="menuSubNum">menu的編號</param>
+        /// <param name="action">行為(C,R,U,D)</param>
         public LoginStateAttribute(int menuSubNum, string action)
         {
             _menuSubNum = menuSubNum;

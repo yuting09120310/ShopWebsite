@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.AdminGroup>
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.AdminGroupViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -36,13 +36,13 @@
                                         @Html.DisplayNameFor(model => model.CreateTime)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Creator)
+                                        @Html.DisplayNameFor(model => model.CreatorName)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.EditTime)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Editor)
+                                        @Html.DisplayNameFor(model => model.EditorName)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Ip)
@@ -67,13 +67,13 @@
                                             @Html.DisplayFor(modelItem => item.CreateTime)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Creator)
+                                            @Html.DisplayFor(modelItem => item.CreatorName)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.EditTime)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Editor)
+                                            @Html.DisplayFor(modelItem => item.EditorName)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Ip)

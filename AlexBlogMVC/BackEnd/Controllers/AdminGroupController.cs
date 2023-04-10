@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
+using AlexBlogMVC.BackEnd.Attributes;
+using AlexBlogMVC.BackEnd.ViewModel;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
@@ -15,20 +17,44 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         public AdminGroupController(BlogMvcContext context) : base(context) { }
 
+
         //當每個action被執行都會呼叫getMenu
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getMenu();
             base.OnActionExecuting(context);
         }
 
 
+        [LoginState(2, "R")]
+        [GetMenu]
         // GET: AdminGroup
         public async Task<IActionResult> Index()
         {
-              return _context.AdminGroups != null ? 
-                          View(await _context.AdminGroups.ToListAsync()) :
-                          Problem("Entity set 'BlogMvcContext.AdminGroups'  is null.");
+            var admins = await _context.Admins.ToListAsync();
+            var adminGroups = await _context.AdminGroups.ToListAsync();
+
+            var viewModel = from g in adminGroups
+                            join a1 in admins on g.Creator equals a1.AdminNum into ag1
+                            from subg1 in ag1.DefaultIfEmpty()
+                            join a2 in admins on g.Editor equals a2.AdminNum into ag2
+                            from subg2 in ag2.DefaultIfEmpty()
+                            select new AdminGroupViewModel
+                            {
+                                GroupNum = g.GroupNum,
+                                GroupName = g.GroupName,
+                                GroupInfo = g.GroupInfo,
+                                GroupPublish = g.GroupPublish,
+                                CreateTime = g.CreateTime,
+                                Creator = g.Creator,
+                                EditTime = g.EditTime,
+                                Editor = g.Editor,
+                                Ip = g.Ip,
+
+                                CreatorName = subg1?.AdminName,
+                                EditorName = subg2?.AdminName,
+                            };
+
+            return View(viewModel);
         }
 
         // GET: AdminGroup/Details/5

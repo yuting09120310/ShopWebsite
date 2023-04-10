@@ -7,7 +7,7 @@ public partial class MenuGroup
 {
     public long MenuGroupNum { get; set; }
 
-    public int? MenuGroupSort { get; set; }
+    public long? MenuGroupSort { get; set; }
 
     public string? MenuGroupId { get; set; }
 
@@ -23,11 +23,11 @@ public partial class MenuGroup
 
     public DateTime? CreateTime { get; set; }
 
-    public int? Creator { get; set; }
+    public long? Creator { get; set; }
 
     public DateTime? EditTime { get; set; }
 
-    public int? Editor { get; set; }
+    public long? Editor { get; set; }
 
     public string? Ip { get; set; }
 }

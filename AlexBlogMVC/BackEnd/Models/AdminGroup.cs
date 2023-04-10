@@ -15,11 +15,11 @@ public partial class AdminGroup
 
     public DateTime? CreateTime { get; set; }
 
-    public int? Creator { get; set; }
+    public long? Creator { get; set; }
 
     public DateTime? EditTime { get; set; }
 
-    public int? Editor { get; set; }
+    public long? Editor { get; set; }
 
     public string? Ip { get; set; }
 }

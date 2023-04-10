@@ -9,7 +9,7 @@ public partial class MenuSub
 
     public string? MenuGroupId { get; set; }
 
-    public int? MenuSubSort { get; set; }
+    public long? MenuSubSort { get; set; }
 
     public string? MenuSubId { get; set; }
 
@@ -27,11 +27,11 @@ public partial class MenuSub
 
     public DateTime? CreateTime { get; set; }
 
-    public int? Creator { get; set; }
+    public long? Creator { get; set; }
 
     public DateTime? EditTime { get; set; }
 
-    public int? Editor { get; set; }
+    public long? Editor { get; set; }
 
     public string? Ip { get; set; }
 }

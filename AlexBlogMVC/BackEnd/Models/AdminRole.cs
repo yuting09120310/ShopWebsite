@@ -7,7 +7,7 @@ public partial class AdminRole
 {
     public long RoleNum { get; set; }
 
-    public int? GroupNum { get; set; }
+    public long? GroupNum { get; set; }
 
     public long? MenuSubNum { get; set; }
 
@@ -15,7 +15,7 @@ public partial class AdminRole
 
     public DateTime? CreateTime { get; set; }
 
-    public int? Creator { get; set; }
+    public long? Creator { get; set; }
 
     public string? Ip { get; set; }
 }
