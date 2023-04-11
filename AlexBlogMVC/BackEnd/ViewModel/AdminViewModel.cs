@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AlexBlogMVC.BackEnd.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlexBlogMVC.BackEnd.ViewModel
 {

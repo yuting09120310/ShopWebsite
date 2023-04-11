@@ -65,8 +65,12 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)
         {
+            
             if (ModelState.IsValid)
             {
+                admin.Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
+                admin.CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
                 _context.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -112,6 +116,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 try
                 {
+                    admin.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
+                    admin.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
                     _context.Update(admin);
                     await _context.SaveChangesAsync();
                 }

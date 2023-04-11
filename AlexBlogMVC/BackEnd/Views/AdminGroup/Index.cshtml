@@ -15,8 +15,7 @@
                 <div class="card-header pb-0 card-no-border">
                     <h3>群組列表</h3>
                     <hr />
-                    @*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
-                    *@
+                    群組設定設定管理的修改、刪除
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -24,10 +23,10 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupName)
+                                        @Html.DisplayNameFor(model => model.GroupNum)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.GroupInfo)
+                                        @Html.DisplayNameFor(model => model.GroupName)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.GroupPublish)
@@ -35,18 +34,7 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.CreateTime)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.CreatorName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EditTime)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EditorName)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Ip)
-                                    </th>
+                                    
                                     <th></th>
                                 </tr>
                             </thead>
@@ -55,28 +43,17 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.GroupName)
+                                            @Html.DisplayFor(modelItem => item.GroupNum)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.GroupInfo)
+                                            @Html.DisplayFor(modelItem => item.GroupName)
                                         </td>
+                                        
                                         <td>
                                             @Html.DisplayFor(modelItem => item.GroupPublish)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreateTime)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreatorName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EditTime)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EditorName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Ip)
                                         </td>
                                         <td>
                                             <ul class="action">
