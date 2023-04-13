@@ -18,11 +18,12 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        [LoginState(1, "R")]
-        [GetMenu]
         // GET: Admins
         public async Task<IActionResult> Index()
         {
+            getMenu();
+
+
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
 
@@ -48,8 +49,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        [LoginState(1, "C")]
-        [GetMenu]
         // GET: Admins/Create
         public IActionResult Create()
         {
@@ -60,7 +59,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // POST: Admins/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [LoginState(1, "C")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)
@@ -80,17 +78,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
         // GET: Admins/Edit/5
-        [LoginState(1, "U")]
-        [GetMenu]
         public async Task<IActionResult> Edit(long? id)
         {
+            getMenu();
+
             if (id == null || _context.Admins == null)
             {
                 return NotFound();
             }
 
             var admin = await _context.Admins.FindAsync(id);
-            admin.AdminPwd = "";
             if (admin == null)
             {
                 return NotFound();
@@ -102,7 +99,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // POST: Admins/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [LoginState(1, "U")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)
@@ -139,8 +135,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
         // GET: Admins/Delete/5
-        [LoginState(1, "D")]
-        [GetMenu]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null || _context.Admins == null)

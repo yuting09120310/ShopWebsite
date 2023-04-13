@@ -31,7 +31,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                          where c.MenuGroupPublish == true
                          orderby c.MenuGroupNum ascending
                          select c;
-            TempData["module"] = module.ToList();
+            ViewBag.module = module.ToList();
 
 
             var moduleFun = from c in _context.MenuSubs
@@ -40,7 +40,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                             where c.MenuSubPublish == true && s.GroupNum == GroupNum
                             select c;
 
-            TempData["moduleFun"] = moduleFun.ToList();
+            ViewBag.moduleFun = moduleFun.ToList();
         }
 
         

@@ -25,8 +25,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        [LoginState(2, "R")]
-        [GetMenu]
         // GET: AdminGroup
         public async Task<IActionResult> Index()
         {

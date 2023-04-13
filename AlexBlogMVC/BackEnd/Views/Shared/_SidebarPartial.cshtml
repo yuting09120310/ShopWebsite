@@ -7,8 +7,8 @@
 
 @using AlexBlogMVC.BackEnd.Models
 @{
-    List<MenuGroup> modules = TempData["module"] as List<MenuGroup>;
-    List<MenuSub> moduleFunctions = TempData["moduleFun"] as List<MenuSub>;
+    List<MenuGroup> modules = ViewBag.module as List<MenuGroup>;
+    List<MenuSub> moduleFunctions = ViewBag.moduleFun as List<MenuSub>;
 }
 
 <div class="sidebar-wrapper" sidebar-layout="stroke-svg">
