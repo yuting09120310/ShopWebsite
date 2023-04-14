@@ -50,8 +50,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             string AdminNum = "" + HttpContext.Session.GetString("AdminNum");
             if (AdminNum.Length == 0)
             {
-                TempData["ErrorMessage"] = "<script language='javascript' type='text/javascript'>alert('尚未登入 請先登入。');window.location.href='/Admin/Login/Index';</script>";
-                
                 return false;
             }
             return true;
@@ -61,12 +59,15 @@ namespace AlexBlogMVC.BackEnd.Controllers
         //權限判斷
         public bool CheckRole(int menuSubNum, string action)
         {
-            var role = _context.AdminRoles.Where(x => x.GroupNum == 1 && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
+            string AdminNum = HttpContext.Session.GetString("AdminNum");
+            if(AdminNum == null)
+            {
+                return false;
+            }
+
+            var role = _context.AdminRoles.Where(x => x.GroupNum == Convert.ToInt16(AdminNum) && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
             if (!role.Any())
             {
-                
-                TempData["ErrorMessage"] = "<div class=\"alert alert-danger\">您沒有權限執行此操作。</div>";
-
                 return false;
             }
 

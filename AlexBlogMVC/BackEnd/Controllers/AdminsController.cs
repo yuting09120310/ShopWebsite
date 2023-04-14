@@ -21,6 +21,14 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(1, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
             getMenu();
 
 
@@ -80,18 +88,33 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(1,"U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
             getMenu();
 
+            //如果傳進來的id是空的 就返回找不到
             if (id == null || _context.Admins == null)
             {
                 return NotFound();
             }
 
+            //進入DB搜尋資料
             var admin = await _context.Admins.FindAsync(id);
+
+            //如果搜尋是空的 就返回找不到
             if (admin == null)
             {
                 return NotFound();
             }
+
+            //清空密碼
+            admin.AdminPwd = null;
             return View(admin);
         }
 

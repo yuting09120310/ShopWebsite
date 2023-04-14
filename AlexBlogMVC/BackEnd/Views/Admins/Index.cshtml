@@ -9,6 +9,9 @@
 <!-- 麵包屑及標題-->
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
 
+<div style="position:fixed; height:100px; width: 100px; bottom: 20px; right: 10px;">
+    <a asp-controller="admins" asp-action="Create" class="btn btn-primary btn-sm" style="width:1px; height:66px; border-radius:50%; display:table-cell;">+</a>
+</div>
 
 <div class="container-fluid">
     <div class="row">
