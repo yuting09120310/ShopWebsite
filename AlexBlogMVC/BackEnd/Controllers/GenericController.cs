@@ -59,13 +59,13 @@ namespace AlexBlogMVC.BackEnd.Controllers
         //權限判斷
         public bool CheckRole(int menuSubNum, string action)
         {
-            string AdminNum = HttpContext.Session.GetString("AdminNum");
-            if(AdminNum == null)
+            string GroupNum = HttpContext.Session.GetString("GroupNum");
+            if(GroupNum == null)
             {
                 return false;
             }
 
-            var role = _context.AdminRoles.Where(x => x.GroupNum == Convert.ToInt16(AdminNum) && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
+            var role = _context.AdminRoles.Where(x => x.GroupNum == Convert.ToInt16(GroupNum) && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
             if (!role.Any())
             {
                 return false;
