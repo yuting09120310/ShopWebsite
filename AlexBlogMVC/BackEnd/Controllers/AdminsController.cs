@@ -3,6 +3,7 @@ using AlexBlogMVC.BackEnd.Models;
 using AlexBlogMVC.BackEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlexBlogMVC.BackEnd.Controllers
@@ -25,7 +26,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return StatusCode(403, "還沒登入喔");
             }
-            if (!CheckRole(1, "U"))
+            if (!CheckRole(1, "R"))
             {
                 return StatusCode(403, "當前用戶沒有權限");
             }
@@ -58,8 +59,24 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
         // GET: Admins/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(1, "C"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
+            //取得群組選單資料
+            ViewBag.adminGroup = await _context.AdminGroups
+                                    .Where(g => g.GroupPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
+                                    .ToListAsync();
+
             return View();
         }
 
@@ -112,6 +129,13 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return NotFound();
             }
+
+
+            //取得群組選單資料
+            ViewBag.adminGroup = await _context.AdminGroups
+                                    .Where(g => g.GroupPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
+                                    .ToListAsync();
 
             //清空密碼
             admin.AdminPwd = null;

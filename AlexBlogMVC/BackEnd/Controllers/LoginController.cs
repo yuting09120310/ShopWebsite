@@ -25,6 +25,10 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 return View();
             }
 
+            //更新最後登入日期
+            admin.LastLogin = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            _context.SaveChanges();
+
             HttpContext.Session.SetString("AdminNum", admin.AdminNum.ToString());
             HttpContext.Session.SetString("AdminName", admin.AdminName.ToString());
             HttpContext.Session.SetString("GroupNum", admin.GroupNum.ToString());

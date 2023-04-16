@@ -20,7 +20,7 @@
                     <div class="mb-3 row">
                         <label asp-for="GroupNum" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="GroupNum" class="form-control" />
+                            @Html.DropDownListFor(model => model.GroupNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
                         </div>
                         <span asp-validation-for="GroupNum" class="text-danger"></span>
                     </div>
@@ -65,8 +65,8 @@
         </div>
         <div class="card-footer text-end">
             <div class="col-sm-9 offset-sm-3">
-                <button class="btn btn-primary" type="submit">Submit</button>
-                <input class="btn btn-light" type="reset" value="Cancel">
+                <button class="btn btn-primary" type="submit">確定</button>
+                <input class="btn btn-light" type="reset" value="重設">
             </div>
         </div>
     </form>
