@@ -30,18 +30,25 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         [Display(Name = "建立日期")]
         public DateTime? CreateTime { get; set; }
 
-        [Display(Name = "建立人")]
+        [Display(Name = "建立人ID")]
         public long? Creator { get; set; }
+
+        [Display(Name = "建立人姓名")]
+        public string? CreatorName { get; set; }
 
         [Display(Name = "編輯時間")]
         public DateTime? EditTime { get; set; }
 
-        [Display(Name = "編輯人")]
+        [Display(Name = "編輯人ID")]
         public long? Editor { get; set; }
+
+        [Display(Name = "最後編輯者")]
+        public string? EditorName { get; set; }
 
         [Display(Name = "建立IP")]
         public string? Ip { get; set; }
 
+        [Display(Name = "群組")]
         // 新增一個屬性來表示對應的AdminGroup的GroupNum
         public long? GroupNum { get; set; }
     }

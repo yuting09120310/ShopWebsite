@@ -36,7 +36,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
 
-            var viewModel = from a in admins
+            IEnumerable<AdminViewModel> viewModel = from a in admins
                             join g in adminGroups on a.GroupNum equals g.GroupNum into ag
                             from subg in ag.DefaultIfEmpty()
                             select new AdminViewModel
@@ -77,7 +77,12 @@ namespace AlexBlogMVC.BackEnd.Controllers
                                     .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
                                     .ToListAsync();
 
-            return View();
+            AdminViewModel viewModel = new AdminViewModel()
+            {
+                CreatorName = HttpContext.Session.GetString("AdminName")
+            };
+
+            return View(viewModel);
         }
 
 
@@ -86,25 +91,42 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)
+        public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,Creator")] AdminViewModel adminViewModel)
         {
             
             if (ModelState.IsValid)
             {
-                admin.Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
-                admin.CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                Admin admin = new Admin()
+                {
+                    AdminNum = adminViewModel.AdminNum,
+                    GroupNum = adminViewModel.GroupNum,
+                    AdminAcc = adminViewModel.AdminAcc,
+                    AdminPwd = adminViewModel.AdminPwd,
+                    AdminName = adminViewModel.AdminName,
+                    AdminPublish = adminViewModel.AdminPublish,
+                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                };
 
                 _context.Add(admin);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(admin);
+            return View(adminViewModel);
         }
 
 
         // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            //如果傳進來的id是空的 就返回找不到
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
             if (!LoginState())
             {
                 return StatusCode(403, "還沒登入喔");
@@ -114,22 +136,39 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 return StatusCode(403, "當前用戶沒有權限");
             }
             getMenu();
-
-            //如果傳進來的id是空的 就返回找不到
-            if (id == null || _context.Admins == null)
-            {
-                return NotFound();
-            }
+            
 
             //進入DB搜尋資料
-            var admin = await _context.Admins.FindAsync(id);
+            var adminViewModel = (
+                from admins in _context.Admins
+                join adminGroup in _context.AdminGroups on admins.GroupNum equals adminGroup.GroupNum into adminGroups
+                from adminGroup in adminGroups.DefaultIfEmpty()
+                where admins.AdminNum == id
+                select new AdminViewModel
+                {
+                    AdminNum = admins.AdminNum,
+                    GroupName = adminGroup.GroupName,
+                    AdminAcc = admins.AdminAcc,
+                    AdminPwd = null,
+                    AdminName = admins.AdminName,
+                    AdminPublish = admins.AdminPublish,
+                    LastLogin = admins.LastLogin,
+                    CreateTime = admins.CreateTime,
+                    Creator = admins.Creator,
+                    CreatorName = (from creator in _context.Admins where creator.AdminNum == admins.Creator select creator.AdminName).FirstOrDefault(),
+                    EditTime = admins.EditTime,
+                    Editor = admins.Editor,
+                    EditorName = (from editor in _context.Admins where editor.AdminNum == admins.Editor select editor.AdminName).FirstOrDefault(),
+                    Ip = admins.Ip,
+                    GroupNum = admins.GroupNum
+                }
+            ).FirstOrDefault();
 
             //如果搜尋是空的 就返回找不到
-            if (admin == null)
+            if (adminViewModel == null)
             {
                 return NotFound();
             }
-
 
             //取得群組選單資料
             ViewBag.adminGroup = await _context.AdminGroups
@@ -137,9 +176,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                                     .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
                                     .ToListAsync();
 
-            //清空密碼
-            admin.AdminPwd = null;
-            return View(admin);
+            return View(adminViewModel);
         }
 
 
@@ -148,26 +185,46 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] Admin admin)
+        public async Task<IActionResult> Edit([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] AdminViewModel adminViewModel)
         {
-            if (id != admin.AdminNum)
+            if (!LoginState())
             {
-                return NotFound();
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(1, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    admin.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
-                    admin.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    adminViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
+                    adminViewModel.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    Admin admin = new Admin()
+                    {
+                        AdminNum = adminViewModel.AdminNum,
+                        GroupNum = adminViewModel.GroupNum,
+                        AdminAcc = adminViewModel.AdminAcc,
+                        AdminPwd= adminViewModel.AdminPwd,
+                        AdminName= adminViewModel.AdminName,
+                        LastLogin = adminViewModel.LastLogin,
+                        AdminPublish =adminViewModel.AdminPublish,
+                        CreateTime= adminViewModel.CreateTime,
+                        Creator= adminViewModel.Creator,
+                        EditTime= adminViewModel.EditTime,
+                        Editor= adminViewModel.Editor,
+                        Ip= adminViewModel.Ip,
+                    };
 
                     _context.Update(admin);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdminExists(admin.AdminNum))
+                    if (!AdminExists(adminViewModel.AdminNum))
                     {
                         return NotFound();
                     }
@@ -178,7 +235,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(admin);
+            return View(adminViewModel);
         }
 
         // GET: Admins/Delete/5

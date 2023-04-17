@@ -1,4 +1,4 @@
-﻿@model AlexBlogMVC.BackEnd.Models.Admin
+﻿@model AlexBlogMVC.BackEnd.ViewModel.AdminViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -19,13 +19,23 @@
         <input type="hidden" asp-for="CreateTime" />
         <input type="hidden" asp-for="Creator" />
         <input type="hidden" asp-for="AdminAcc" />
+        <input type="hidden" asp-for="Ip" />
+        <input type="hidden" asp-for="LastLogin" />
         <div class="card-body">
             <div class="row">
                 <div class="col">
+
+                    <div class="mb-3 row">
+                        <label asp-for="EditorName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.EditorName
+                        </div>
+                        <span asp-validation-for="EditorName" class="text-danger"></span>
+                    </div>
+
                     <div class="mb-3 row">
                         <label asp-for="GroupNum" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                           @* <input asp-for="GroupNum" class="form-control" />*@
                             @Html.DropDownListFor(model => model.GroupNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
                         </div>
                         <span asp-validation-for="GroupNum" class="text-danger"></span>
