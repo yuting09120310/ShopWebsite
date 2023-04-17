@@ -52,11 +52,19 @@
                         <span asp-validation-for="BannerContxt" class="text-danger"></span>
                     </div>
 
+                    <div class="mb-3 row">
+                        <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="BannerImg1" class="form-control" type="file" autocomplete="off" />
+                        </div>
+                        <span asp-validation-for="BannerImg1" class="text-danger"></span>
+                    </div>
+
 
                     <div class="mb-3 row">
                         <label asp-for="BannerPutTime" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="BannerPutTime" class="form-control" type="datetime" autocomplete="off" />
+                            <input asp-for="BannerPutTime" class="form-control" type="date" autocomplete="off" />
                         </div>
                         <span asp-validation-for="BannerPutTime" class="text-danger"></span>
                     </div>
@@ -64,7 +72,7 @@
                     <div class="mb-3 row">
                         <label asp-for="BannerOffTime" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="BannerOffTime" class="form-control" type="datetime" autocomplete="off" />
+                            <input asp-for="BannerOffTime" class="form-control" type="date" autocomplete="off" />
                         </div>
                         <span asp-validation-for="BannerOffTime" class="text-danger"></span>
                     </div>

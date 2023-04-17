@@ -164,11 +164,12 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime")] BannerViewModel bnnerViewModel)
         {
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    
+
                     Banner banner = new Banner()
                     {
                         BannerNum= bnnerViewModel.BannerNum,
