@@ -28,6 +28,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: AdminGroup
         public async Task<IActionResult> Index()
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(2, "R"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
 
@@ -55,27 +65,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(viewModel);
         }
 
-        // GET: AdminGroup/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null || _context.AdminGroups == null)
-            {
-                return NotFound();
-            }
-
-            var adminGroup = await _context.AdminGroups
-                .FirstOrDefaultAsync(m => m.GroupNum == id);
-            if (adminGroup == null)
-            {
-                return NotFound();
-            }
-
-            return View(adminGroup);
-        }
-
         // GET: AdminGroup/Create
         public IActionResult Create()
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(2, "C"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
             return View();
         }
 
@@ -98,10 +100,21 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: AdminGroup/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || _context.AdminGroups == null)
+            if (id == null)
             {
                 return NotFound();
             }
+
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(2, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
 
             var adminGroup = await _context.AdminGroups.FindAsync(id);
             if (adminGroup == null)
@@ -118,9 +131,13 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("GroupNum,GroupName,GroupInfo,GroupPublish,CreateTime,Creator,EditTime,Editor,Ip")] AdminGroup adminGroup)
         {
-            if (id != adminGroup.GroupNum)
+            if (!LoginState())
             {
-                return NotFound();
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(2, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
             }
 
             if (ModelState.IsValid)
@@ -149,6 +166,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: AdminGroup/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(2, "D"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
             if (id == null || _context.AdminGroups == null)
             {
                 return NotFound();

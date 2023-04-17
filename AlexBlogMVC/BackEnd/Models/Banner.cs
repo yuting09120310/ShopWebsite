@@ -25,7 +25,7 @@ public partial class Banner
 
     public string? BannerImgAlt { get; set; }
 
-    public long? BannerPublish { get; set; }
+    public bool? BannerPublish { get; set; }
 
     public DateTime? BannerPutTime { get; set; }
 

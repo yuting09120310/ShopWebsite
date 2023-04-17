@@ -1,114 +1,110 @@
-﻿@model AlexBlogMVC.BackEnd.Models.Banner
+﻿@model AlexBlogMVC.BackEnd.ViewModel.BannerViewModel
 
 @{
     ViewData["Title"] = "Edit";
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯廣告", new string[] { "廣告管理", "廣告設定", "編輯廣告" } } };
 }
 
-<h1>Edit</h1>
-
-<h4>Banner</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BannerNum" />
-            <div class="form-group">
-                <label asp-for="Lang" class="control-label"></label>
-                <input asp-for="Lang" class="form-control" />
-                <span asp-validation-for="Lang" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductClass" class="control-label"></label>
-                <input asp-for="ProductClass" class="form-control" />
-                <span asp-validation-for="ProductClass" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerSort" class="control-label"></label>
-                <input asp-for="BannerSort" class="form-control" />
-                <span asp-validation-for="BannerSort" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerTitle" class="control-label"></label>
-                <input asp-for="BannerTitle" class="form-control" />
-                <span asp-validation-for="BannerTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerDescription" class="control-label"></label>
-                <input asp-for="BannerDescription" class="form-control" />
-                <span asp-validation-for="BannerDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerContxt" class="control-label"></label>
-                <input asp-for="BannerContxt" class="form-control" />
-                <span asp-validation-for="BannerContxt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerImg1" class="control-label"></label>
-                <input asp-for="BannerImg1" class="form-control" />
-                <span asp-validation-for="BannerImg1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerImgUrl" class="control-label"></label>
-                <input asp-for="BannerImgUrl" class="form-control" />
-                <span asp-validation-for="BannerImgUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerImgAlt" class="control-label"></label>
-                <input asp-for="BannerImgAlt" class="form-control" />
-                <span asp-validation-for="BannerImgAlt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerPublish" class="control-label"></label>
-                <input asp-for="BannerPublish" class="form-control" />
-                <span asp-validation-for="BannerPublish" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerPutTime" class="control-label"></label>
-                <input asp-for="BannerPutTime" class="form-control" />
-                <span asp-validation-for="BannerPutTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreateTime" class="control-label"></label>
-                <input asp-for="CreateTime" class="form-control" />
-                <span asp-validation-for="CreateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Creator" class="control-label"></label>
-                <input asp-for="Creator" class="form-control" />
-                <span asp-validation-for="Creator" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EditTime" class="control-label"></label>
-                <input asp-for="EditTime" class="form-control" />
-                <span asp-validation-for="EditTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Editor" class="control-label"></label>
-                <input asp-for="Editor" class="form-control" />
-                <span asp-validation-for="Editor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ip" class="control-label"></label>
-                <input asp-for="Ip" class="form-control" />
-                <span asp-validation-for="Ip" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BannerOffTime" class="control-label"></label>
-                <input asp-for="BannerOffTime" class="form-control" />
-                <span asp-validation-for="BannerOffTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="card">
+    <div class="card-header">
+        <h5>編輯廣告</h5>
     </div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <input type="hidden" asp-for="CreateTime" />
+                    <input type="hidden" asp-for="Creator" />
+                    <input type="hidden" asp-for="BannerNum" />
+                    <input type="hidden" asp-for="Ip" />
+
+                    <div class="mb-3 row">
+                        <label asp-for="EditorName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.EditorName
+                        </div>
+                        <span asp-validation-for="EditorName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerTitle" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            <input asp-for="BannerTitle" class="form-control" />
+                        </div>
+                        <span asp-validation-for="BannerTitle" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerDescription" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="BannerDescription" class="form-control" />
+                        </div>
+                        <span asp-validation-for="BannerDescription" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerContxt" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            @*<input asp-for="BannerContxt" class="form-control" type="password" autocomplete="off" />*@
+                            <textarea asp-for="BannerContxt" class="form-control ckeditor"></textarea>
+                        </div>
+                        <span asp-validation-for="BannerContxt" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerPutTime" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="BannerPutTime" class="form-control" type="datetime" autocomplete="off" />
+                        </div>
+                        <span asp-validation-for="BannerPutTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerOffTime" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="BannerOffTime" class="form-control" type="datetime" autocomplete="off" />
+                        </div>
+                        <span asp-validation-for="BannerOffTime" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerPublish" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="BannerPublish" class="form-control">
+                                <option value="true">啟用</option>
+                                <option value="false">關閉</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="BannerPublish" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">確定</button>
+                <input class="btn btn-light" type="reset" value="重設">
+            </div>
+        </div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script>
+    ClassicEditor
+        .create(document.querySelector('.ckeditor'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

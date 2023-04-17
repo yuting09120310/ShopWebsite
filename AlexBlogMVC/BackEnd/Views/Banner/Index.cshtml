@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.Banner>
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.BannerViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,10 +15,11 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pb-0 card-no-border">
-                    <h3>廣告列表</h3>
+                     <div class="title d-flex">
+                        <div class="col-11"><h3>廣告列表</h3></div>
+                        <div class="col-1 text-end"><a asp-controller="Banner" asp-action="Create" class="btn btn-primary btn-sm">新增</a></div>
+                    </div>
                     <hr />
-                    @*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
-                    *@
                 </div>
                 <div class="card-body">
 
@@ -37,7 +38,7 @@
                                         @Html.DisplayNameFor(model => model.BannerDescription)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.BannerImgUrl)
+                                        @Html.DisplayNameFor(model => model.BannerImg1)
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.BannerPutTime)
