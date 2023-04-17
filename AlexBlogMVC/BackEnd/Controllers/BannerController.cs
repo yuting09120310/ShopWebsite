@@ -47,6 +47,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                                                         BannerTitle = a.BannerTitle,
                                                         BannerDescription = a.BannerDescription,
                                                         BannerPutTime = a.BannerPutTime,
+                                                        BannerImg1= a.BannerImg1,
                                                         CreateTime = a.CreateTime,
                                                         EditTime = a.EditTime,
                                                         BannerOffTime = a.BannerOffTime,
@@ -174,20 +175,31 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime")] BannerViewModel bnnerViewModel)
+        public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bnnerViewModel)
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(3, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     
                     //接收檔案
-                    if (bnnerViewModel.BannerImg1 != null)
+                    if (bnnerViewModel.FileData != null)
                     {
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bnnerViewModel.BannerImg1.FileName);
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bnnerViewModel.FileData.FileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
-                            await bnnerViewModel.BannerImg1.CopyToAsync(fileStream);
+                            await bnnerViewModel.FileData.CopyToAsync(fileStream);
                         }
                     }
 
@@ -198,6 +210,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                         BannerTitle = bnnerViewModel.BannerTitle,
                         BannerDescription = bnnerViewModel.BannerDescription,
                         BannerContxt = bnnerViewModel.BannerContxt,
+                        BannerImg1 = "uploads\\" + bnnerViewModel.FileData.FileName,
                         BannerPublish = bnnerViewModel.BannerPublish,
                         BannerPutTime = bnnerViewModel.BannerPutTime,
                         BannerOffTime = bnnerViewModel.BannerOffTime,

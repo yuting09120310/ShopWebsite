@@ -72,7 +72,7 @@
                                             @Html.DisplayFor(modelItem => item.BannerDescription)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.BannerImgUrl)
+                                            <img style="max-width:100px" src="@Url.Content("~/uploads/" + item.BannerImg1)" />
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.BannerPutTime)

@@ -4,7 +4,7 @@ namespace AlexBlogMVC.BackEnd.ViewModel
 {
     public class BannerViewModel
     {
-        [Display(Name = "廣告編號")]
+        [Display(Name = "編號")]
         public long BannerNum { get; set; }
 
         public string? Lang { get; set; }
@@ -25,7 +25,7 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         public string? BannerContxt { get; set; }
 
         [Display(Name = "圖片")]
-        public IFormFile BannerImg1 { get; set; }
+        public string? BannerImg1 { get; set; }
 
         public string? BannerImgUrl { get; set; }
 
@@ -63,5 +63,8 @@ namespace AlexBlogMVC.BackEnd.ViewModel
 
         [Display(Name = "最後編輯人")]
         public string? EditorName { get; set; }
+
+
+        public IFormFile? FileData { get; set; }
     }
 }

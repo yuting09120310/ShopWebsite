@@ -53,11 +53,11 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="FileData" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="BannerImg1" class="form-control" type="file" autocomplete="off" />
+                            <input asp-for="FileData" class="form-control" type="file" autocomplete="off" />
                         </div>
-                        <span asp-validation-for="BannerImg1" class="text-danger"></span>
+                        <span asp-validation-for="FileData" class="text-danger"></span>
                     </div>
 
 
@@ -100,6 +100,19 @@
         </div>
     </form>
 </div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
 
 <script>
     ClassicEditor
