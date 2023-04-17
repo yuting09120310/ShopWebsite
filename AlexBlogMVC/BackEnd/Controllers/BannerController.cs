@@ -13,14 +13,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class BannerController : GenericController
     {
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public BannerController(BlogMvcContext context):base(context){}
+        public BannerController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) :base(context){
+            _hostingEnvironment = hostingEnvironment;
+        }
 
 
         //當每個action被執行都會呼叫getMenu
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getMenu();
             base.OnActionExecuting(context);
         }
 
@@ -44,7 +46,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
                                                         BannerNum = a.BannerNum,
                                                         BannerTitle = a.BannerTitle,
                                                         BannerDescription = a.BannerDescription,
-                                                        BannerImg1 = a.BannerImg1,
                                                         BannerPutTime = a.BannerPutTime,
                                                         CreateTime = a.CreateTime,
                                                         EditTime = a.EditTime,
@@ -120,10 +121,21 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Banner/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null || _context.Banners == null)
+            if (id == null)
             {
                 return NotFound();
             }
+
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(3, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
 
             //進入DB搜尋資料
             var bannerViewModel = (
@@ -169,7 +181,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 try
                 {
                     
+                    //接收檔案
+                    if (bnnerViewModel.BannerImg1 != null)
+                    {
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bnnerViewModel.BannerImg1.FileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await bnnerViewModel.BannerImg1.CopyToAsync(fileStream);
+                        }
+                    }
 
+                    //將資料寫入db
                     Banner banner = new Banner()
                     {
                         BannerNum= bnnerViewModel.BannerNum,
