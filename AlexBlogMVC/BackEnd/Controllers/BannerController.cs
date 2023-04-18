@@ -210,7 +210,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                         BannerTitle = bnnerViewModel.BannerTitle,
                         BannerDescription = bnnerViewModel.BannerDescription,
                         BannerContxt = bnnerViewModel.BannerContxt,
-                        BannerImg1 = "uploads\\" + bnnerViewModel.FileData.FileName,
+                        BannerImg1 = bnnerViewModel.FileData.FileName,
                         BannerPublish = bnnerViewModel.BannerPublish,
                         BannerPutTime = bnnerViewModel.BannerPutTime,
                         BannerOffTime = bnnerViewModel.BannerOffTime,
