@@ -50,20 +50,16 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         [Display(Name = "編輯人ID")]
         public long? Editor { get; set; }
 
-
         public string? Ip { get; set; }
 
         [Display(Name = "下架時間")]
         public DateTime? BannerOffTime { get; set; }
 
-
         [Display(Name = "新增者")]
         public string? CreatorName { get; set; }
 
-
         [Display(Name = "最後編輯人")]
         public string? EditorName { get; set; }
-
 
         public IFormFile? FileData { get; set; }
     }

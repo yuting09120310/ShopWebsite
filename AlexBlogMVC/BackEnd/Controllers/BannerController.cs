@@ -158,6 +158,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                     Editor = banner.Editor,
                     EditorName = (from editor in _context.Admins where editor.AdminNum == banner.Editor select editor.AdminName).FirstOrDefault(),
                     Ip = banner.Ip,
+                    BannerImg1 = banner.BannerImg1, 
                 }
             ).FirstOrDefault();
 
