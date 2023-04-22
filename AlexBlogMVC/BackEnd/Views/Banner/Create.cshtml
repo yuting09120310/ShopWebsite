@@ -11,7 +11,7 @@
     <div class="card-header">
         <h5>新增廣告</h5>
     </div>
-    <form asp-action="Create">
+    <form asp-action="Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="card-body">
             <div class="row">
@@ -41,6 +41,7 @@
                         <span asp-validation-for="BannerDescription" class="text-danger"></span>
                     </div>
 
+
                     <div class="mb-3 row">
                         <label asp-for="BannerContxt" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
@@ -51,10 +52,29 @@
                     </div>
 
 
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
+                            <span asp-validation-for="FileData" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <img id="preview" src="" style="max-width:200px;max-height:200px;" />
+                            <input asp-for="BannerImg1" class="form-control" type="hidden" />
+                        </div>
+                    </div>
+
+
+
                     <div class="mb-3 row">
                         <label asp-for="BannerPutTime" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="BannerPutTime" class="form-control" type="datetime" autocomplete="off" />
+                            <input asp-for="BannerPutTime" class="form-control" type="date" autocomplete="off" />
                         </div>
                         <span asp-validation-for="BannerPutTime" class="text-danger"></span>
                     </div>
@@ -62,7 +82,7 @@
                     <div class="mb-3 row">
                         <label asp-for="BannerOffTime" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="BannerOffTime" class="form-control" type="datetime" autocomplete="off" />
+                            <input asp-for="BannerOffTime" class="form-control" type="date" autocomplete="off" />
                         </div>
                         <span asp-validation-for="BannerOffTime" class="text-danger"></span>
                     </div>
@@ -92,6 +112,26 @@
 </div>
 
 <script>
+    function previewFile(input) {
+        var preview = document.getElementById('preview');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+            document.getElementById('BannerImg1').value = file.name;
+        } else {
+            preview.src = "";
+            document.getElementById('BannerImg1').value = "";
+        }
+    }
+
+
+
     ClassicEditor
         .create( document.querySelector( '.ckeditor' ), {
             toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],

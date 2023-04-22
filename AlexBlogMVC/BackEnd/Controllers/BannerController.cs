@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using AlexBlogMVC.BackEnd.ViewModel;
+using Microsoft.Extensions.Hosting;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
@@ -86,7 +87,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime")] BannerViewModel bannerViewModel)
+        public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel, IFormFile FileData)
         {
             if (!LoginState())
             {
@@ -96,20 +97,32 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return StatusCode(403, "當前用戶沒有權限");
             }
-
+            getMenu();
 
             if (ModelState.IsValid)
             {
+                
+                //接收檔案
+                if (bannerViewModel.FileData != null)
+                {
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bannerViewModel.FileData.FileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await bannerViewModel.FileData.CopyToAsync(fileStream);
+                    }
+                }
+
                 Banner banner = new Banner()
                 {
-                    BannerTitle= bannerViewModel.BannerTitle,
-                    BannerDescription= bannerViewModel.BannerDescription,
-                    BannerContxt= bannerViewModel.BannerContxt,
-                    BannerPublish= bannerViewModel.BannerPublish,
-                    BannerPutTime= bannerViewModel.BannerPutTime,
-                    BannerOffTime= bannerViewModel.BannerOffTime,
-                    Creator= Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                    BannerTitle = bannerViewModel.BannerTitle,
+                    BannerDescription = bannerViewModel.BannerDescription,
+                    BannerContxt = bannerViewModel.BannerContxt,
+                    BannerPublish = bannerViewModel.BannerPublish,
+                    BannerPutTime = bannerViewModel.BannerPutTime,
+                    BannerOffTime = bannerViewModel.BannerOffTime,
+                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
                     CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                    BannerImg1 = bannerViewModel.FileData.FileName
                 };
 
                 _context.Add(banner);
@@ -158,9 +171,15 @@ namespace AlexBlogMVC.BackEnd.Controllers
                     Editor = banner.Editor,
                     EditorName = (from editor in _context.Admins where editor.AdminNum == banner.Editor select editor.AdminName).FirstOrDefault(),
                     Ip = banner.Ip,
-                    BannerImg1 = banner.BannerImg1, 
+                    BannerImg1 = banner.BannerImg1,
                 }
             ).FirstOrDefault();
+
+            if (bannerViewModel.BannerImg1 != null)
+            {
+                bannerViewModel.FileData = new FormFile(new MemoryStream(), 0, 0, bannerViewModel.BannerImg1.ToString(), bannerViewModel.BannerImg1.ToString());
+            }
+
 
             if (bannerViewModel == null)
             {
@@ -176,7 +195,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bnnerViewModel)
+        public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel)
         {
             if (!LoginState())
             {
@@ -193,41 +212,49 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 try
                 {
-                    
                     //接收檔案
-                    if (bnnerViewModel.FileData != null)
+                    if (bannerViewModel.FileData != null)
                     {
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bnnerViewModel.FileData.FileName);
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bannerViewModel.FileData.FileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
-                            await bnnerViewModel.FileData.CopyToAsync(fileStream);
+                            await bannerViewModel.FileData.CopyToAsync(fileStream);
                         }
                     }
 
                     //將資料寫入db
                     Banner banner = new Banner()
                     {
-                        BannerNum= bnnerViewModel.BannerNum,
-                        BannerTitle = bnnerViewModel.BannerTitle,
-                        BannerDescription = bnnerViewModel.BannerDescription,
-                        BannerContxt = bnnerViewModel.BannerContxt,
-                        BannerImg1 = bnnerViewModel.FileData.FileName,
-                        BannerPublish = bnnerViewModel.BannerPublish,
-                        BannerPutTime = bnnerViewModel.BannerPutTime,
-                        BannerOffTime = bnnerViewModel.BannerOffTime,
-                        CreateTime = bnnerViewModel.CreateTime,
-                        Creator = bnnerViewModel.Creator,
+                        BannerNum= bannerViewModel.BannerNum,
+                        BannerTitle = bannerViewModel.BannerTitle,
+                        BannerDescription = bannerViewModel.BannerDescription,
+                        BannerContxt = bannerViewModel.BannerContxt,
+                        BannerPublish = bannerViewModel.BannerPublish,
+                        BannerPutTime = bannerViewModel.BannerPutTime,
+                        BannerOffTime = bannerViewModel.BannerOffTime,
+                        CreateTime = bannerViewModel.CreateTime,
+                        Creator = bannerViewModel.Creator,
                         EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                         Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
-                        Ip = bnnerViewModel.Ip,
+                        Ip = bannerViewModel.Ip,
                     };
+
+                    if (bannerViewModel.FileData != null)
+                    {
+                        banner.BannerImg1 = bannerViewModel.FileData.FileName;
+                    }
+                    else
+                    {
+                        banner.BannerImg1 = bannerViewModel.BannerImg1;
+                    }
+
 
                     _context.Update(banner);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BannerExists(bnnerViewModel.BannerNum))
+                    if (!BannerExists(bannerViewModel.BannerNum))
                     {
                         return NotFound();
                     }
@@ -238,7 +265,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(bnnerViewModel);
+            return View(bannerViewModel);
         }
 
         // GET: Banner/Delete/5

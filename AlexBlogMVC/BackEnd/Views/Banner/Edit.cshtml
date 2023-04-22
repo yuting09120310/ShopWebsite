@@ -5,6 +5,8 @@
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯廣告", new string[] { "廣告管理", "廣告設定", "編輯廣告" } } };
 }
 
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
+
 <div class="card">
     <div class="card-header">
         <h5>編輯廣告</h5>
@@ -53,12 +55,12 @@
                     </div>
 
 
-                    <div class="mb-3 row">
+@*                    <div class="mb-3 row">
                         <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="BannerImg1" class="form-control" type="file" autocomplete="off" id="fileInput" />
+                            <input asp-for="FileData" class="form-control" type="file" autocomplete="off" id="fileInput" />
                         </div>
-                        <span asp-validation-for="BannerImg1" class="text-danger"></span>
+                        <span asp-validation-for="FileData" class="text-danger"></span>
                         
                         <br></br>
 
@@ -67,6 +69,24 @@
                             <canvas id="previewCanvas" width="200" height="200"></canvas>
                         </div>
                     </div>
+*@
+
+                    <div class="mb-3 row">
+                        <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
+                        </div>
+                        <span asp-validation-for="FileData" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <img id="preview" src="~/uploads/@Model.BannerImg1" style="max-width:200px;max-height:200px;" />
+                            <input asp-for="BannerImg1" class="form-control" type="hidden" />
+                        </div>
+                    </div>
+
                     
 
 
@@ -124,27 +144,24 @@
 
 
 <script>
-    const fileInput = document.getElementById("fileInput");
-    const previewCanvas = document.getElementById("previewCanvas");
-    const previewCtx = previewCanvas.getContext("2d");
+    function previewFile(input) {
+        var preview = document.getElementById('preview');
+        var file = input.files[0];
+        var reader = new FileReader();
 
-    fileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
 
         if (file) {
-            const reader = new FileReader();
             reader.readAsDataURL(file);
-
-            reader.onload = () => {
-                const img = new Image();
-                img.src = reader.result;
-
-                img.onload = () => {
-                    previewCtx.drawImage(img, 0, 0, 200, 200);
-                };
-            };
+            document.getElementById('BannerImg1').value = file.name;
+        } else {
+            preview.src = "";
+            document.getElementById('BannerImg1').value = "";
         }
-    });
+    }
+
 
 
 
