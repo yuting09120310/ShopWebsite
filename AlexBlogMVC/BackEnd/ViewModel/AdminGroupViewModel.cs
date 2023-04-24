@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AlexBlogMVC.BackEnd.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlexBlogMVC.BackEnd.ViewModel
 {
@@ -26,6 +27,9 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         public string? CreatorName { get; set; }
         [Display(Name = "編輯人")]
         public string? EditorName { get; set; }
+
+
+        public Dictionary<string,List<string>> DataAnnotations { get;set; }
 
     }
 }

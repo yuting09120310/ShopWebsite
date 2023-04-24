@@ -9,6 +9,7 @@ using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using AlexBlogMVC.BackEnd.Attributes;
 using AlexBlogMVC.BackEnd.ViewModel;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
@@ -115,13 +116,49 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
 
+           
+
+            var menuGroup = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync();
+            var menuSub = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync();
+
+            AdminGroupViewModel agv = new AdminGroupViewModel();
+
+            agv.DataAnnotations = new Dictionary<string, List<string>>();
+
+            for (int i = 0; i< menuGroup.Count; i++)
+            {
+               for(int j = 0; j < menuSub.Count; j++)
+                {
+                    if (menuGroup[i].MenuGroupId == menuSub[j].MenuGroupId)
+                    {
+                        if (agv.DataAnnotations.ContainsKey(menuGroup[i].MenuGroupName))
+                        {
+                            agv.DataAnnotations[menuGroup[i].MenuGroupName].Add(menuSub[j].MenuSubName + "(" + menuSub[j].MenuSubId + ")");
+                        }
+                        else
+                        {
+                            agv.DataAnnotations.Add(menuGroup[i].MenuGroupName, new List<string>());
+                            agv.DataAnnotations[menuGroup[i].MenuGroupName].Add(menuSub[j].MenuSubName + "(" + menuSub[j].MenuSubId + ")");
+                        }
+                    }
+                }
+            }
+
 
             var adminGroup = await _context.AdminGroups.FindAsync(id);
             if (adminGroup == null)
             {
                 return NotFound();
             }
-            return View(adminGroup);
+
+
+            agv.CreatorName = adminGroup.GroupName;
+            agv.GroupInfo = adminGroup.GroupInfo;
+            agv.GroupPublish = adminGroup.GroupPublish;
+            agv.GroupNum = adminGroup.GroupNum;
+
+
+            return View(agv);
         }
 
         // POST: AdminGroup/Edit/5
