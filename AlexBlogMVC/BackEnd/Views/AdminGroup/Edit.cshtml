@@ -5,7 +5,7 @@
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯群組", new string[] { "帳號管理", "群組設定", "編輯群組" } } };
 }
 
-@Html.Partial("_PageTitlePartial", breadcrumbDict);
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
 
 <div class="card">
     <div class="card-header">
@@ -31,6 +31,24 @@
 
 
                     <div class="mb-3 row">
+                        <label asp-for="GroupName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="GroupName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="GroupName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="GroupInfo" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="GroupInfo" class="form-control" />
+                        </div>
+                        <span asp-validation-for="GroupInfo" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
                         <label asp-for="GroupPublish" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <select asp-for="GroupPublish" class="form-control">
@@ -41,6 +59,26 @@
                         <span asp-validation-for="GroupPublish" class="text-danger"></span>
                     </div>
 
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label">權限</label>
+                        <div class="col-sm-9">
+                            @foreach (var a in @Model.DataAnnotations)
+                            {
+                                <div class="card-header">
+                                        <h5>@a.Key</h5>
+                                        @foreach (var b in a.Value)
+                                        {
+                                            @b.ToString();
+                                        }
+                                    </div>
+                            }
+                        </div>
+                        <span asp-validation-for="GroupPublish" class="text-danger"></span>
+                    </div>
+
+
+                    
 
 
                 </div>

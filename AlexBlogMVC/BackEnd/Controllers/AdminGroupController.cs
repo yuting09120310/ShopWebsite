@@ -152,7 +152,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
 
 
-            agv.CreatorName = adminGroup.GroupName;
+            agv.GroupName = adminGroup.GroupName;
             agv.GroupInfo = adminGroup.GroupInfo;
             agv.GroupPublish = adminGroup.GroupPublish;
             agv.GroupNum = adminGroup.GroupNum;
