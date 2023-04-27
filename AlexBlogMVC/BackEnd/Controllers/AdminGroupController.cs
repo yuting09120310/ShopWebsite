@@ -91,6 +91,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(adminGroup);
         }
 
+
         // GET: AdminGroup/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
@@ -109,50 +110,26 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
 
-           
 
-            var menuGroup = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync();
-            var menuSub = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync();
-
-            AdminGroupViewModel agv = new AdminGroupViewModel();
-
-            agv.DataAnnotations = new Dictionary<string, List<string>>();
-
-            for (int i = 0; i< menuGroup.Count; i++)
-            {
-               for(int j = 0; j < menuSub.Count; j++)
-                {
-                    if (menuGroup[i].MenuGroupId == menuSub[j].MenuGroupId)
-                    {
-                        if (agv.DataAnnotations.ContainsKey(menuGroup[i].MenuGroupName))
-                        {
-                            agv.DataAnnotations[menuGroup[i].MenuGroupName].Add(menuSub[j].MenuSubName + "(" + menuSub[j].MenuSubId + ")");
-                        }
-                        else
-                        {
-                            agv.DataAnnotations.Add(menuGroup[i].MenuGroupName, new List<string>());
-                            agv.DataAnnotations[menuGroup[i].MenuGroupName].Add(menuSub[j].MenuSubName + "(" + menuSub[j].MenuSubId + ")");
-                        }
-                    }
-                }
-            }
-
-
-            var adminGroup = await _context.AdminGroups.FindAsync(id);
+            AdminGroup adminGroup = await _context.AdminGroups.FindAsync(id);
             if (adminGroup == null)
             {
                 return NotFound();
             }
 
 
-            agv.GroupName = adminGroup.GroupName;
-            agv.GroupInfo = adminGroup.GroupInfo;
-            agv.GroupPublish = adminGroup.GroupPublish;
-            agv.GroupNum = adminGroup.GroupNum;
+            AdminGroupViewModel agv = new AdminGroupViewModel()
+            {
+                GroupName = adminGroup.GroupName,
+                GroupInfo = adminGroup.GroupInfo,
+                GroupPublish = adminGroup.GroupPublish,
+                GroupNum = adminGroup.GroupNum,
 
-            agv.AdminRoleModels = await _context.AdminRoles.Where(x => x.GroupNum == 1).ToListAsync();
-            agv.MenuGroupModels = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync();
-            agv.MenuSubModels = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync();
+                AdminRoleModels = await _context.AdminRoles.Where(x => x.GroupNum == 1).ToListAsync(),
+                MenuGroupModels = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync(),
+                MenuSubModels = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync(),
+            };
+
 
             return View(agv);
         }
