@@ -29,7 +29,14 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         public string? EditorName { get; set; }
 
 
-        public Dictionary<string,List<string>> DataAnnotations { get;set; }
+        public Dictionary<string, List<string>> DataAnnotations { get; set; }
 
+        public List<AdminRole> AdminRoleModels {get;set;}
+
+        public List<MenuGroup> MenuGroupModels { get; set; }
+
+        public List<MenuSub> MenuSubModels { get; set; }
+
+        public Dictionary<string ,List<string>> Auth { get; set; }
     }
 }

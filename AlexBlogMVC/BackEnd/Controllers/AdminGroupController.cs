@@ -19,13 +19,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         public AdminGroupController(BlogMvcContext context) : base(context) { }
 
 
-        //當每個action被執行都會呼叫getMenu
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            base.OnActionExecuting(context);
-        }
-
-
         // GET: AdminGroup
         public async Task<IActionResult> Index()
         {
@@ -157,6 +150,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             agv.GroupPublish = adminGroup.GroupPublish;
             agv.GroupNum = adminGroup.GroupNum;
 
+            agv.AdminRoleModels = await _context.AdminRoles.Where(x => x.GroupNum == 1).ToListAsync();
+            agv.MenuGroupModels = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync();
+            agv.MenuSubModels = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync();
 
             return View(agv);
         }
@@ -166,7 +162,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("GroupNum,GroupName,GroupInfo,GroupPublish,CreateTime,Creator,EditTime,Editor,Ip")] AdminGroup adminGroup)
+        public async Task<IActionResult> Edit(long id, IFormCollection adminGroup)
         {
             if (!LoginState())
             {
@@ -177,27 +173,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 return StatusCode(403, "當前用戶沒有權限");
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(adminGroup);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdminGroupExists(adminGroup.GroupNum))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(adminGroup);
+            
+            return View();
         }
 
         // GET: AdminGroup/Delete/5
