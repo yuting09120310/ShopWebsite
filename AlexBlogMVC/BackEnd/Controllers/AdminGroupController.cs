@@ -125,7 +125,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 GroupPublish = adminGroup.GroupPublish,
                 GroupNum = adminGroup.GroupNum,
 
-                AdminRoleModels = await _context.AdminRoles.Where(x => x.GroupNum == 1).ToListAsync(),
+                AdminRoleModels = await _context.AdminRoles.Where(x => x.GroupNum == id).ToListAsync(),
                 MenuGroupModels = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync(),
                 MenuSubModels = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync(),
             };
@@ -150,8 +150,30 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 return StatusCode(403, "當前用戶沒有權限");
             }
 
-            
-            return View();
+
+            //取得變更的群組id
+            int groupNum = Convert.ToInt32(adminGroup["GroupNum"]);
+
+
+            //取得關於Role開頭的Key 重組成字典 以便於後續操作
+            Dictionary<string, string> roleDicts = adminGroup
+             .Where(kv => kv.Key.StartsWith("Role"))
+             .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value))
+             .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+
+            //將取出開頭包含Role的字典 跑迴圈 並逐筆變更
+            foreach (string roleDict in roleDicts.Keys)
+            {
+                long menuSubNum = Convert.ToInt64(roleDict);
+                AdminRole ar =  await _context.AdminRoles.Where(x => x.GroupNum == groupNum && x.MenuSubNum == menuSubNum).FirstAsync();
+                ar.Role = roleDicts[roleDict];
+                _context.Update(ar);
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToAction("Edit");
         }
 
         // GET: AdminGroup/Delete/5
