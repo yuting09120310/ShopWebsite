@@ -13,9 +13,11 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pb-0 card-no-border">
-                    <h3>群組列表</h3>
+                    <div class="title d-flex">
+                        <div class="col-11"><h3>群組列表</h3></div>
+                        <div class="col-1 text-end"><a asp-controller="adminGroup" asp-action="Create" class="btn btn-primary btn-sm">新增</a></div>
+                    </div>
                     <hr />
-                    群組設定設定管理的修改、刪除
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

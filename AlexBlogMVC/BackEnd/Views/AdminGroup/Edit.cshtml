@@ -224,15 +224,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        $('#submit').on('click',function(){
-
-
-            $("input[name=bla]").each(function () {
-                alert($(this).val());
-            });
-        
-        });
-    </script>
 }

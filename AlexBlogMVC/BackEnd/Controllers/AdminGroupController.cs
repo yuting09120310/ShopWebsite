@@ -60,7 +60,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
         // GET: AdminGroup/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             if (!LoginState())
             {
@@ -72,7 +72,20 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
 
-            return View();
+            AdminGroupViewModel agv = new AdminGroupViewModel()
+            {
+                CreatorName = HttpContext.Session.GetString("AdminName"),
+                Creator = Convert.ToInt64(HttpContext.Session.GetString("AdminNum")),
+                GroupName = "",
+                GroupInfo = "",
+                GroupPublish = true,
+
+                AdminRoleModels = new List<AdminRole>(),
+                MenuGroupModels = await _context.MenuGroups.Where(x => x.MenuGroupPublish == true).ToListAsync(),
+                MenuSubModels = await _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToListAsync(),
+            };
+
+            return View(agv);
         }
 
         // POST: AdminGroup/Create
@@ -80,15 +93,23 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GroupNum,GroupName,GroupInfo,GroupPublish,CreateTime,Creator,EditTime,Editor,Ip")] AdminGroup adminGroup)
+        public async Task<IActionResult> Create(IFormCollection Collection)
         {
-            if (ModelState.IsValid)
+            AdminGroup adminGroup = new AdminGroup()
             {
-                _context.Add(adminGroup);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(adminGroup);
+                GroupPublish = Convert.ToBoolean(Collection["GroupPublish"]),
+                GroupName = Collection["GroupName"],
+                GroupInfo = Collection["GroupInfo"],
+                Creator = Convert.ToInt64(Collection["Creator"]),
+                CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+            };
+
+            _context.Add(adminGroup);
+            await _context.SaveChangesAsync();
+
+
+
+            return RedirectToAction(nameof(Index));
         }
 
 
