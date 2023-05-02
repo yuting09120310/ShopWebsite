@@ -92,72 +92,69 @@
                                                     {
                                                         if (sub.MenuGroupId.Equals(group.MenuGroupId))
                                                         {
+                                                            AdminRole ar = Model.AdminRoleModels.Where(model_ar => model_ar.MenuSubNum.Equals(sub.MenuSubNum)).FirstOrDefault();
                                                             <tr>
                                                                 <td>@sub.MenuSubName</td>
 
+                                                                <td>
+                                                                    <div class="form-check">
 
-                                                                @foreach (AdminRole ar in @Model.AdminRoleModels)
-                                                                {
-                                                                    if (ar.MenuSubNum.Equals(sub.MenuSubNum))
-                                                                    {
+                                                                        @if (ar != null && ar.Role.Contains("C"))
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="C" checked>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="C">
+                                                                        }
 
-                                                                        <td>
-                                                                            <div class="form-check">
+                                                                    </div>
+                                                                </td>
 
-                                                                                @if(ar.Role.Contains("C"))
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="C" checked>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="C">
-                                                                                }
+                                                                <td>
+                                                                    <div class="form-check">
 
-                                                                            </div>
-                                                                        </td>
+                                                                        @if (ar != null && ar.Role.Contains("R"))
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="R" checked>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="R">
+                                                                        }
 
-                                                                        <td>
-                                                                            <div class="form-check">
-                                                                                @if (ar.Role.Contains("R"))
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="R" checked>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="R">
-                                                                                }
-                                                                            </div>
-                                                                        </td>
+                                                                    </div>
+                                                                </td>
 
-                                                                        <td>
-                                                                            <div class="form-check">
-                                                                                @if(ar.Role.Contains("U"))
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="U" checked>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="U">
-                                                                                }
-                                                                            </div>
-                                                                        </td>
+                                                                <td>
+                                                                    <div class="form-check">
 
-                                                                        <td>
-                                                                            <div class="form-check">
-                                                                                @if (ar.Role.Contains("D"))
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="D" checked>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    <input class="form-check-input" type="checkbox" id="C" name="Role_@ar.MenuSubNum.ToString()" value="D">
-                                                                                }
-                                                                            </div>
-                                                                        </td>
+                                                                        @if (ar != null && ar.Role.Contains("U"))
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="U" checked>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="U">
+                                                                        }
 
+                                                                    </div>
+                                                                </td>
 
-                                                                    }
-                                                                }
+                                                                <td>
+                                                                    <div class="form-check">
+
+                                                                        @if (ar != null && ar.Role.Contains("D"))
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="D" checked>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input class="form-check-input" type="checkbox" id="C" name="Role_@sub.MenuSubNum.ToString()" value="D">
+                                                                        }
+
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         }
                                                     }
