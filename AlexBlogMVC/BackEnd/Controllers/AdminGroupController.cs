@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using AlexBlogMVC.BackEnd.Attributes;
 using AlexBlogMVC.BackEnd.ViewModel;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Data;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
@@ -24,11 +25,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
         {
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401" , "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" } );
             }
             if (!CheckRole(2, "R"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
             }
             getMenu();
 
@@ -64,11 +65,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
         {
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "C"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
             }
             getMenu();
 
@@ -95,6 +96,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormCollection Collection)
         {
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(2, "C"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+            }
+            getMenu();
+
+
             AdminGroup adminGroup = new AdminGroup()
             {
                 GroupPublish = Convert.ToBoolean(Collection["GroupPublish"]),
@@ -107,6 +119,28 @@ namespace AlexBlogMVC.BackEnd.Controllers
             _context.Add(adminGroup);
             await _context.SaveChangesAsync();
 
+            //取得關於Role開頭的Key 重組成字典 以便於後續操作
+            Dictionary<string, string> roleDicts = Collection
+             .Where(kv => kv.Key.StartsWith("Role"))
+             .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value))
+             .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+
+            //將取出開頭包含Role的字典 跑迴圈 並逐筆變更
+            foreach (string roleDict in roleDicts.Keys)
+            {
+                long menuSubNum = Convert.ToInt64(roleDict);
+                AdminRole ar = new AdminRole()
+                {
+                    GroupNum = adminGroup.GroupNum,
+                    MenuSubNum = menuSubNum,
+                    Role = roleDicts[roleDict],
+                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                    Creator = Convert.ToInt64(HttpContext.Session.GetString("AdminNum")),
+                };
+                _context.Add(ar);
+                await _context.SaveChangesAsync();
+            }
 
 
             return RedirectToAction(nameof(Index));
@@ -123,11 +157,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "U"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
             }
             getMenu();
 
@@ -160,24 +194,24 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, IFormCollection adminGroup)
+        public async Task<IActionResult> Edit(long id, IFormCollection Collection)
         {
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "U"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
             }
 
 
             //取得變更的群組id
-            int groupNum = Convert.ToInt32(adminGroup["GroupNum"]);
+            int groupNum = Convert.ToInt32(Collection["GroupNum"]);
 
 
             //取得關於Role開頭的Key 重組成字典 以便於後續操作
-            Dictionary<string, string> roleDicts = adminGroup
+            Dictionary<string, string> roleDicts = Collection
              .Where(kv => kv.Key.StartsWith("Role"))
              .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value))
              .ToDictionary(kv => kv.Key, kv => kv.Value);
@@ -202,11 +236,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
         {
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "D"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
             }
             getMenu();
 
