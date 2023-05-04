@@ -12,6 +12,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class NewsController : GenericController
     {
+        int menuSubNum = 5;
 
         public NewsController(BlogMvcContext context) : base(context) { }
 
@@ -25,7 +26,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(5, "R"))
+            if (!CheckRole(menuSubNum, "R"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -46,7 +47,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(5, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -58,7 +59,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         // POST: News/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317menuSubNum98.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NewsNum,Lang,NewsClass,NewsSort,NewsTitle,NewsDescription,NewsContxt,NewsImg1,NewsImgUrl,NewsImgAlt,NewsPublish,NewsViews,NewsPutTime,CreateTime,Creator,EditTime,Editor,Ip,NewsOffTime")] News news)
@@ -68,7 +69,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(5, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -85,7 +86,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(news);
         }
 
-        // GET: News/Edit/5
+        // GET: News/Edit/menuSubNum
         public async Task<IActionResult> Edit(long? id)
         {
             #region 登入 權限判斷
@@ -93,7 +94,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(5, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -113,9 +114,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(news);
         }
 
-        // POST: News/Edit/5
+        // POST: News/Edit/menuSubNum
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317menuSubNum98.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("NewsNum,Lang,NewsClass,NewsSort,NewsTitle,NewsDescription,NewsContxt,NewsImg1,NewsImgUrl,NewsImgAlt,NewsPublish,NewsViews,NewsPutTime,CreateTime,Creator,EditTime,Editor,Ip,NewsOffTime")] News news)
@@ -125,7 +126,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(5, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -160,7 +161,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(news);
         }
 
-        // GET: News/Delete/5
+        // GET: News/Delete/menuSubNum
         public async Task<IActionResult> Delete(long? id)
         {
             #region 登入 權限判斷
@@ -168,7 +169,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(5, "D"))
+            if (!CheckRole(menuSubNum, "D"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -190,7 +191,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(news);
         }
 
-        // POST: News/Delete/5
+        // POST: News/Delete/menuSubNum
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

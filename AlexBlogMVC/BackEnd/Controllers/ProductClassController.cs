@@ -11,6 +11,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class ProductClassController : GenericController
     {
+        int menuSubNum = 8;
 
         public ProductClassController(BlogMvcContext context) : base(context) { }
 
@@ -23,7 +24,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(8, "R"))
+            if (!CheckRole(menuSubNum, "R"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -45,7 +46,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(8, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -59,7 +60,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         // POST: ProductClass/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=31759menuSubNum.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductClassNum,ProductClassSort,ProductClassId,ProductClassName,ProductClassLevel,ProductClassPre,ProductClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] ProductClass productClass)
@@ -69,7 +70,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(8, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -94,7 +95,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(8, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -117,7 +118,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         // POST: ProductClass/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=31759menuSubNum.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("ProductClassNum,ProductClassSort,ProductClassId,ProductClassName,ProductClassLevel,ProductClassPre,ProductClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] ProductClass productClass)
@@ -127,7 +128,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(8, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -171,7 +172,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(8, "D"))
+            if (!CheckRole(menuSubNum, "D"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }

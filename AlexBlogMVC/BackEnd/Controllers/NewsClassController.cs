@@ -12,6 +12,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class NewsClassController : GenericController
     {
+        int menuSubNum = 6;
+
         public NewsClassController(BlogMvcContext context) : base(context) { }
 
 
@@ -23,7 +25,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(6, "R"))
+            if (!CheckRole(menuSubNum, "R"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -46,7 +48,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(6, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -68,7 +70,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(6, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -93,7 +95,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(6, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -125,7 +127,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(6, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -168,7 +170,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(6, "D"))
+            if (!CheckRole(menuSubNum, "D"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }

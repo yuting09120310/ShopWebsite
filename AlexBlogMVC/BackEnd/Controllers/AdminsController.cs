@@ -10,13 +10,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class AdminsController : GenericController
     {
+        int menuSubNum = 1;
+
         public AdminsController(BlogMvcContext context) : base(context){}
-
-
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            base.OnActionExecuting(context);
-        }
 
 
         // GET: Admins
@@ -25,9 +21,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(1, "R"))
+            if (!CheckRole(menuSubNum, "R"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -65,9 +61,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(1, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -91,7 +87,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         // POST: Admins/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=3menuSubNum7598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,Creator")] AdminViewModel adminViewModel)
@@ -99,9 +95,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(1, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -145,9 +141,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(1, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -206,7 +202,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         // POST: Admins/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=3menuSubNum7598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] AdminViewModel adminViewModel)
@@ -214,9 +210,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(1, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -271,9 +267,9 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(1, "D"))
+            if (!CheckRole(menuSubNum, "D"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }

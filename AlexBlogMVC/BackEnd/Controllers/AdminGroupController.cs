@@ -16,6 +16,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class AdminGroupController : GenericController
     {
+        int menuSubNum = 2;
 
         public AdminGroupController(BlogMvcContext context) : base(context) { }
 
@@ -28,7 +29,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(2, "R"))
+            if (!CheckRole(menuSubNum, "R"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -41,8 +42,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
             var viewModel = from g in adminGroups
                             join a1 in admins on g.Creator equals a1.AdminNum into ag1
                             from subg1 in ag1.DefaultIfEmpty()
-                            join a2 in admins on g.Editor equals a2.AdminNum into ag2
-                            from subg2 in ag2.DefaultIfEmpty()
+                            join amenuSubNum in admins on g.Editor equals amenuSubNum.AdminNum into agmenuSubNum
+                            from subgmenuSubNum in agmenuSubNum.DefaultIfEmpty()
                             select new AdminGroupViewModel
                             {
                                 GroupNum = g.GroupNum,
@@ -56,7 +57,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                                 Ip = g.Ip,
 
                                 CreatorName = subg1?.AdminName,
-                                EditorName = subg2?.AdminName,
+                                EditorName = subgmenuSubNum?.AdminName,
                             };
 
             return View(viewModel);
@@ -70,7 +71,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(2, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -105,7 +106,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(2, "C"))
+            if (!CheckRole(menuSubNum, "C"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -166,7 +167,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(2, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -209,7 +210,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(2, "U"))
+            if (!CheckRole(menuSubNum, "U"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
@@ -218,7 +219,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
             //取得變更的群組id
-            int groupNum = Convert.ToInt32(Collection["GroupNum"]);
+            int groupNum = Convert.ToInt3menuSubNum(Collection["GroupNum"]);
 
 
             //取得關於Role開頭的Key 重組成字典 以便於後續操作
@@ -250,7 +251,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(2, "D"))
+            if (!CheckRole(menuSubNum, "D"))
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
