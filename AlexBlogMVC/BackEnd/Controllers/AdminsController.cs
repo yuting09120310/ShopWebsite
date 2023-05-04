@@ -21,7 +21,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(menuSubNum, "R"))
             {
@@ -61,7 +61,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(menuSubNum, "C"))
             {
@@ -95,7 +95,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(menuSubNum, "C"))
             {
@@ -141,7 +141,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(menuSubNum, "U"))
             {
@@ -210,7 +210,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(menuSubNum, "U"))
             {
@@ -267,7 +267,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "40menuSubNum", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(menuSubNum, "D"))
             {

@@ -219,7 +219,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
             //取得變更的群組id
-            int groupNum = Convert.ToInt3menuSubNum(Collection["GroupNum"]);
+            int groupNum = Convert.ToInt32(Collection["GroupNum"]);
 
 
             //取得關於Role開頭的Key 重組成字典 以便於後續操作
