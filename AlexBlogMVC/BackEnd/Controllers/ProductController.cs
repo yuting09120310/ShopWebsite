@@ -16,43 +16,43 @@ namespace AlexBlogMVC.BackEnd.Controllers
         public ProductController(BlogMvcContext context) : base(context) { }
 
 
-        //當每個action被執行都會呼叫getMenu
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            getMenu();
-            base.OnActionExecuting(context);
-        }
-
-
         // GET: Product
         public async Task<IActionResult> Index()
         {
-              return _context.Products != null ? 
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(7, "R"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+            return _context.Products != null ? 
                           View(await _context.Products.ToListAsync()) :
                           Problem("Entity set 'BlogMvcContext.Products'  is null.");
         }
 
-        // GET: Product/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null || _context.Products == null)
-            {
-                return NotFound();
-            }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductNum == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
 
         // GET: Product/Create
         public IActionResult Create()
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(7, "C"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
             return View();
         }
 
@@ -63,6 +63,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductNum,Lang,ProductClass,ProductSort,ProductDepartment,ProductId,ProductTitle,ProductDescription,ProductContxt,ProductImg1,ProductImgUrl,ProductImgAlt,ProductImgList,ProductImgListAlt,ProductVideo1,ProductPublish,ProductPutTime,CreateTime,Creator,EditTime,Editor,Ip,ProductOffTime")] Product product)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(7, "C"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -75,6 +88,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(7, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (id == null || _context.Products == null)
             {
                 return NotFound();
@@ -95,6 +121,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("ProductNum,Lang,ProductClass,ProductSort,ProductDepartment,ProductId,ProductTitle,ProductDescription,ProductContxt,ProductImg1,ProductImgUrl,ProductImgAlt,ProductImgList,ProductImgListAlt,ProductVideo1,ProductPublish,ProductPutTime,CreateTime,Creator,EditTime,Editor,Ip,ProductOffTime")] Product product)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(7, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (id != product.ProductNum)
             {
                 return NotFound();
@@ -126,6 +165,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(7, "D"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (id == null || _context.Products == null)
             {
                 return NotFound();

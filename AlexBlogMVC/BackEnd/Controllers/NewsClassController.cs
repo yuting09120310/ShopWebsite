@@ -15,44 +15,44 @@ namespace AlexBlogMVC.BackEnd.Controllers
         public NewsClassController(BlogMvcContext context) : base(context) { }
 
 
-        //當每個action被執行都會呼叫getMenu
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            getMenu();
-            base.OnActionExecuting(context);
-        }
-
-
-
         // GET: NewsClass
         public async Task<IActionResult> Index()
         {
-              return _context.NewsClasses != null ? 
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "R"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
+
+            return _context.NewsClasses != null ? 
                           View(await _context.NewsClasses.ToListAsync()) :
                           Problem("Entity set 'BlogMvcContext.NewsClasses'  is null.");
         }
 
-        // GET: NewsClass/Details/5
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null || _context.NewsClasses == null)
-            {
-                return NotFound();
-            }
-
-            var newsClass = await _context.NewsClasses
-                .FirstOrDefaultAsync(m => m.NewsClassNum == id);
-            if (newsClass == null)
-            {
-                return NotFound();
-            }
-
-            return View(newsClass);
-        }
 
         // GET: NewsClass/Create
         public IActionResult Create()
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "C"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
             return View();
         }
 
@@ -63,6 +63,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NewsClassNum,NewsClassSort,NewsClassId,NewsClassName,NewsClassLevel,NewsClassPre,NewsClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] NewsClass newsClass)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "C"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(newsClass);
@@ -75,6 +88,18 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: NewsClass/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
             if (id == null || _context.NewsClasses == null)
             {
                 return NotFound();
@@ -95,6 +120,18 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("NewsClassNum,NewsClassSort,NewsClassId,NewsClassName,NewsClassLevel,NewsClassPre,NewsClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] NewsClass newsClass)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
             if (id != newsClass.NewsClassNum)
             {
                 return NotFound();
@@ -126,6 +163,18 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: NewsClass/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "D"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
             if (id == null || _context.NewsClasses == null)
             {
                 return NotFound();

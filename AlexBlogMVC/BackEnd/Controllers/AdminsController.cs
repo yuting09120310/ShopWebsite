@@ -22,16 +22,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(1, "R"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
-
+            #endregion
 
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
@@ -61,15 +62,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins/Create
         public async Task<IActionResult> Create()
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(1, "C"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
             //取得群組選單資料
             ViewBag.adminGroup = await _context.AdminGroups
@@ -93,10 +96,21 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,Creator")] AdminViewModel adminViewModel)
         {
-            
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(1, "C"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (ModelState.IsValid)
             {
-
                 Admin admin = new Admin()
                 {
                     AdminNum = adminViewModel.AdminNum,
@@ -113,6 +127,14 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+
+            //取得群組選單資料
+            ViewBag.adminGroup = await _context.AdminGroups
+                                    .Where(g => g.GroupPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
+                                    .ToListAsync();
+
             return View(adminViewModel);
         }
 
@@ -120,23 +142,25 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(1, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             //如果傳進來的id是空的 就返回找不到
             if (id == null)
             {
                 return NotFound();
             }
 
-
-            if (!LoginState())
-            {
-                return StatusCode(403, "還沒登入喔");
-            }
-            if (!CheckRole(1,"U"))
-            {
-                return StatusCode(403, "當前用戶沒有權限");
-            }
-            getMenu();
-            
 
             //進入DB搜尋資料
             var adminViewModel = (
@@ -187,14 +211,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] AdminViewModel adminViewModel)
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(1, "U"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
+            getMenu();
+            #endregion
 
             if (ModelState.IsValid)
             {
@@ -241,6 +268,19 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Admins/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(1, "D"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
+
             if (id == null || _context.Admins == null)
             {
                 return NotFound();

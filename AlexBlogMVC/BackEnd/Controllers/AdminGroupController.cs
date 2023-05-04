@@ -23,15 +23,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: AdminGroup
         public async Task<IActionResult> Index()
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return View("Error", new List<string> { "401" , "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" } );
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "R"))
             {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
@@ -63,15 +65,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: AdminGroup/Create
         public async Task<IActionResult> Create()
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "C"))
             {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
             AdminGroupViewModel agv = new AdminGroupViewModel()
             {
@@ -96,15 +100,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormCollection Collection)
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "C"))
             {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
 
             AdminGroup adminGroup = new AdminGroup()
@@ -155,15 +161,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 return NotFound();
             }
 
+            #region 登入 權限判斷
             if (!LoginState())
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "U"))
             {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
 
             AdminGroup adminGroup = await _context.AdminGroups.FindAsync(id);
@@ -196,14 +204,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, IFormCollection Collection)
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "U"))
             {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
+            getMenu();
+            #endregion
 
 
             //取得變更的群組id
@@ -234,15 +245,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: AdminGroup/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             if (!CheckRole(2, "D"))
             {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回上一頁", "AdminGroup", "Index" });
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
             if (id == null || _context.AdminGroups == null)
             {

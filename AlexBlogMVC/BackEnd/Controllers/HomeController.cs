@@ -15,16 +15,11 @@ namespace AlexBlogMVC.Controllers
         {
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
-            }
-            if (!CheckRole(1, "U"))
-            {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
             getMenu();
 
             return View();
         }
-
     }
 }

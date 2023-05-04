@@ -31,15 +31,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Banner
         public async Task<IActionResult> Index()
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(3, "R"))
+            if (!CheckRole(4, "R"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
             IEnumerable<BannerViewModel> viewModel = from a in _context.Banners
                                                     select new BannerViewModel
@@ -62,15 +64,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Banner/Create
         public IActionResult Create()
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(3, "C"))
+            if (!CheckRole(4, "C"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
 
             BannerViewModel viewModel = new BannerViewModel()
@@ -89,15 +93,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel, IFormFile FileData)
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(3, "C"))
+            if (!CheckRole(4, "C"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
             if (ModelState.IsValid)
             {
@@ -140,15 +146,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 return NotFound();
             }
 
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(3, "U"))
+            if (!CheckRole(4, "U"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
 
             //進入DB搜尋資料
@@ -197,15 +205,17 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel)
         {
+            #region 登入 權限判斷
             if (!LoginState())
             {
-                return StatusCode(403, "還沒登入喔");
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            if (!CheckRole(3, "U"))
+            if (!CheckRole(4, "U"))
             {
-                return StatusCode(403, "當前用戶沒有權限");
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
             getMenu();
+            #endregion
 
 
             if (ModelState.IsValid)
@@ -271,6 +281,18 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // GET: Banner/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(6, "D"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            getMenu();
+            #endregion
+
             if (id == null || _context.Banners == null)
             {
                 return NotFound();
