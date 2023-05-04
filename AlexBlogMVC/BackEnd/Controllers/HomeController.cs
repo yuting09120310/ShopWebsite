@@ -1,32 +1,30 @@
-﻿using AlexBlogMVC.Models;
+﻿using AlexBlogMVC.BackEnd.Controllers;
+using AlexBlogMVC.BackEnd.Models;
+using AlexBlogMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace AlexBlogMVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : GenericController
     {
-        private readonly ILogger<HomeController> _logger;
+        public HomeController(BlogMvcContext context) : base(context) { }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public IActionResult Index()
         {
+            if (!LoginState())
+            {
+                return StatusCode(403, "還沒登入喔");
+            }
+            if (!CheckRole(1, "U"))
+            {
+                return StatusCode(403, "當前用戶沒有權限");
+            }
+            getMenu();
+
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
