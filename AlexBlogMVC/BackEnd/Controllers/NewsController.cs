@@ -68,7 +68,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            return View();
+            NewsViewModel newsViewModel = new NewsViewModel()
+            {
+                CreatorName = "test"
+            };
+            return View(newsViewModel);
         }
 
         // POST: News/Create

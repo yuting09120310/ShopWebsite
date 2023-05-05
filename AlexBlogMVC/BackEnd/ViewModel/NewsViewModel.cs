@@ -63,5 +63,8 @@ namespace AlexBlogMVC.BackEnd.ViewModel
 
         [Display(Name = "下架時間")]
         public DateTime? NewsOffTime { get; set; }
+
+
+        public IFormFile? FileData { get; set; }
     }
 }
