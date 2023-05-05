@@ -41,6 +41,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+
             IEnumerable<BannerViewModel> viewModel = from a in _context.Banners
                                                     select new BannerViewModel
                                                     {

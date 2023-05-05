@@ -28,31 +28,31 @@
                         <table class="display" id="datatable">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.BannerNum)
                                     </th>
-                                    <th>
+                                    <th class="col-2">
                                         @Html.DisplayNameFor(model => model.BannerTitle)
                                     </th>
-                                    <th>
+                                    <th class="col-2">
                                         @Html.DisplayNameFor(model => model.BannerDescription)
                                     </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.BannerImg1)
                                     </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.BannerPutTime)
                                     </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.CreateTime)
                                     </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.EditTime)
                                     </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.BannerOffTime)
                                     </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.BannerPublish)
                                     </th>
                                     <th>處理</th>
@@ -87,7 +87,16 @@
                                             @Html.DisplayFor(modelItem => item.BannerOffTime)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.BannerPublish)
+                                            @{
+                                                if (@item.BannerPublish == true)
+                                                {
+                                                    <span>啟用</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>未啟用</span>
+                                                }
+                                            }
                                         </td>
                                         <td>
                                             <ul class="action">
