@@ -27,6 +27,14 @@
                     </div>
 
                     <div class="mb-3 row">
+                        <label asp-for="NewsClass" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(model => model.NewsClass, new SelectList(ViewBag.newsClass, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <span asp-validation-for="NewsClass" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
                         <label asp-for="NewsTitle" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9 col-form-label">
                             <input asp-for="NewsTitle" class="form-control" />

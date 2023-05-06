@@ -15,7 +15,12 @@ namespace AlexBlogMVC.BackEnd.Controllers
     {
         int menuSubNum = 5;
 
-        public NewsController(BlogMvcContext context) : base(context) { }
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public NewsController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) : base(context)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
 
 
 
@@ -54,7 +59,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
         // GET: News/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -70,8 +75,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             NewsViewModel newsViewModel = new NewsViewModel()
             {
-                CreatorName = "test"
+                CreatorName = HttpContext.Session.GetString("AdminName")
             };
+
+
+            //取得分類選單資料
+            ViewBag.newsClass = await _context.NewsClasses
+                                    .Where(g => g.NewsClassPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.NewsClassName, Value = g.NewsClassNum.ToString() })
+                                    .ToListAsync();
+
             return View(newsViewModel);
         }
 
@@ -80,7 +93,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317menuSubNum98.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NewsNum,Lang,NewsClass,NewsSort,NewsTitle,NewsDescription,NewsContxt,NewsImg1,NewsImgUrl,NewsImgAlt,NewsPublish,NewsViews,NewsPutTime,CreateTime,Creator,EditTime,Editor,Ip,NewsOffTime")] News news)
+        public async Task<IActionResult> Create(NewsViewModel newsViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -97,11 +110,42 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             if (ModelState.IsValid)
             {
+                //接收檔案
+                if (newsViewModel.FileData != null)
+                {
+                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News");
+                    if (!Directory.Exists(direPath))
+                    {
+                        Directory.CreateDirectory(direPath);
+                    }
+
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", newsViewModel.FileData.FileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await newsViewModel.FileData.CopyToAsync(fileStream);
+                    }
+                }
+
+                News news = new News()
+                {
+                    NewsClass= newsViewModel.NewsClass,
+                    NewsTitle = newsViewModel.NewsTitle,
+                    NewsDescription = newsViewModel.NewsDescription,
+                    NewsContxt = newsViewModel.NewsContxt,
+                    NewsImg1 = "News\\" + newsViewModel.FileData.FileName,
+                    NewsPublish = newsViewModel.NewsPublish,
+                    NewsPutTime = newsViewModel.NewsPutTime,
+                    NewsOffTime = newsViewModel.NewsOffTime,
+                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                };
+
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(news);
+
+            return View(newsViewModel);
         }
 
         // GET: News/Edit/menuSubNum
@@ -119,17 +163,56 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            if (id == null || _context.News == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var news = await _context.News.FindAsync(id);
-            if (news == null)
+
+            //進入DB搜尋資料
+            var newsViewModel = (
+                from news in _context.News
+                where news.NewsNum == id
+                select new NewsViewModel
+                {
+                    NewsNum = news.NewsNum,
+                    NewsTitle = news.NewsTitle,
+                    NewsClass = news.NewsClass,
+                    NewsDescription = news.NewsDescription,
+                    NewsContxt = news.NewsContxt,
+                    NewsPublish = news.NewsPublish,
+                    NewsPutTime = news.NewsPutTime,
+                    NewsOffTime = news.NewsOffTime,
+                    CreateTime = news.CreateTime,
+                    Creator = news.Creator,
+                    CreatorName = (from creator in _context.Admins where creator.AdminNum == news.Creator select creator.AdminName).FirstOrDefault(),
+                    EditTime = news.EditTime,
+                    Editor = news.Editor,
+                    EditorName = (from editor in _context.Admins where editor.AdminNum == news.Editor select editor.AdminName).FirstOrDefault(),
+                    Ip = news.Ip,
+                    NewsImg1 = news.NewsImg1,
+                }
+            ).FirstOrDefault();
+
+            if (newsViewModel.NewsImg1 != null)
+            {
+                newsViewModel.FileData = new FormFile(new MemoryStream(), 0, 0, newsViewModel.NewsImg1.ToString(), newsViewModel.NewsImg1.ToString());
+            }
+
+
+            if (newsViewModel == null)
             {
                 return NotFound();
             }
-            return View(news);
+
+
+            //取得分類選單資料
+            ViewBag.newsClass = await _context.NewsClasses
+                                    .Where(g => g.NewsClassPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.NewsClassName, Value = g.NewsClassNum.ToString() })
+                                    .ToListAsync();
+
+            return View(newsViewModel);
         }
 
         // POST: News/Edit/menuSubNum

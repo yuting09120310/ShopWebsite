@@ -90,7 +90,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel, IFormFile FileData)
+        public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -111,7 +111,13 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 //接收檔案
                 if (bannerViewModel.FileData != null)
                 {
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bannerViewModel.FileData.FileName);
+                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner");
+                    if (!Directory.Exists(direPath))
+                    {
+                        Directory.CreateDirectory(direPath);
+                    }
+
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner", bannerViewModel.FileData.FileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await bannerViewModel.FileData.CopyToAsync(fileStream);
@@ -128,7 +134,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                     BannerOffTime = bannerViewModel.BannerOffTime,
                     Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
                     CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                    BannerImg1 = bannerViewModel.FileData.FileName
+                    BannerImg1 = "Banner\\" + bannerViewModel.FileData.FileName
                 };
 
                 _context.Add(banner);
@@ -226,7 +232,13 @@ namespace AlexBlogMVC.BackEnd.Controllers
                     //接收檔案
                     if (bannerViewModel.FileData != null)
                     {
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", bannerViewModel.FileData.FileName);
+                        var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner");
+                        if (!Directory.Exists(direPath))
+                        {
+                            Directory.CreateDirectory(direPath);
+                        }
+
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner", bannerViewModel.FileData.FileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await bannerViewModel.FileData.CopyToAsync(fileStream);
@@ -252,11 +264,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
                     if (bannerViewModel.FileData != null)
                     {
-                        banner.BannerImg1 = bannerViewModel.FileData.FileName;
+                        banner.BannerImg1 = "Banner\\" +  bannerViewModel.FileData.FileName;
                     }
                     else
                     {
-                        banner.BannerImg1 = bannerViewModel.BannerImg1;
+                        banner.BannerImg1 = "Banner\\" + bannerViewModel.BannerImg1;
                     }
 
 

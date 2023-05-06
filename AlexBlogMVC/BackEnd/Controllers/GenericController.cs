@@ -18,7 +18,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // 呼叫每一個action都會執行
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            ViewBag.AdminName = HttpContext.Session.GetString("AdminName");
+            ViewBag.AdminName = "" + HttpContext.Session.GetString("AdminName");
         }
 
 
