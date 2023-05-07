@@ -210,7 +210,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel)
+        public async Task<IActionResult> Edit(BannerViewModel bannerViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())

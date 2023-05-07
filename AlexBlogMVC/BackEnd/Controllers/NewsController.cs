@@ -24,7 +24,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
 
 
-        // GET: News
         public async Task<IActionResult> Index()
         {
             #region 登入 權限判斷
@@ -58,7 +57,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        // GET: News/Create
         public async Task<IActionResult> Create()
         {
             #region 登入 權限判斷
@@ -88,9 +86,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(newsViewModel);
         }
 
-        // POST: News/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317menuSubNum98.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(NewsViewModel newsViewModel)
@@ -148,7 +144,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(newsViewModel);
         }
 
-        // GET: News/Edit/menuSubNum
+
         public async Task<IActionResult> Edit(long? id)
         {
             #region 登入 權限判斷
@@ -215,12 +211,10 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(newsViewModel);
         }
 
-        // POST: News/Edit/menuSubNum
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317menuSubNum98.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("NewsNum,Lang,NewsClass,NewsSort,NewsTitle,NewsDescription,NewsContxt,NewsImg1,NewsImgUrl,NewsImgAlt,NewsPublish,NewsViews,NewsPutTime,CreateTime,Creator,EditTime,Editor,Ip,NewsOffTime")] News news)
+        public async Task<IActionResult> Edit(long id, NewsViewModel newsViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -234,7 +228,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            if (id != news.NewsNum)
+            if (id != newsViewModel.NewsNum)
             {
                 return NotFound();
             }
@@ -243,12 +237,56 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 try
                 {
+                    //接收檔案
+                    if (newsViewModel.FileData != null)
+                    {
+                        var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News");
+                        if (!Directory.Exists(direPath))
+                        {
+                            Directory.CreateDirectory(direPath);
+                        }
+
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", newsViewModel.FileData.FileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await newsViewModel.FileData.CopyToAsync(fileStream);
+                        }
+                    }
+
+                    //將資料寫入db
+                    News news = new News()
+                    {
+                        NewsNum = newsViewModel.NewsNum,
+                        NewsTitle = newsViewModel.NewsTitle,
+                        NewsClass = newsViewModel.NewsClass,
+                        NewsDescription = newsViewModel.NewsDescription,
+                        NewsContxt = newsViewModel.NewsContxt,
+                        NewsPublish = newsViewModel.NewsPublish,
+                        NewsPutTime = newsViewModel.NewsPutTime,
+                        NewsOffTime = newsViewModel.NewsOffTime,
+                        CreateTime = newsViewModel.CreateTime,
+                        Creator = newsViewModel.Creator,
+                        EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                        Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                        Ip = newsViewModel.Ip,
+                    };
+
+                    if (newsViewModel.FileData != null)
+                    {
+                        news.NewsImg1 = "News\\" + newsViewModel.FileData.FileName;
+                    }
+                    else
+                    {
+                        news.NewsImg1 = "News\\" + newsViewModel.NewsImg1;
+                    }
+
+
                     _context.Update(news);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewsExists(news.NewsNum))
+                    if (!NewsExists(newsViewModel.NewsNum))
                     {
                         return NotFound();
                     }
@@ -259,10 +297,10 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(news);
+            return View(newsViewModel);
         }
 
-        // GET: News/Delete/menuSubNum
+
         public async Task<IActionResult> Delete(long? id)
         {
             #region 登入 權限判斷
@@ -292,7 +330,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(news);
         }
 
-        // POST: News/Delete/menuSubNum
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
