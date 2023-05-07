@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AlexBlogMVC.BackEnd.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlexBlogMVC.BackEnd.ViewModel
 {
@@ -58,7 +59,7 @@ namespace AlexBlogMVC.BackEnd.ViewModel
 
         [Display(Name = "編號ID")]
         public long? Editor { get; set; }
-        
+
         public string? Ip { get; set; }
 
         [Display(Name = "下架時間")]
@@ -66,5 +67,25 @@ namespace AlexBlogMVC.BackEnd.ViewModel
 
 
         public IFormFile? FileData { get; set; }
+
+
+
+
+
+        [Display(Name = "編號ID")]
+        public long NewsClassNum { get; set; }
+        [Display(Name = "排序")]
+        public long? NewsClassSort { get; set; }
+        [Display(Name = "類別")]
+        public string? NewsClassId { get; set; }
+        [Display(Name = "類別名稱")]
+        public string? NewsClassName { get; set; }
+
+        public long? NewsClassLevel { get; set; }
+
+        public long? NewsClassPre { get; set; }
+
+        [Display(Name = "狀態")]
+        public bool? NewsClassPublish { get; set; }
     }
 }

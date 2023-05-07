@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.NewsClass>
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.NewsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,81 +10,36 @@
 
 
 <div class="container-fluid">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-6">
-                <h3>消息類別列表</h3>
-            </div>
-            <div class="col-6">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">
-                            <svg class="stroke-icon">
-                                <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">消息管理</li>
-                    <li class="breadcrumb-item active">消息類別</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="container-fluid">
     <div class="row">
         <!-- Zero Configuration  Starts-->
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header pb-0 card-no-border">
-                    <h3>消息管理列表</h3>
+                    <div class="title d-flex">
+                        <div class="col-11"><h3>消息類別列表</h3></div>
+                        <div class="col-1 text-end"><a asp-controller="News" asp-action="Create" class="btn btn-primary btn-sm">新增</a></div>
+                    </div>
                     <hr />
-                    @*                    <span>DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function:<code>$().DataTable();</code>.</span><span>Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</span>
-                    *@
                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="display" id="datatable">
                             <thead>
                                 <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NewsClassSort)
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsClassNum)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NewsClassId)
-                                    </th>
-                                    <th>
+                                    <th class="col-2">
                                         @Html.DisplayNameFor(model => model.NewsClassName)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NewsClassLevel)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NewsClassPre)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.NewsClassPublish)
-                                    </th>
-                                    <th>
+                                    <th class="col-1">
                                         @Html.DisplayNameFor(model => model.CreateTime)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Creator)
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsClassPublish)
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EditTime)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Editor)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Ip)
-                                    </th>
-                                    <th></th>
+                                    <th class="col-1">處理</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,37 +47,26 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.NewsClassSort)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NewsClassId)
+                                            @Html.DisplayFor(modelItem => item.NewsClassNum)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.NewsClassName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.NewsClassLevel)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NewsClassPre)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NewsClassPublish)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.CreateTime)
                                         </td>
+                                       
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Creator)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EditTime)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Editor)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Ip)
+                                            @{
+                                                if (@item.NewsPublish == true)
+                                                {
+                                                    <span>啟用</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>未啟用</span>
+                                                }
+                                            }
                                         </td>
                                         <td>
                                             <ul class="action">
