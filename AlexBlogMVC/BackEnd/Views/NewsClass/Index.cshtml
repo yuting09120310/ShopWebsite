@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.NewsViewModel>
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.NewsClassViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -58,7 +58,7 @@
                                        
                                         <td>
                                             @{
-                                                if (@item.NewsPublish == true)
+                                                if (@item.NewsClassPublish == true)
                                                 {
                                                     <span>啟用</span>
                                                 }

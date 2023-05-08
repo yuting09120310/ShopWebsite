@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
+using AlexBlogMVC.BackEnd.ViewModel;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
@@ -32,11 +33,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            IEnumerable<NewsClassViewModel> viewModel = from n in _context.NewsClasses
+                                                   select new NewsClassViewModel
+                                                   {
+                                                       NewsClassNum = n.NewsClassNum,
+                                                       NewsClassName = n.NewsClassName,
+                                                       CreateTime = n.CreateTime,
+                                                       NewsClassPublish = n.NewsClassPublish
+                                                   };
 
-
-            return _context.NewsClasses != null ? 
-                          View(await _context.NewsClasses.ToListAsync()) :
-                          Problem("Entity set 'BlogMvcContext.NewsClasses'  is null.");
+            return View(viewModel);
         }
 
 

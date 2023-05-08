@@ -106,6 +106,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             if (ModelState.IsValid)
             {
+                string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".jpg";
+
                 //接收檔案
                 if (newsViewModel.FileData != null)
                 {
@@ -115,7 +117,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
                         Directory.CreateDirectory(direPath);
                     }
 
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", newsViewModel.FileData.FileName);
+
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", fileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await newsViewModel.FileData.CopyToAsync(fileStream);
@@ -128,7 +131,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
                     NewsTitle = newsViewModel.NewsTitle,
                     NewsDescription = newsViewModel.NewsDescription,
                     NewsContxt = newsViewModel.NewsContxt,
-                    NewsImg1 = "News\\" + newsViewModel.FileData.FileName,
+                    NewsImg1 = fileName,
                     NewsPublish = newsViewModel.NewsPublish,
                     NewsPutTime = newsViewModel.NewsPutTime,
                     NewsOffTime = newsViewModel.NewsOffTime,
@@ -237,6 +240,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 try
                 {
+                    string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".jpg";
+
                     //接收檔案
                     if (newsViewModel.FileData != null)
                     {
@@ -246,7 +251,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
                             Directory.CreateDirectory(direPath);
                         }
 
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", newsViewModel.FileData.FileName);
+
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", fileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await newsViewModel.FileData.CopyToAsync(fileStream);
@@ -273,11 +279,11 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
                     if (newsViewModel.FileData != null)
                     {
-                        news.NewsImg1 = "News\\" + newsViewModel.FileData.FileName;
+                        news.NewsImg1 = fileName;
                     }
                     else
                     {
-                        news.NewsImg1 = "News\\" + newsViewModel.NewsImg1;
+                        news.NewsImg1 = newsViewModel.NewsImg1;
                     }
 
 
