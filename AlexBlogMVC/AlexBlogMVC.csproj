@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackEnd\Attributes\" />
+    <Folder Include="BackEnd\Middleware\" />
+  </ItemGroup>
+
 </Project>

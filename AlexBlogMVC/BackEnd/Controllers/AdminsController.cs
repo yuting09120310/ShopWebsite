@@ -1,5 +1,4 @@
-﻿using AlexBlogMVC.BackEnd.Attributes;
-using AlexBlogMVC.BackEnd.Models;
+﻿using AlexBlogMVC.BackEnd.Models;
 using AlexBlogMVC.BackEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
-using AlexBlogMVC.BackEnd.Attributes;
 using AlexBlogMVC.BackEnd.ViewModel;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Data;
