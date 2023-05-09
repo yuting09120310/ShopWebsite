@@ -18,7 +18,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         public NewsClassController(BlogMvcContext context) : base(context) { }
 
 
-        // GET: NewsClass
         public async Task<IActionResult> Index()
         {
             #region 登入 權限判斷
@@ -46,7 +45,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
         }
 
 
-        // GET: NewsClass/Create
         public IActionResult Create()
         {
             #region 登入 權限判斷
@@ -61,15 +59,18 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            return View();
+            NewsClassViewModel newsClassViewModel = new NewsClassViewModel()
+            {
+                CreatorName = HttpContext.Session.GetString("AdminName")
+            };
+
+            return View(newsClassViewModel);
         }
 
-        // POST: NewsClass/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NewsClassNum,NewsClassSort,NewsClassId,NewsClassName,NewsClassLevel,NewsClassPre,NewsClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] NewsClass newsClass)
+        public async Task<IActionResult> Create(NewsClassViewModel newsClassViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -86,14 +87,25 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             if (ModelState.IsValid)
             {
+
+                NewsClass newsClass = new NewsClass
+                {
+                    NewsClassName = newsClassViewModel.NewsClassName,
+                    NewsClassSort = newsClassViewModel.NewsClassSort,
+                    NewsClassPublish = newsClassViewModel.NewsClassPublish,
+                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                };
+
                 _context.Add(newsClass);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(newsClass);
+
+            return View(newsClassViewModel);
         }
 
-        // GET: NewsClass/Edit/5
+
         public async Task<IActionResult> Edit(long? id)
         {
             #region 登入 權限判斷
@@ -108,7 +120,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            if (id == null || _context.NewsClasses == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -118,15 +130,40 @@ namespace AlexBlogMVC.BackEnd.Controllers
             {
                 return NotFound();
             }
-            return View(newsClass);
+
+
+            //進入DB搜尋資料
+            var newsClassViewModel = (
+                from newsClasses in _context.NewsClasses
+                where newsClasses.NewsClassNum == id
+                select new NewsClassViewModel
+                {
+                    NewsClassNum = newsClasses.NewsClassNum,
+                    NewsClassSort = newsClasses.NewsClassSort,
+                    NewsClassId= newsClasses.NewsClassId,
+                    NewsClassName = newsClasses.NewsClassName,
+                    NewsClassLevel = newsClasses.NewsClassLevel,
+                    NewsClassPre = newsClasses.NewsClassPre,
+                    NewsClassPublish = newsClasses.NewsClassPublish,
+
+                    CreateTime = newsClasses.CreateTime,
+                    Creator = newsClasses.Creator,
+                    CreatorName = (from creator in _context.Admins where creator.AdminNum == newsClasses.Creator select creator.AdminName).FirstOrDefault(),
+                    EditTime = newsClasses.EditTime,
+                    Editor = newsClasses.Editor,
+                    EditorName = (from editor in _context.Admins where editor.AdminNum == newsClasses.Editor select editor.AdminName).FirstOrDefault(),
+                    Ip = newsClasses.Ip,
+                }
+            ).FirstOrDefault();
+
+
+            return View(newsClassViewModel);
         }
 
-        // POST: NewsClass/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("NewsClassNum,NewsClassSort,NewsClassId,NewsClassName,NewsClassLevel,NewsClassPre,NewsClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] NewsClass newsClass)
+        public async Task<IActionResult> Edit(NewsClassViewModel newsClassViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -140,21 +177,35 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            if (id != newsClass.NewsClassNum)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //將資料寫入db
+                    NewsClass newsClass = new NewsClass()
+                    {
+                        NewsClassNum = newsClassViewModel.NewsClassNum,
+                        NewsClassSort = newsClassViewModel.NewsClassSort,
+                        NewsClassId = newsClassViewModel.NewsClassId,
+                        NewsClassName = newsClassViewModel.NewsClassName,
+                        NewsClassLevel = newsClassViewModel.NewsClassLevel,
+                        NewsClassPre = newsClassViewModel.NewsClassPre,
+                        NewsClassPublish = newsClassViewModel.NewsClassPublish,
+                        CreateTime = newsClassViewModel.CreateTime,
+                        Creator = newsClassViewModel.Creator,
+                        EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                        Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                        Ip = newsClassViewModel.Ip,
+                    };
+
+
                     _context.Update(newsClass);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewsClassExists(newsClass.NewsClassNum))
+                    if (!NewsClassExists(newsClassViewModel.NewsClassNum))
                     {
                         return NotFound();
                     }
@@ -165,10 +216,10 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(newsClass);
+            return View(newsClassViewModel);
         }
 
-        // GET: NewsClass/Delete/5
+
         public async Task<IActionResult> Delete(long? id)
         {
             #region 登入 權限判斷
@@ -198,7 +249,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             return View(newsClass);
         }
 
-        // POST: NewsClass/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
@@ -216,6 +267,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool NewsClassExists(long id)
         {
