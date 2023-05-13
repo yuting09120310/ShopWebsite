@@ -7,13 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
+using AlexBlogMVC.BackEnd.ViewModel;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
     public class ProductController : GenericController
     {
 
-        public ProductController(BlogMvcContext context) : base(context) { }
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public ProductController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) : base(context)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
 
 
         // GET: Product
@@ -31,15 +37,29 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            return _context.Products != null ? 
-                          View(await _context.Products.ToListAsync()) :
-                          Problem("Entity set 'BlogMvcContext.Products'  is null.");
+
+            IEnumerable<ProductViewModel> viewModel = from n in _context.Products
+                                                   select new ProductViewModel
+                                                   {
+                                                       ProductNum = n.ProductNum,
+                                                       ProductTitle = n.ProductTitle,
+                                                       ProductDescription = n.ProductDescription,
+                                                       ProductImg1 = n.ProductImg1,
+                                                       ProductPutTime = n.ProductPutTime,
+                                                       CreateTime = n.CreateTime,
+                                                       EditTime = n.EditTime,
+                                                       ProductOffTime = n.ProductOffTime,
+                                                       ProductPublish = n.ProductPublish
+                                                   };
+
+
+            return View(viewModel);
         }
 
 
 
         // GET: Product/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -53,7 +73,20 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            return View();
+            ProductViewModel newsViewModel = new ProductViewModel()
+            {
+                CreatorName = HttpContext.Session.GetString("AdminName")
+            };
+
+
+            //取得分類選單資料
+            ViewBag.newsClass = await _context.ProductClasses
+                                    .Where(g => g.ProductClassPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.ProductClassName, Value = g.ProductClassNum.ToString() })
+                                    .ToListAsync();
+
+
+            return View(newsViewModel);
         }
 
         // POST: Product/Create
@@ -61,7 +94,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductNum,Lang,ProductClass,ProductSort,ProductDepartment,ProductId,ProductTitle,ProductDescription,ProductContxt,ProductImg1,ProductImgUrl,ProductImgAlt,ProductImgList,ProductImgListAlt,ProductVideo1,ProductPublish,ProductPutTime,CreateTime,Creator,EditTime,Editor,Ip,ProductOffTime")] Product product)
+        public async Task<IActionResult> Create(ProductViewModel productViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -78,11 +111,45 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             if (ModelState.IsValid)
             {
+                string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".jpg";
+
+                //接收檔案
+                if (productViewModel.FileData != null)
+                {
+                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product");
+                    if (!Directory.Exists(direPath))
+                    {
+                        Directory.CreateDirectory(direPath);
+                    }
+
+
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product", fileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await productViewModel.FileData.CopyToAsync(fileStream);
+                    }
+                }
+
+                Product product = new Product()
+                {
+                    ProductClass = productViewModel.ProductClass,
+                    ProductTitle = productViewModel.ProductTitle,
+                    ProductDescription = productViewModel.ProductDescription,
+                    ProductContxt = productViewModel.ProductContxt,
+                    ProductImg1 = fileName,
+                    ProductPublish = productViewModel.ProductPublish,
+                    ProductPutTime = productViewModel.ProductPutTime,
+                    ProductOffTime = productViewModel.ProductOffTime,
+                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                };
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+
+            return View(productViewModel);
         }
 
         // GET: Product/Edit/5
@@ -101,17 +168,56 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #endregion
 
 
-            if (id == null || _context.Products == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            //進入DB搜尋資料
+            var productViewModel = (
+                from products in _context.Products
+                where products.ProductNum == id
+                select new ProductViewModel
+                {
+                    ProductNum = products.ProductNum,
+                    ProductTitle = products.ProductTitle,
+                    ProductClass = products.ProductClass,
+                    ProductDescription = products.ProductDescription,
+                    ProductContxt = products.ProductContxt,
+                    ProductPublish = products.ProductPublish,
+                    ProductPutTime = products.ProductPutTime,
+                    ProductOffTime = products.ProductOffTime,
+                    CreateTime = products.CreateTime,
+                    Creator = products.Creator,
+                    CreatorName = (from creator in _context.Admins where creator.AdminNum == products.Creator select creator.AdminName).FirstOrDefault(),
+                    EditTime = products.EditTime,
+                    Editor = products.Editor,
+                    EditorName = (from editor in _context.Admins where editor.AdminNum == products.Editor select editor.AdminName).FirstOrDefault(),
+                    Ip = products.Ip,
+                    ProductImg1 = products.ProductImg1,
+                }
+            ).FirstOrDefault();
+
+            if (productViewModel.ProductImg1 != null)
+            {
+                productViewModel.FileData = new FormFile(new MemoryStream(), 0, 0, productViewModel.ProductImg1.ToString(), productViewModel.ProductImg1.ToString());
+            }
+
+
+            if (productViewModel == null)
             {
                 return NotFound();
             }
-            return View(product);
+
+
+            //取得分類選單資料
+            ViewBag.newsClass = await _context.ProductClasses
+                                    .Where(g => g.ProductClassPublish == true)
+                                    .Select(g => new SelectListItem { Text = g.ProductClassName, Value = g.ProductClassNum.ToString() })
+                                    .ToListAsync();
+
+
+            return View(productViewModel);
         }
 
         // POST: Product/Edit/5
@@ -119,7 +225,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("ProductNum,Lang,ProductClass,ProductSort,ProductDepartment,ProductId,ProductTitle,ProductDescription,ProductContxt,ProductImg1,ProductImgUrl,ProductImgAlt,ProductImgList,ProductImgListAlt,ProductVideo1,ProductPublish,ProductPutTime,CreateTime,Creator,EditTime,Editor,Ip,ProductOffTime")] Product product)
+        public async Task<IActionResult> Edit(ProductViewModel productViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -134,21 +240,63 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #endregion
 
 
-            if (id != product.ProductNum)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".jpg";
+
+                    //接收檔案
+                    if (productViewModel.FileData != null)
+                    {
+                        var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product");
+                        if (!Directory.Exists(direPath))
+                        {
+                            Directory.CreateDirectory(direPath);
+                        }
+
+
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product", fileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await productViewModel.FileData.CopyToAsync(fileStream);
+                        }
+                    }
+
+                    //將資料寫入db
+                    Product product = new Product()
+                    {
+                        ProductNum = productViewModel.ProductNum,
+                        ProductTitle = productViewModel.ProductTitle,
+                        ProductClass = productViewModel.ProductClass,
+                        ProductDescription = productViewModel.ProductDescription,
+                        ProductContxt = productViewModel.ProductContxt,
+                        ProductPublish = productViewModel.ProductPublish,
+                        ProductPutTime = productViewModel.ProductPutTime,
+                        ProductOffTime = productViewModel.ProductOffTime,
+                        CreateTime = productViewModel.CreateTime,
+                        Creator = productViewModel.Creator,
+                        EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                        Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                        Ip = productViewModel.Ip,
+                    };
+
+                    if (productViewModel.FileData != null)
+                    {
+                        product.ProductImg1 = fileName;
+                    }
+                    else
+                    {
+                        product.ProductImg1 = productViewModel.ProductImg1;
+                    }
+
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductNum))
+                    if (!ProductExists(productViewModel.ProductNum))
                     {
                         return NotFound();
                     }
@@ -159,7 +307,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+
+            return View(productViewModel);
         }
 
         // GET: Product/Delete/5

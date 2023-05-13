@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.BackEnd.Models;
+using AlexBlogMVC.BackEnd.ViewModel;
 
 namespace AlexBlogMVC.BackEnd.Controllers
 {
@@ -31,10 +32,16 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            IEnumerable<ProductClassViewModel> viewModel = from n in _context.ProductClasses
+                                                           select new ProductClassViewModel
+                                                           {
+                                                               ProductClassNum = n.ProductClassNum,
+                                                               ProductClassName = n.ProductClassName,
+                                                               CreateTime = n.CreateTime,
+                                                               ProductClassPublish = n.ProductClassPublish
+                                                           };
 
-            return _context.ProductClasses != null ? 
-                          View(await _context.ProductClasses.ToListAsync()) :
-                          Problem("Entity set 'BlogMvcContext.ProductClasses'  is null.");
+            return View(viewModel);
         }
 
 
@@ -53,8 +60,12 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            ProductClassViewModel productClassViewModel = new ProductClassViewModel()
+            {
+                CreatorName = HttpContext.Session.GetString("AdminName")
+            };
 
-            return View();
+            return View(productClassViewModel);
         }
 
 
@@ -63,7 +74,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=31759menuSubNum.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductClassNum,ProductClassSort,ProductClassId,ProductClassName,ProductClassLevel,ProductClassPre,ProductClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] ProductClass productClass)
+        public async Task<IActionResult> Create(ProductClassViewModel productClassViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -80,11 +91,21 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
             if (ModelState.IsValid)
             {
+                ProductClass productClass = new ProductClass
+                {
+                    ProductClassName = productClassViewModel.ProductClassName,
+                    ProductClassSort = productClassViewModel.ProductClassSort,
+                    ProductClassPublish = productClassViewModel.ProductClassPublish,
+                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                };
+
                 _context.Add(productClass);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productClass);
+
+            return View(productClassViewModel);
         }
 
         // GET: ProductClass/Edit/5
@@ -103,17 +124,37 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #endregion
 
 
-            if (id == null || _context.ProductClasses == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var productClass = await _context.ProductClasses.FindAsync(id);
-            if (productClass == null)
-            {
-                return NotFound();
-            }
-            return View(productClass);
+            //進入DB搜尋資料
+            var productClassViewModel = (
+                from productClasses in _context.ProductClasses
+                where productClasses.ProductClassNum == id
+                select new ProductClassViewModel
+                {
+                    ProductClassPublish = productClasses.ProductClassPublish,
+                    ProductClassSort = productClasses.ProductClassSort,
+                    ProductClassId = productClasses.ProductClassId,
+                    ProductClassName = productClasses.ProductClassName,
+                    ProductClassLevel = productClasses.ProductClassLevel,
+                    ProductClassPre = productClasses.ProductClassPre,
+                    ProductClassNum = productClasses.ProductClassNum,
+
+                    CreateTime = productClasses.CreateTime,
+                    Creator = productClasses.Creator,
+                    CreatorName = (from creator in _context.Admins where creator.AdminNum == productClasses.Creator select creator.AdminName).FirstOrDefault(),
+                    EditTime = productClasses.EditTime,
+                    Editor = productClasses.Editor,
+                    EditorName = (from editor in _context.Admins where editor.AdminNum == productClasses.Editor select editor.AdminName).FirstOrDefault(),
+                    Ip = productClasses.Ip,
+                }
+            ).FirstOrDefault();
+
+
+            return View(productClassViewModel);
         }
 
         // POST: ProductClass/Edit/5
@@ -121,7 +162,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=31759menuSubNum.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("ProductClassNum,ProductClassSort,ProductClassId,ProductClassName,ProductClassLevel,ProductClassPre,ProductClassPublish,CreateTime,Creator,EditTime,Editor,Ip")] ProductClass productClass)
+        public async Task<IActionResult> Edit(ProductClassViewModel productClassViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -136,21 +177,34 @@ namespace AlexBlogMVC.BackEnd.Controllers
             #endregion
 
 
-            if (id != productClass.ProductClassNum)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(productClass);
+                    //將資料寫入db
+                    ProductClass newsClass = new ProductClass()
+                    {
+                        ProductClassNum = productClassViewModel.ProductClassNum,
+                        ProductClassSort = productClassViewModel.ProductClassSort,
+                        ProductClassId = productClassViewModel.ProductClassId,
+                        ProductClassName = productClassViewModel.ProductClassName,
+                        ProductClassLevel = productClassViewModel.ProductClassLevel,
+                        ProductClassPre = productClassViewModel.ProductClassPre,
+                        ProductClassPublish = productClassViewModel.ProductClassPublish,
+                        CreateTime = productClassViewModel.CreateTime,
+                        Creator = productClassViewModel.Creator,
+                        EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                        Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
+                        Ip = productClassViewModel.Ip,
+                    };
+
+
+                    _context.Update(newsClass);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductClassExists(productClass.ProductClassNum))
+                    if (!ProductClassExists(productClassViewModel.ProductClassNum))
                     {
                         return NotFound();
                     }
@@ -161,7 +215,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(productClass);
+
+            return View(productClassViewModel);
         }
 
         // GET: ProductClass/Delete/5

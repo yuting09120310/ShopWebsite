@@ -217,7 +217,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, NewsViewModel newsViewModel)
+        public async Task<IActionResult> Edit(NewsViewModel newsViewModel)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -230,11 +230,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            if (id != newsViewModel.NewsNum)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.Product>
+﻿@model IEnumerable<AlexBlogMVC.BackEnd.ViewModel.ProductViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,156 +8,137 @@
 <!-- 麵包屑及標題-->
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Lang)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductClass)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductSort)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDepartment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductContxt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImg1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImgUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImgAlt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImgList)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImgListAlt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductVideo1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPublish)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPutTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EditTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Editor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductOffTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductClass)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductSort)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDepartment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductContxt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImg1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImgUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImgAlt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImgList)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductImgListAlt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductVideo1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPublish)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPutTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EditTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Editor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductOffTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductNum">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductNum">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductNum">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Zero Configuration  Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pb-0 card-no-border">
+                    <div class="title d-flex">
+                        <div class="col-11"><h3>產品列表</h3></div>
+                        <div class="col-1 text-end"><a asp-controller="Product" asp-action="Create" class="btn btn-primary btn-sm">新增</a></div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.ProductNum)
+                                    </th>
+                                    <th class="col-2">
+                                        @Html.DisplayNameFor(model => model.ProductTitle)
+                                    </th>
+                                    <th class="col-2">
+                                        @Html.DisplayNameFor(model => model.ProductDescription)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.ProductImg1)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.ProductPutTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.CreateTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.EditTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.ProductOffTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.ProductPublish)
+                                    </th>
+                                    <th class="col-1">處理</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductNum)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                                        </td>
+                                        <td>
+                                            <img style="max-width:100px" src="@Url.Content("~/uploads/Product/" + item.ProductImg1)" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductPutTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreateTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EditTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductOffTime)
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (@item.ProductPublish == true)
+                                                {
+                                                    <span>啟用</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>未啟用</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            <ul class="action">
+                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.ProductNum"><i class="icon-pencil-alt"></i></a></li>
+                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.ProductNum"><i class="icon-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('#datatable').DataTable({
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 項結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                "infoPostFix": "",
+                "search": "搜尋:",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
+                },
+                "aria": {
+                    "sortAscending": ": 升冪排列",
+                    "sortDescending": ": 降冪排列"
+                }
+            }
+        });
+    });
+</script>
