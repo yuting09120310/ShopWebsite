@@ -13,11 +13,16 @@
     <div class="card-header">
         <h5>編輯產品類別</h5>
     </div>
-    <form asp-action="Create">
+    <form asp-action="edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="card-body">
             <div class="row">
                 <div class="col">
+
+                    <input type="hidden" asp-for="CreateTime" />
+                    <input type="hidden" asp-for="Creator" />
+                    <input type="hidden" asp-for="ProductClassNum" />
+                    <input type="hidden" asp-for="Ip" />
 
                     <div class="mb-3 row">
                         <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>

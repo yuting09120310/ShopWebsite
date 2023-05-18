@@ -258,7 +258,7 @@ function translate(tnum) {
 }
 
 var trans = [{
-        en: 'General',
+        en: '功能選單',
         pt: 'Geral',
         es: 'Generalo',
         fr: 'GÃ©nÃ©rale',
