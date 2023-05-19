@@ -9,21 +9,18 @@ using AlexBlogMVC.BackEnd.Models;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
-    public class NewsPageController : Controller
+    public class NewsPageController : GenericController
     {
-        private readonly BlogMvcContext _context;
 
-        public NewsPageController(BlogMvcContext context)
-        {
-            _context = context;
-        }
+        public NewsPageController(BlogMvcContext context) : base(context) { }
+
 
         // GET: News
         public async Task<IActionResult> Index()
         {
-              return _context.News != null ? 
-                          View(await _context.News.ToListAsync()) :
-                          Problem("Entity set 'BlogMvcContext.News'  is null.");
+            List<News> news = await _context.News.ToListAsync();
+
+            return View(news);
         }
 
         // GET: News/Details/5
