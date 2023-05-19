@@ -35,8 +35,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            ViewBag.PageTitle = "群組列表";
-
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
 
@@ -78,8 +76,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            ViewBag.PageTitle = "新增群組";
 
             AdminGroupViewModel agv = new AdminGroupViewModel()
             {
@@ -171,9 +167,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            ViewBag.PageTitle = "編輯群組";
-
 
             AdminGroup adminGroup = await _context.AdminGroups.FindAsync(id);
             if (adminGroup == null)

@@ -29,8 +29,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            ViewBag.PageTitle = "帳號列表";
-
             var admins = await _context.Admins.ToListAsync();
             var adminGroups = await _context.AdminGroups.ToListAsync();
 
@@ -70,8 +68,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            ViewBag.PageTitle = "新增帳號";
 
             //取得群組選單資料
             ViewBag.adminGroup = await _context.AdminGroups
@@ -152,8 +148,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            ViewBag.PageTitle = "編輯帳號";
 
             //如果傳進來的id是空的 就返回找不到
             if (id == null)

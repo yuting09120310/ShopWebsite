@@ -29,6 +29,9 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationFormats.Add("/BackEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/BackEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
 
+    options.ViewLocationFormats.Add("/FrontEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+
 });
 
 builder.Services.AddDbContext<BlogMvcContext>();
@@ -52,7 +55,12 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
+    name: "admin",
     pattern: "/admin/{controller=Login}/{action=Index}/{id?}");
+
+
+app.MapControllerRoute(
+    name: "front",
+    pattern: "/front/{controller=NewsPage}/{action=Index}/{id?}");
 
 app.Run();

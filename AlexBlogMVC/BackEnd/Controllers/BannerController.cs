@@ -41,8 +41,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            ViewBag.PageTitle = "廣告列表";
-
             IEnumerable<BannerViewModel> viewModel = from a in _context.Banners
                                                     select new BannerViewModel
                                                     {

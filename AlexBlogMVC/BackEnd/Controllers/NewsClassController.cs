@@ -32,8 +32,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
-            ViewBag.PageTitle = "消息類別列表";
-
             IEnumerable<NewsClassViewModel> viewModel = from n in _context.NewsClasses
                                                    select new NewsClassViewModel
                                                    {
@@ -60,8 +58,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            ViewBag.PageTitle = "新增消息類別";
 
             NewsClassViewModel newsClassViewModel = new NewsClassViewModel()
             {
@@ -123,8 +119,6 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
-
-            ViewBag.PageTitle = "編輯消息類別";
 
             if (id == null)
             {
