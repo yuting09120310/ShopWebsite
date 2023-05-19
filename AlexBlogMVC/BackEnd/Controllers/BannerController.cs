@@ -41,6 +41,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            ViewBag.PageTitle = "廣告列表";
 
             IEnumerable<BannerViewModel> viewModel = from a in _context.Banners
                                                     select new BannerViewModel
@@ -75,6 +76,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            ViewBag.PageTitle = "新增廣告";
 
             BannerViewModel viewModel = new BannerViewModel()
             {
@@ -160,6 +162,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            ViewBag.PageTitle = "編輯廣告";
 
             if (id == null)
             {

@@ -37,6 +37,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            ViewBag.PageTitle = "產品列表";
 
             IEnumerable<ProductViewModel> viewModel = from n in _context.Products
                                                    select new ProductViewModel
@@ -72,6 +73,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
             }
             getMenu();
             #endregion
+
+            ViewBag.PageTitle = "新增產品";
 
             ProductViewModel newsViewModel = new ProductViewModel()
             {
@@ -167,6 +170,7 @@ namespace AlexBlogMVC.BackEnd.Controllers
             getMenu();
             #endregion
 
+            ViewBag.PageTitle = "編輯產品";
 
             if (id == null)
             {
