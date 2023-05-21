@@ -18,6 +18,8 @@ namespace AlexBlogMVC.BackEnd.Controllers
         [HttpPost]
         public IActionResult Index(string account, string password)
         {
+            getMenu();
+
             Admin? admin = _context.Admins.Where(x => x.AdminAcc == account && x.AdminPwd == password).FirstOrDefault();
 
             if(admin == null)

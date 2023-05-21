@@ -43,7 +43,7 @@ namespace AlexBlogMVC.BackEnd.ViewModel
         public DateTime? NewsPutTime { get; set; }
 
         [Display(Name = "建立時間")]
-        public DateTime? CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
 
         [Display(Name = "新增者ID")]
         public long? Creator { get; set; }

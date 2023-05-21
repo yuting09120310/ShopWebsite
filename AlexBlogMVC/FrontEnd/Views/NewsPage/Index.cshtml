@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AlexBlogMVC.BackEnd.Models.News>
+﻿@model IEnumerable<AlexBlogMVC.FrontEnd.ViewModel.NewsPageViewModel>
 
 @{
     ViewData["Title"] = "最新消息";
@@ -18,10 +18,10 @@
                                     </div>
                                     <div class="content-column pull-left col-lg-6 col-sm-6 col-md-5 col-xs-12">
                                         <div class="inner">
-                                            <div class="info"><a href="#" class="cat-name">Agency</a>     <span class="date">@item.CreateTime</span></div>
-                                            <h3><a href="blog-single.html">@item.NewsTitle</a></h3>
-                                            <div class="text">@item.NewsDescription ..</div>
-                                            <a asp-action="Details" asp-route-id="@item.NewsNum" class="theme-btn btn-style-two">Know More</a>
+                                            <div class="info"><a href="#" class="cat-name">@item.NewsType</a>     <span class="date">@item.CreateTime</span></div>
+                                            <h3><a href="blog-single.html">@item.Title</a></h3>
+                                            <div class="text">@item.Description ..</div>
+                                            <a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id" class="theme-btn btn-style-two">閱讀更多</a>
                                         </div>
                                     </div>
                                 </div>

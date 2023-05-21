@@ -1,8 +1,7 @@
-﻿@model AlexBlogMVC.BackEnd.Models.News
+﻿@model AlexBlogMVC.FrontEnd.ViewModel.NewsPageViewModel
 
 @{
-    ViewData["Title"] = "Details";
-    string data = Model.NewsContxt as String;
+    ViewData["Title"] = @Model.Title;
 }
 
 
@@ -18,12 +17,12 @@
                 <a href="#" class="pinterest-share"><span class="fa fa-pinterest-p"></span> Pinterest</a>
             </div>
 
-            <h2 class="post-title">@Model.NewsTitle</h2>
-            <div class="info"><a href="#" class="cat-name">Agency</a>     <span class="date">@Model.CreateTime</span></div>
+            <h2 class="post-title">@Model.Title</h2>
+            <div class="info"><a href="#" class="cat-name">@Model.NewsType</a>     <span class="date">@Model.CreateTime</span></div>
 
             <div class="content">
 
-                @Html.Raw(Model.NewsContxt)
+                @Html.Raw(Model.contxt)
 
             </div>
         </div>
