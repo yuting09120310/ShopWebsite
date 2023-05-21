@@ -14,12 +14,12 @@
                             <div class="inner-box wow fadeInLeft animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInLeft;">
                                 <div class="clearfix">
                                     <div class="image-column pull-right col-lg-6 col-sm-6 col-md-5 col-xs-12">
-                                    <figure class="image-box"><a href="blog-single.html"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
+                                    <figure class="image-box"><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
                                     </div>
                                     <div class="content-column pull-left col-lg-6 col-sm-6 col-md-5 col-xs-12">
                                         <div class="inner">
                                             <div class="info"><a href="#" class="cat-name">@item.NewsType</a>     <span class="date">@item.CreateTime</span></div>
-                                            <h3><a href="blog-single.html">@item.Title</a></h3>
+                                            <h3><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h3>
                                             <div class="text">@item.Description ..</div>
                                             <a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id" class="theme-btn btn-style-two">閱讀更多</a>
                                         </div>
