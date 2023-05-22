@@ -1,0 +1,31 @@
+﻿@model AlexBlogMVC.FrontEnd.ViewModel.AboutUsPageViewModel
+
+@{
+}
+
+
+<section class="default-content-section extended">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <!--Text Column-->
+            <div class="text-column col-md-7 col-sm-12 col-xs-12">
+                <figure class="logo-image"><a href="index.html"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></figure>
+                <h2>@Model.Title</h2>
+                <div class="text">
+                    <p>@Model.Description</p>
+                </div>
+                <div class="content-info">
+                    <strong>Alex Cai</strong><div class="designation">Dev, Obiz</div>
+                </div>
+            </div>
+
+            <!--Image Column-->
+            <div class="image-column col-md-5 col-sm-12 col-xs-12">
+                <div class="inner clearfix">
+                    <figure class="image-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms"><img src="~/FrontEnd/images/resource/featured-image-24.jpg" alt=""></figure>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

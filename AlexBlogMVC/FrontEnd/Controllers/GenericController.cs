@@ -17,7 +17,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public void getBanner()
         {
-            Banner banner = _context.Banners.OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            Banner banner = _context.Banners.Where(x => x.BannerPublish == true).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
             ViewBag.Banner = banner.BannerImg1;
         }
 
