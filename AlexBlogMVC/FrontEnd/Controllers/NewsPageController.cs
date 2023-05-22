@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AlexBlogMVC.BackEnd.Models;
-using AlexBlogMVC.BackEnd.ViewModel;
+using AlexBlogMVC.Areas.Models;
+using AlexBlogMVC.Areas.ViewModel;
 using AlexBlogMVC.FrontEnd.ViewModel;
 
 namespace AlexBlogMVC.FrontEnd.Controllers

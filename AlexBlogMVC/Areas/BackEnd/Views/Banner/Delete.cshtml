@@ -1,4 +1,4 @@
-﻿@model AlexBlogMVC.Areas.Models.News
+﻿@model AlexBlogMVC.Areas.Models.Banner
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,7 +8,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>News</h4>
+    <h4>Banner</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -18,70 +18,64 @@
             @Html.DisplayFor(model => model.Lang)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsClass)
+            @Html.DisplayNameFor(model => model.ProductClass)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsClass)
+            @Html.DisplayFor(model => model.ProductClass)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsSort)
+            @Html.DisplayNameFor(model => model.BannerSort)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsSort)
+            @Html.DisplayFor(model => model.BannerSort)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsTitle)
+            @Html.DisplayNameFor(model => model.BannerTitle)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsTitle)
+            @Html.DisplayFor(model => model.BannerTitle)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsDescription)
+            @Html.DisplayNameFor(model => model.BannerDescription)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsDescription)
+            @Html.DisplayFor(model => model.BannerDescription)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsContxt)
+            @Html.DisplayNameFor(model => model.BannerContxt)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsContxt)
+            @Html.DisplayFor(model => model.BannerContxt)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsImg1)
+            @Html.DisplayNameFor(model => model.BannerImg1)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsImg1)
+            @Html.DisplayFor(model => model.BannerImg1)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsImgUrl)
+            @Html.DisplayNameFor(model => model.BannerImgUrl)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsImgUrl)
+            @Html.DisplayFor(model => model.BannerImgUrl)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsImgAlt)
+            @Html.DisplayNameFor(model => model.BannerImgAlt)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsImgAlt)
+            @Html.DisplayFor(model => model.BannerImgAlt)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsPublish)
+            @Html.DisplayNameFor(model => model.BannerPublish)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsPublish)
+            @Html.DisplayFor(model => model.BannerPublish)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsViews)
+            @Html.DisplayNameFor(model => model.BannerPutTime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsViews)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsPutTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsPutTime)
+            @Html.DisplayFor(model => model.BannerPutTime)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateTime)
@@ -114,15 +108,15 @@
             @Html.DisplayFor(model => model.Ip)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NewsOffTime)
+            @Html.DisplayNameFor(model => model.BannerOffTime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NewsOffTime)
+            @Html.DisplayFor(model => model.BannerOffTime)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="NewsNum" />
+        <input type="hidden" asp-for="BannerNum" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

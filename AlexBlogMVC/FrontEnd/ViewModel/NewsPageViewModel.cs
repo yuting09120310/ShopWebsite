@@ -1,4 +1,4 @@
-﻿using AlexBlogMVC.BackEnd.Models;
+﻿using AlexBlogMVC.Areas.Models;
 
 namespace AlexBlogMVC.FrontEnd.ViewModel
 {

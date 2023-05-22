@@ -1,0 +1,96 @@
+﻿@model AlexBlogMVC.Areas.ViewModel.AdminViewModel
+
+@{
+    ViewData["Title"] = "編輯帳號";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "編輯帳號", new string[] { "帳號管理", "帳號設定", "編輯帳號" } } };
+}
+
+
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
+
+
+<div class="card">
+    <div class="card-header">
+        <h5>編輯帳號</h5>
+    </div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="AdminNum" />
+        <input type="hidden" asp-for="CreateTime" />
+        <input type="hidden" asp-for="Creator" />
+        <input type="hidden" asp-for="AdminAcc" />
+        <input type="hidden" asp-for="Ip" />
+        <input type="hidden" asp-for="LastLogin" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+
+                    <div class="mb-3 row">
+                        <label asp-for="EditorName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.EditorName
+                        </div>
+                        <span asp-validation-for="EditorName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="GroupNum" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(model => model.GroupNum, new SelectList(ViewBag.adminGroup, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <span asp-validation-for="GroupNum" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminAcc" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.AdminAcc
+                        </div>
+                        <span asp-validation-for="AdminAcc" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="AdminName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="AdminName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminPwd" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="AdminPwd" class="form-control" />
+                       </div>
+                        <span asp-validation-for="AdminPwd" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="AdminPublish" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="AdminPublish" class="form-control">
+                                <option value="true">啟用</option>
+                                <option value="false">關閉</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="AdminPublish" class="text-danger"></span>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input class="btn btn-light" type="reset" value="Cancel">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="BackEnd\Middleware\**" />
-    <Content Remove="BackEnd\Middleware\**" />
-    <EmbeddedResource Remove="BackEnd\Middleware\**" />
-    <None Remove="BackEnd\Middleware\**" />
+    <Compile Remove="Areas\Middleware\**" />
+    <Content Remove="Areas\Middleware\**" />
+    <EmbeddedResource Remove="Areas\Middleware\**" />
+    <None Remove="Areas\Middleware\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\BackEnd\" />
   </ItemGroup>
 
 </Project>

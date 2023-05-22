@@ -1,0 +1,82 @@
+﻿@model AlexBlogMVC.Areas.ViewModel.ProductClassViewModel
+
+@{
+    ViewData["Title"] = "編輯產品類別";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "編輯產品類別", new string[] { "產品管理", "產品類別", "編輯產品類別" } } };
+}
+}
+
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
+
+<div class="card">
+    <div class="card-header">
+        <h5>編輯產品類別</h5>
+    </div>
+    <form asp-action="edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+
+                    <input type="hidden" asp-for="CreateTime" />
+                    <input type="hidden" asp-for="Creator" />
+                    <input type="hidden" asp-for="ProductClassNum" />
+                    <input type="hidden" asp-for="Ip" />
+
+                    <div class="mb-3 row">
+                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.CreatorName
+                        </div>
+                        <span asp-validation-for="CreatorName" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductClassName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="ProductClassName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="ProductClassName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductClassSort" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="ProductClassSort" class="form-control" placeholder="排序" />
+                        </div>
+                        <span asp-validation-for="ProductClassSort" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductClassPublish" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="ProductClassPublish" class="form-control">
+                                <option value="true">啟用</option>
+                                <option value="false">關閉</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="ProductClassPublish" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input class="btn btn-light" type="reset" value="Cancel">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

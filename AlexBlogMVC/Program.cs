@@ -1,4 +1,4 @@
-using AlexBlogMVC.BackEnd.Models;
+using AlexBlogMVC.Areas.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -26,8 +26,8 @@ builder.Services.AddSession(options =>
 builder.Services.Configure<RazorViewEngineOptions>(options =>
 {
     options.ViewLocationFormats.Clear();
-    options.ViewLocationFormats.Add("/BackEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
-    options.ViewLocationFormats.Add("/BackEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Areas/BackEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+    options.ViewLocationFormats.Add("/Areas/BackEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
 
     options.ViewLocationFormats.Add("/FrontEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
@@ -54,13 +54,20 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
+
+// Areas區域Route配置 （Controller需增加屬性 EX：[Area("Admin")]）
+app.MapControllerRoute(
+    name: "Areas",
+    pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
+
+
 app.MapControllerRoute(
     name: "admin",
-    pattern: "/admin/{controller=Login}/{action=Index}/{id?}");
+    pattern: "/BackEnd/{controller=Login}/{action=Index}/{id?}");
 
 
 app.MapControllerRoute(
     name: "front",
-    pattern: "/front/{controller=NewsPage}/{action=Index}/{id?}");
+    pattern: "/{controller=NewsPage}/{action=Index}/{id?}");
 
 app.Run();

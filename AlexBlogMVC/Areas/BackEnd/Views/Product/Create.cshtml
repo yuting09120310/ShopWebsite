@@ -1,0 +1,166 @@
+﻿@model AlexBlogMVC.Areas.ViewModel.ProductViewModel
+
+@{
+    ViewData["Title"] = "新增產品";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "新增產品", new string[] { "產品管理", "產品設定", "新增產品" } } };
+}
+
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
+
+<div class="card">
+    <div class="card-header">
+        <h5>新增產品</h5>
+    </div>
+    <form asp-action="create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+
+                    <input type="hidden" asp-for="CreateTime" />
+                    <input type="hidden" asp-for="Creator" />
+                    <input type="hidden" asp-for="ProductNum" />
+                    <input type="hidden" asp-for="Ip" />
+
+                    <div class="mb-3 row">
+                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.CreatorName
+                        </div>
+                        <span asp-validation-for="CreatorName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductClass" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(model => model.ProductClass, new SelectList(ViewBag.newsClass, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <span asp-validation-for="ProductClass" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductTitle" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            <input asp-for="ProductTitle" class="form-control" />
+                        </div>
+                        <span asp-validation-for="ProductTitle" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductDescription" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="ProductDescription" class="form-control" />
+                        </div>
+                        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductContxt" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            @*<input asp-for="BannerContxt" class="form-control" type="password" autocomplete="off" />*@
+                            <textarea asp-for="ProductContxt" class="form-control ckeditor"></textarea>
+                        </div>
+                        <span asp-validation-for="ProductContxt" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductImg1" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
+                        </div>
+                        <span asp-validation-for="FileData" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <img id="preview" src="~/uploads/Product/@Model.ProductImg1" style="max-width:200px;max-height:200px;" />
+                            <input asp-for="ProductImg1" class="form-control" type="hidden" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductPutTime" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="ProductPutTime" class="form-control" type="date" autocomplete="off" />
+                        </div>
+                        <span asp-validation-for="ProductPutTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductOffTime" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="ProductOffTime" class="form-control" type="date" autocomplete="off" />
+                        </div>
+                        <span asp-validation-for="ProductOffTime" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="ProductPublish" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="ProductPublish" class="form-control">
+                                <option value="true">啟用</option>
+                                <option value="false">關閉</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="ProductPublish" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">確定</button>
+                <input class="btn btn-light" type="reset" value="重設">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function previewFile(input) {
+        var preview = document.getElementById('preview');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+            document.getElementById('ProductImg1').value = file.name;
+        } else {
+            preview.src = "";
+            document.getElementById('ProductImg1').value = "";
+        }
+    }
+
+
+
+    ClassicEditor
+        .create(document.querySelector('.ckeditor'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

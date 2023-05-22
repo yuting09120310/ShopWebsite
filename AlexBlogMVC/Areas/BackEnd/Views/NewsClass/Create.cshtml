@@ -1,0 +1,75 @@
+﻿@model AlexBlogMVC.Areas.ViewModel.NewsClassViewModel
+
+@{
+    ViewData["Title"] = "新增消息類別";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "新增消息類別", new string[] { "消息管理", "消息類別", "新增消息類別" } } };
+}
+
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
+
+
+<div class="card">
+    <div class="card-header">
+        <h5>新增消息類別</h5>
+    </div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+
+                    <div class="mb-3 row">
+                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.CreatorName
+                        </div>
+                        <span asp-validation-for="CreatorName" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="NewsClassName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="NewsClassName" class="form-control" />
+                        </div>
+                        <span asp-validation-for="NewsClassName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="NewsClassSort" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="NewsClassSort" class="form-control" placeholder="排序" />
+                        </div>
+                        <span asp-validation-for="NewsClassSort" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="NewsClassPublish" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="NewsClassPublish" class="form-control">
+                                <option value="true">啟用</option>
+                                <option value="false">關閉</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="NewsClassPublish" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input class="btn btn-light" type="reset" value="Cancel">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

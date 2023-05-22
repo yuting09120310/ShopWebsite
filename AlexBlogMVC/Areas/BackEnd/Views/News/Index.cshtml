@@ -1,0 +1,144 @@
+﻿@model IEnumerable<AlexBlogMVC.Areas.ViewModel.NewsViewModel>
+
+@{
+    ViewData["Title"] = "消息列表";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "消息列表", new string[] { "消息管理", "消息設定" } } };
+}
+
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Zero Configuration  Starts-->
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header pb-0 card-no-border">
+                    <div class="title d-flex">
+                        <div class="col-11"><h3>消息設定列表</h3></div>
+                        <div class="col-1 text-end"><a asp-controller="News" asp-action="Create" class="btn btn-primary btn-sm">新增</a></div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="display" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsNum)
+                                    </th>
+                                    <th class="col-2">
+                                        @Html.DisplayNameFor(model => model.NewsTitle)
+                                    </th >
+                                    <th class="col-2">
+                                        @Html.DisplayNameFor(model => model.NewsDescription)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsImg1)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsPutTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.CreateTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.EditTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsOffTime)
+                                    </th>
+                                    <th class="col-1">
+                                        @Html.DisplayNameFor(model => model.NewsPublish)
+                                    </th>
+                                    <th class ="col-1">處理</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsNum)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsDescription)
+                                        </td>
+                                        <td>
+                                            <img style="max-width:100px" src="@Url.Content("~/uploads/News/" + item.NewsImg1)" />
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsPutTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreateTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EditTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NewsOffTime)
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (@item.NewsPublish == true)
+                                                {
+                                                    <span>啟用</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>未啟用</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            <ul class="action">
+                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.NewsNum"><i class="icon-pencil-alt"></i></a></li>
+                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.NewsNum"><i class="icon-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('#datatable').DataTable({
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 項結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                "infoPostFix": "",
+                "search": "搜尋:",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
+                },
+                "aria": {
+                    "sortAscending": ": 升冪排列",
+                    "sortDescending": ": 降冪排列"
+                }
+            }
+        });
+    });
+</script>
