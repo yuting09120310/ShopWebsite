@@ -39,7 +39,7 @@ namespace AlexBlogMVC.Areas.Controllers
             HttpContext.Session.SetString("AdminName", admin.AdminName.ToString());
             HttpContext.Session.SetString("GroupNum", admin.GroupNum.ToString());
 
-            return RedirectToAction("Index", "Home", new { area = "BackEnd" } );
+            return RedirectToAction("Index", "Home" );
         }
     }
 }
