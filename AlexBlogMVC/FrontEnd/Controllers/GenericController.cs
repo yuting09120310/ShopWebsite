@@ -15,6 +15,13 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             _context = context;
         }
 
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            getBanner();
+            getNewsType();
+            getProductType();
+        }
+
         public void getBanner()
         {
             Banner banner = _context.Banners.Where(x => x.BannerPublish == true).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
@@ -23,8 +30,14 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public void getNewsType()
         {
-            List<News> News = _context.News.Where(x => x.NewsPublish == true).ToList();
-            ViewBag.NewsType = News;
+            List<NewsClass> newsClass = _context.NewsClasses.Where(x => x.NewsClassPublish == true).ToList();
+            ViewBag.NewsType = newsClass;
+        }
+
+        public void getProductType()
+        {
+            List<ProductClass> productClass = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
+            ViewBag.ProductType = productClass;
         }
     }
 }

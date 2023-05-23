@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using AlexBlogMVC.Areas.Models 
+
+@{
+    List<NewsClass> newsType = ViewBag.NewsType as List<NewsClass>;
+    List<ProductClass> productType = ViewBag.ProductType as List<ProductClass>;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -51,22 +58,30 @@
                             <div class="navbar-collapse collapse clearfix">
                                 <ul class="navigation clearfix">
                                     <li><a asp-controller="AboutUs" asp-action="Index">主頁</a></li>
-                                    <li><a asp-controller="AboutUs" asp-action="Index">關於我們</a></li>
+                                    <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
                                     <li class="dropdown">
                                         <a href="#">購物頁</a>
                                         <ul>
-                                            <li><a href="shop.html">Shop</a></li>
-                                            <li><a href="shop-single.html">Shop Single</a></li>
+                                            @{
+                                                foreach (ProductClass item in productType)
+                                                {
+                                                    <li><a href="blog.html">@item.ProductClassName</a></li>
+                                                }
+                                            }
                                         </ul>
                                     </li>
                                     <li class="dropdown">
                                         <a href="#">新聞</a>
                                         <ul>
-                                            <li><a href="blog.html">Our Blog</a></li>
-                                            <li><a href="blog-single.html">Blog Single</a></li>
+                                            @{
+                                                foreach (NewsClass item in newsType)
+                                                {
+                                                    <li><a href="blog.html">@item.NewsClassName</a></li>
+                                                }
+                                            }
                                         </ul>
                                     </li>
-                                    <li><a href="contact.html">聯絡我們</a></li>
+                                    <li><a href="contact.html">聯絡我</a></li>
                                 </ul>
                             </div>
                         </nav><!-- Main Menu End-->
@@ -178,32 +193,6 @@
 
 
         @RenderBody();
-           
-
-        <!--Newsletter Style Three-->
-        <div class="newsletter-style-three">
-            <div class="auto-container">
-                <div class="row clearfix">
-                    <div class="title-column col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <h2 class="title">SUBSCRIBE NEWSLETTER:</h2>
-                    </div>
-                    <div class="form-column col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <div class="newsletter-form">
-                            <form method="post" action="contact.html">
-                                <div class="fields-outer">
-                                    <div class="form-group">
-                                        <input type="email" name="email" value="" placeholder="Enter your email here..." required>
-                                    </div>
-                                    <div class="form-group button-group">
-                                        <button type="submit" class="theme-btn">Sign Up</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         <!--Main Footer-->
@@ -219,35 +208,14 @@
 
                                 <!--Footer Column-->
                                 <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                    <div class="footer-widget about-widget">
-                                        <figure class="footer-logo"><a href="index.html"><img src="images/logo-11.png" alt=""></a></figure>
-
-                                        <div class="widget-content">
-                                            <div class="text">It is my duty to distract the reader by just looiking at it </div>
-                                            <ul class="contact-info">
-                                                <li><span class="icon flaticon-envelope"></span> support@factory.com</li>
-                                                <li><span class="icon flaticon-telephone-1"></span> +91 2225 123 957</li>
-                                                <li><span class="icon flaticon-placeholder"></span> New Metro Road, Baskervile <br>Texas - 3520, USA</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
-
 
                                 <!--Footer Column-->
                                 <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                    <div class="footer-widget twitter-widget">
-                                        <h2>Twitter Posts</h2>
-                                        <div class="widget-content">
-                                            <div class="feed">
-                                                <div class="text">“ There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form. ”</div>
-                                                <h4 class="author-title">-</h4>
-                                            </div>
-                                            <div class="feed">
-                                                <div class="text">“ Randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum.  ”</div>
-                                                <h4 class="author-title">-</h4>
-                                            </div>
-                                        </div>
+                                    <div class="footer-widget about-widget">
+                                        <figure class="footer-logo"><a href="index.html"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></figure>
+
                                     </div>
                                 </div>
 
@@ -262,15 +230,12 @@
                                 <!--Footer Column-->
                                 <div class="footer-column col-md-6 col-sm-6 col-xs-12">
                                     <div class="footer-widget links-widget">
-                                        <h2>Quick Links</h2>
+                                        <h2>聯絡我</h2>
                                         <div class="widget-content">
                                             <ul class="list">
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about-us.html">About Us</a></li>
-                                                <li><a href="services.html">Services</a></li>
-                                                <li><a href="blog.html">Blog</a></li>
-                                                <li><a href="shop.html">Shop</a></li>
-                                                <li><a href="contact.html">Contact Us</a></li>
+                                                <li>Email   : yuting09210310@gmail.com</li>
+                                                <li>Tel     : +886 968977794</li>
+                                                <li>GitHub  : yuting09120310 </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -278,43 +243,12 @@
 
                                 <!--Footer Column-->
                                 <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                    <div class="footer-widget posts-widget">
-                                        <h2>Recent Posts</h2>
-                                        <div class="widget-content">
-                                            <!--Post-->
-                                            <div class="post">
-                                                <div class="content">
-                                                    <figure class="post-thumb"><a href="#"><img src="images/resource/post-thumb-1.jpg" alt=""></a></figure>
-                                                    <h4><a href="#">It has roots in a piece of classical</a></h4>
-                                                    <div class="time">5 hours ago</div>
-                                                </div>
-                                            </div>
-                                            <!--Post-->
-                                            <div class="post">
-                                                <div class="content">
-                                                    <figure class="post-thumb"><a href="#"><img src="images/resource/post-thumb-2.jpg" alt=""></a></figure>
-                                                    <h4><a href="#">It has roots in a piece of classical</a></h4>
-                                                    <div class="time">5 hours ago</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </div>
-
-
-            <!--Footer Bottom-->
-            <div class="footer-bottom">
-                <div class="outer-container">
-                    <div class="row clearfix">
-                        <div class="col-md-6 col-sm-12"><div class="copyright">Factorian &copy; <span class="year">2016</span>. All rights are reserved.</div></div>
-                        <div class="col-md-6 col-sm-12"><div class="developed-by">Made with <span class="fa fa-heart"></span>  by <a target="_blank" href="https://themeforest.net/user/themexriver/portfolio" class="author-name">Themexriver</a></div></div>
                     </div>
                 </div>
             </div>
