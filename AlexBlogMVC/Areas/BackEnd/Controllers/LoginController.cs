@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
+    [Area("BackEnd")]
     public class LoginController : Controller
     {
+
         private readonly BlogMvcContext _context;
 
         public LoginController(BlogMvcContext context) 
@@ -37,7 +39,7 @@ namespace AlexBlogMVC.Areas.Controllers
             HttpContext.Session.SetString("AdminName", admin.AdminName.ToString());
             HttpContext.Session.SetString("GroupNum", admin.GroupNum.ToString());
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { area = "BackEnd" } );
         }
     }
 }

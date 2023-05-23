@@ -56,22 +56,18 @@ app.UseAuthorization();
 
 
 
+// Areas區域Route配置 （Controller需增加屬性 EX：[Area("Admin")]）
+app.MapControllerRoute(
+    name: "Areas",
+    pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
+
+
 
 app.MapControllerRoute(
     name: "front",
     pattern: "/{controller=NewsPage}/{action=Index}/{id?}");
 
 
-
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "/BackEnd/{controller=Login}/{action=Index}/{id?}");
-
-
-// Areas區域Route配置 （Controller需增加屬性 EX：[Area("Admin")]）
-app.MapControllerRoute(
-    name: "Areas",
-    pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
 
 
 app.Run();
