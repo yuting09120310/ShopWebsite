@@ -1,8 +1,6 @@
 ﻿using AlexBlogMVC.Areas.Controllers;
 using AlexBlogMVC.Areas.Models;
-using AlexBlogMVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace AlexBlogMVC.Controllers
 {

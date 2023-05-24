@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlexBlogMVC.Areas.Models;
+namespace AlexBlogMVC.Areas.BackEnd.Models;
 
 public partial class NewsClass
 {

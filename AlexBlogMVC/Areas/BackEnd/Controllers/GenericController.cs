@@ -1,8 +1,6 @@
 ﻿using AlexBlogMVC.Areas.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace AlexBlogMVC.Areas.Controllers
 {

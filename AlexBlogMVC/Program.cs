@@ -1,13 +1,5 @@
 using AlexBlogMVC.Areas.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
-using Microsoft.Extensions.WebEncoders;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +23,6 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 
     options.ViewLocationFormats.Add("/FrontEnd/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
     options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
-
 });
 
 builder.Services.AddDbContext<BlogMvcContext>();
@@ -55,18 +46,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 
-
 // Areas區域Route配置 （Controller需增加屬性 EX：[Area("Admin")]）
 app.MapControllerRoute(
     name: "Areas",
     pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
 
 
-
 app.MapControllerRoute(
     name: "front",
     pattern: "/{controller=NewsPage}/{action=Index}/{id?}/");
-
 
 
 app.Run();

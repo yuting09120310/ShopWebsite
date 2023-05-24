@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using AlexBlogMVC.Areas.BackEnd.Models;
 using AlexBlogMVC.Areas.Models;
-using Microsoft.AspNetCore.Mvc.Filters;
 using AlexBlogMVC.Areas.ViewModel;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
-    
+
     public class AdminGroupController : GenericController
     {
         int menuSubNum = 2;

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using AlexBlogMVC.Areas.BackEnd.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AlexBlogMVC.Areas.Models;
+namespace AlexBlogMVC.Areas.BackEnd.Models;
 
-public partial class BlogMvcContext : DbContext
+public partial class BlogContext : DbContext
 {
-    public BlogMvcContext()
+    public BlogContext()
     {
     }
 
-    public BlogMvcContext(DbContextOptions<BlogMvcContext> options)
+    public BlogContext(DbContextOptions<BlogContext> options)
         : base(options)
     {
     }
@@ -23,6 +22,8 @@ public partial class BlogMvcContext : DbContext
     public virtual DbSet<AdminRole> AdminRoles { get; set; }
 
     public virtual DbSet<Banner> Banners { get; set; }
+
+    public virtual DbSet<Comment> Comments { get; set; }
 
     public virtual DbSet<Contact> Contacts { get; set; }
 
@@ -40,7 +41,7 @@ public partial class BlogMvcContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=192.168.0.212;Database=BlogMVC;User ID=sa;Password=alex0310;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=BlogMVC;User ID=sa;Password=alex0310;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -109,6 +110,16 @@ public partial class BlogMvcContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("IP");
             entity.Property(e => e.Lang).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Comment");
+
+            entity.Property(e => e.Email).HasMaxLength(200);
+            entity.Property(e => e.UserName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Contact>(entity =>

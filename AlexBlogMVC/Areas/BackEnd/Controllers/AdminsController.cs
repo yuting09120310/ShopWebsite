@@ -1,4 +1,5 @@
-﻿using AlexBlogMVC.Areas.Models;
+﻿using AlexBlogMVC.Areas.BackEnd.Models;
+using AlexBlogMVC.Areas.Models;
 using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
