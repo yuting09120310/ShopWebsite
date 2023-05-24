@@ -2,6 +2,7 @@
 using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static AlexBlogMVC.FrontEnd.ViewModel.NewsPageViewModel;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
@@ -85,6 +86,17 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             ).FirstOrDefault();
 
 
+            newsViewModel.getCommants = (
+                from c in _context.Comments
+                where c.NewsId == id
+                select new UserComment
+                {
+                    UserName= c.UserName,
+                    Email= c.Email,
+                    Message= c.Message,
+                }
+            ).ToList();
+
             if (newsViewModel == null)
             {
                 return NotFound();
@@ -100,16 +112,16 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             Comment comment = new Comment()
             {
                 NewsId = newsPageViewModel.NewsId,
-                UserName= newsPageViewModel.UserName,
-                Email = newsPageViewModel.Email,
-                Message= newsPageViewModel.Message,
+                UserName = newsPageViewModel.postComment.UserName,
+                Email = newsPageViewModel.postComment.Email,
+                Message = newsPageViewModel.postComment.Message,
             };
 
 
             _context.Add(comment);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "NewsPage", new { id = newsPageViewModel.NewsId });
         }
     }
 }

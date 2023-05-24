@@ -21,10 +21,19 @@ namespace AlexBlogMVC.FrontEnd.ViewModel
         public string contxt { get; set; }
 
 
+        //取得留言
+        public List<UserComment> getCommants { get; set; }
+
+        //送出留言
+        public UserComment postComment { get; set; }
+
 
         ////留言
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Message { get; set; }
+        public class UserComment
+        {
+            public string UserName { get; set; }
+            public string Email { get; set; }
+            public string Message { get; set; }
+        }
     }
 }
