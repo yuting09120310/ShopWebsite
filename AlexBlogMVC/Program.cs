@@ -1,4 +1,4 @@
-using AlexBlogMVC.Areas.Models;
+using AlexBlogMVC.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);

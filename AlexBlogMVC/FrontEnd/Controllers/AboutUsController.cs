@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AlexBlogMVC.FrontEnd.ViewModel;
-using AlexBlogMVC.Areas.Models;
+using AlexBlogMVC.Areas.BackEnd.Models;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {

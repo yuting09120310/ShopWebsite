@@ -1,5 +1,5 @@
 ﻿using AlexBlogMVC.Areas.Controllers;
-using AlexBlogMVC.Areas.Models;
+using AlexBlogMVC.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlexBlogMVC.Controllers

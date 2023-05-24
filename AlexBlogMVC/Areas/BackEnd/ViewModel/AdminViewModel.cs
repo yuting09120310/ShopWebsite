@@ -1,5 +1,4 @@
-﻿using AlexBlogMVC.Areas.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AlexBlogMVC.Areas.ViewModel
 {

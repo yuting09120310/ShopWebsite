@@ -1,4 +1,4 @@
-﻿using AlexBlogMVC.Areas.Models;
+﻿using AlexBlogMVC.Areas.BackEnd.Models;
 using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -97,7 +97,17 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> Comments(NewsPageViewModel newsPageViewModel)
         {
-            
+            Comment comment = new Comment()
+            {
+                NewsId = newsPageViewModel.NewsId,
+                UserName= newsPageViewModel.UserName,
+                Email = newsPageViewModel.Email,
+                Message= newsPageViewModel.Message,
+            };
+
+
+            _context.Add(comment);
+            _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
