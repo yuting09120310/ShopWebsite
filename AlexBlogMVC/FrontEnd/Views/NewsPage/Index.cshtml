@@ -14,14 +14,21 @@
                             <div class="inner-box wow fadeInLeft animated" data-wow-delay="0ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeInLeft;">
                                 <div class="clearfix">
                                     <div class="image-column pull-right col-lg-6 col-sm-6 col-md-5 col-xs-12">
-                                    <figure class="image-box"><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
+                                    <figure class="image-box"><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.NewsId"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
                                     </div>
                                     <div class="content-column pull-left col-lg-6 col-sm-6 col-md-5 col-xs-12">
                                         <div class="inner">
-                                            <div class="info"><a href="#" class="cat-name">@item.NewsType</a>     <span class="date">@item.CreateTime</span></div>
-                                            <h3><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></h3>
+                                            <div class="info">
+                                                @{
+                                                    var url = Url.Action("Index", "NewsPage", new { ClassType = item.ClassId, Page = 1 });
+
+                                                    <a href="@url" class="cat-name">@item.NewsTypeName</a>     
+                                                    <span class="date">@item.CreateTime</span>
+                                                }
+                                            </div>
+                                            <h3><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.NewsId">@item.Title</a></h3>
                                             <div class="text">@item.Description ..</div>
-                                            <a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.Id" class="theme-btn btn-style-two">閱讀更多</a>
+                                            <a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.NewsId" class="theme-btn btn-style-two">閱讀更多</a>
                                         </div>
                                     </div>
                                 </div>
@@ -29,8 +36,24 @@
                         </div>
                 }
                 <div class="posts-nav clearfix">
-                    <div class="pull-left"><a href="#" class="theme-btn prev-post btn-style-one">Previous Posts</a></div>
-                    <div class="pull-right"><a href="#" class="theme-btn next-post btn-style-one">Next Posts</a></div>
+                        @{
+                            int TotalPages = Convert.ToInt32(ViewBag.TotalPages);
+
+                            int page = Convert.ToInt32(ViewBag.Page);
+
+                            if (page > 1)
+                            {
+                                var preUrl = Url.Action("Index", "NewsPage", new { ClassType = ViewBag.ClassType, Page = page - 1 });
+                                <div class="pull-left"><a href="@preUrl" class="theme-btn prev-post btn-style-one">上一頁</a></div>
+                            }
+
+                            if(TotalPages > 1 && page != TotalPages)
+                            {
+                                var nextUrl = Url.Action("Index", "NewsPage", new { ClassType = ViewBag.ClassType, Page = page + 1 });
+                                <div class="pull-right"><a href="@nextUrl" class="theme-btn next-post btn-style-one">下一頁</a></div>
+                            }
+                            
+                        }
                 </div>
 
     </div>

@@ -18,27 +18,48 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
 
         // GET: News
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string ClassType, string Page)
         {
-            getBanner();
+            int itemsPerPage = 5;
 
-            IEnumerable<NewsPageViewModel> viewModel = from n in _context.News
-                                                       where n.NewsPublish == true
-                                                       select new NewsPageViewModel
-                                                       {
-                                                           Id = n.NewsNum,
-                                                           Title = n.NewsTitle,
-                                                           Description = n.NewsDescription,
-                                                           NewsImg1 = n.NewsImg1,
-                                                           CreateTime = n.CreateTime,
-                                                           NewsType = (from creator in _context.NewsClasses 
-                                                                     where creator.NewsClassNum == n.NewsClass 
-                                                                     select creator.NewsClassName).FirstOrDefault(),
-                                                       };
+            // 根據 ClassType 過濾資料
+            IQueryable<NewsPageViewModel> query = from n in _context.News
+                                                  where n.NewsPublish == true
+                                                  orderby n.NewsNum descending
+                                                  select new NewsPageViewModel
+                                                  {
+                                                      NewsId = n.NewsNum,
+                                                      Title = n.NewsTitle,
+                                                      Description = n.NewsDescription,
+                                                      NewsImg1 = n.NewsImg1,
+                                                      CreateTime = n.CreateTime,
+                                                      ClassId = n.NewsClass,
+                                                      NewsTypeName = (from creator in _context.NewsClasses
+                                                                      where creator.NewsClassNum == n.NewsClass
+                                                                      select creator.NewsClassName).FirstOrDefault(),
+                                                  };
+
+            if (!string.IsNullOrEmpty(ClassType) && Convert.ToInt64(ClassType) != 0)
+            {
+                query = query.Where(x => x.ClassId == Convert.ToInt64(ClassType));
+            }
 
 
-            return View(viewModel);
+            // 計算總頁數
+            int totalPages = (int)Math.Ceiling((double)query.Count() / itemsPerPage);
+
+            // 根據 Page 參數進行分頁
+            int currentPage = string.IsNullOrEmpty(Page) ? 1 : Convert.ToInt32(Page);
+            query = query.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+
+            // 傳遞資料到檢視
+            ViewBag.ClassType = ClassType;
+            ViewBag.Page = currentPage;
+            ViewBag.TotalPages = totalPages;
+
+            return View(await query.ToListAsync());
         }
+
 
         // GET: News/Details/5
         public async Task<IActionResult> Details(long? id)
@@ -57,12 +78,12 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                 where n.NewsNum == id && n.NewsPublish == true
                 select new NewsPageViewModel
                 {
-                    Id = n.NewsNum,
+                    NewsId = n.NewsNum,
                     Title = n.NewsTitle,
                     Description = n.NewsDescription,
                     NewsImg1 = n.NewsImg1,
                     CreateTime = n.CreateTime,
-                    NewsType = (from creator in _context.NewsClasses
+                    NewsTypeName = (from creator in _context.NewsClasses
                                 where creator.NewsClassNum == n.NewsClass
                                 select creator.NewsClassName).FirstOrDefault(),
                     contxt = n.NewsContxt,
@@ -78,5 +99,13 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             return View(newsViewModel);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Comments(NewsPageViewModel newsPageViewModel)
+        {
+            
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

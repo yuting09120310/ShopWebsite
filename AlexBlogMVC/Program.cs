@@ -65,8 +65,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "front",
-    pattern: "/{controller=NewsPage}/{action=Index}/{id?}");
-
+    pattern: "/{controller=NewsPage}/{action=Index}/{id?}/");
 
 
 

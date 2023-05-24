@@ -12,7 +12,7 @@ namespace AlexBlogMVC.Areas.ViewModel
         public string? Lang { get; set; }
 
         [Display(Name = "類別")]
-        public long? NewsClass { get; set; }
+        public long NewsClass { get; set; }
 
         [Display(Name = "排序")]
         public long? NewsSort { get; set; }

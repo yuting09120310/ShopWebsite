@@ -9,7 +9,7 @@ public partial class News
 
     public string? Lang { get; set; }
 
-    public long? NewsClass { get; set; }
+    public long NewsClass { get; set; }
 
     public long? NewsSort { get; set; }
 

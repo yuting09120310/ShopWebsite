@@ -3,6 +3,7 @@
 @{
     List<NewsClass> newsType = ViewBag.NewsType as List<NewsClass>;
     List<ProductClass> productType = ViewBag.ProductType as List<ProductClass>;
+    var page = 1;
 }
 
 <!DOCTYPE html>
@@ -59,17 +60,7 @@
                                 <ul class="navigation clearfix">
                                     <li><a asp-controller="AboutUs" asp-action="Index">主頁</a></li>
                                     <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
-                                    <li class="dropdown">
-                                        <a href="#">購物頁</a>
-                                        <ul>
-                                            @{
-                                                foreach (ProductClass item in productType)
-                                                {
-                                                    <li><a href="blog.html">@item.ProductClassName</a></li>
-                                                }
-                                            }
-                                        </ul>
-                                    </li>
+                                    <li><a href="contact.html">購物頁</a></li>
                                     <li class="dropdown">
                                         <a href="#">新聞</a>
                                         <ul>
@@ -77,7 +68,8 @@
                                             @{
                                                 foreach (NewsClass item in newsType)
                                                 {
-                                                    <li><a href="blog.html">@item.NewsClassName</a></li>
+                                                    var url = Url.Action("Index", "NewsPage", new { ClassType = item.NewsClassNum, Page = page });
+                                                    <li><a href="@url">@item.NewsClassName</a></li>
                                                 }
                                             }
                                         </ul>
@@ -193,7 +185,7 @@
         </section>
 
 
-        @RenderBody();
+        @RenderBody()
 
 
         <!--Main Footer-->
