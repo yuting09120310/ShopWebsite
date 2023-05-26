@@ -58,7 +58,7 @@
 
                             <div class="navbar-collapse collapse clearfix">
                                 <ul class="navigation clearfix">
-                                    <li><a asp-controller="AboutUs" asp-action="Index">主頁</a></li>
+                                    <li><a asp-controller="Default" asp-action="Index">主頁</a></li>
                                     <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
                                     <li><a href="contact.html">購物頁</a></li>
                                     <li class="dropdown">
@@ -109,48 +109,25 @@
                 <div class="side-menu">
                     <!-- .navigation -->
                     <ul class="navigation clearfix">
+
+                        <li><a asp-controller="Default" asp-action="Index">主頁</a></li>
+                        <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
+                        <li><a href="contact.html">購物頁</a></li>
                         <li class="dropdown">
-                            <a href="#">Home</a>
-                            <ul class="submenu">
-                                <li><a href="index.html">Homepage Factory</a></li>
-                                <li><a href="index-2.html">Homepage Construction</a></li>
-                                <li><a href="index-3.html">Homepage Auto Repair</a></li>
-                                <li><a href="index-4.html">Homepage Agency</a></li>
-                                <li><a href="index-5.html">Homepage Transport</a></li>
+                            <a href="#">新聞</a>
+                            <ul>
+                                <li><a asp-controller="NewsPage" asp-action="index">全部</a></li>
+                                @{
+                                    foreach (NewsClass item in newsType)
+                                    {
+                                        var url = Url.Action("Index", "NewsPage", new { ClassType = item.NewsClassNum, Page = page });
+                                        <li><a href="@url">@item.NewsClassName</a></li>
+                                    }
+                                }
                             </ul>
                         </li>
-                        <li><a href="about-us.html">About Us</a></li>
-                        <li class="dropdown">
-                            <a href="#">Services</a>
-                            <ul class="submenu">
-                                <li><a href="our-services.html">Our Services</a></li>
-                                <li><a href="service-single.html">Service Single</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#">Pages</a>
-                            <ul class="submenu">
-                                <li><a href="our-team.html">Our Team</a></li>
-                                <li><a href="gallery.html">Our Portfolio</a></li>
-                                <li><a href="project-single.html">Project Single</a></li>
-                                <li><a href="error-page.html">404 Page</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#">Shop</a>
-                            <ul class="submenu">
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="shop-single.html">Shop Single</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown current">
-                            <a href="#">Blog</a>
-                            <ul class="submenu">
-                                <li><a href="blog.html">Our Blog</a></li>
-                                <li><a href="blog-single.html">Blog Single</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="contact.html">聯絡我</a></li>
+
                     </ul>
                 </div><!-- /.Side-menu -->
 

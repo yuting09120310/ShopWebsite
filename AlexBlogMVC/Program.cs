@@ -54,7 +54,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "front",
-    pattern: "/{controller=NewsPage}/{action=Index}/{id?}/");
+    pattern: "/{controller=Default}/{action=Index}/{id?}/");
 
 
 app.Run();
