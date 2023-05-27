@@ -15,12 +15,6 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             _context = context;
         }
 
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            getBanner();
-            getNewsType();
-            getProductType();
-        }
 
         public void getBanner()
         {
@@ -32,12 +26,6 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         {
             List<NewsClass> newsClass = _context.NewsClasses.Where(x => x.NewsClassPublish == true).ToList();
             ViewBag.NewsType = newsClass;
-        }
-
-        public void getProductType()
-        {
-            List<ProductClass> productClass = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
-            ViewBag.ProductType = productClass;
         }
     }
 }

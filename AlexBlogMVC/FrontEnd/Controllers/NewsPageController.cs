@@ -1,6 +1,7 @@
 ﻿using AlexBlogMVC.Areas.BackEnd.Models;
 using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using static AlexBlogMVC.FrontEnd.ViewModel.NewsPageViewModel;
 
@@ -10,6 +11,13 @@ namespace AlexBlogMVC.FrontEnd.Controllers
     {
 
         public NewsPageController(BlogMvcContext context) : base(context) { }
+
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            getBanner();
+            getNewsType();
+        }
 
 
         // GET: News

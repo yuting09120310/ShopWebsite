@@ -1,6 +1,7 @@
 ﻿using AlexBlogMVC.Areas.BackEnd.Models;
 using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
@@ -8,6 +9,12 @@ namespace AlexBlogMVC.FrontEnd.Controllers
     {
 
         public DefaultController(BlogMvcContext context) : base(context) { }
+
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            getNewsType();
+        }
 
 
         public IActionResult Index()
