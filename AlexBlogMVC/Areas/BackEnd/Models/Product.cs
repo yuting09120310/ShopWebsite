@@ -9,7 +9,7 @@ public partial class Product
 
     public string? Lang { get; set; }
 
-    public long? ProductClass { get; set; }
+    public long ProductClass { get; set; }
 
     public long? ProductSort { get; set; }
 
@@ -39,7 +39,7 @@ public partial class Product
 
     public DateTime? ProductPutTime { get; set; }
 
-    public DateTime? CreateTime { get; set; }
+    public DateTime CreateTime { get; set; }
 
     public long? Creator { get; set; }
 

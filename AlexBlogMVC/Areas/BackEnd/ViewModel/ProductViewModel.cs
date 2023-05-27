@@ -11,7 +11,7 @@ namespace AlexBlogMVC.Areas.ViewModel
         public string? Lang { get; set; }
 
         [Display(Name = "類別")]
-        public long? ProductClass { get; set; }
+        public long ProductClass { get; set; }
 
         [Display(Name = "排序")]
         public long? ProductSort { get; set; }
@@ -53,7 +53,7 @@ namespace AlexBlogMVC.Areas.ViewModel
         public DateTime? ProductPutTime { get; set; }
 
         [Display(Name = "建立時間")]
-        public DateTime? CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
 
         [Display(Name = "新增者ID")]
         public long? Creator { get; set; }

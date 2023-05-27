@@ -1,5 +1,5 @@
 ﻿@using AlexBlogMVC.Areas.BackEnd.Models;
-
+@model AlexBlogMVC.FrontEnd.ViewModel.DefaultViewModel;
 @{
     Layout = null;
     List<NewsClass> newsType = ViewBag.NewsType as List<NewsClass>;
@@ -325,46 +325,28 @@
         <section class="services-style-four">
             <div class="outer-container">
                 <div class="left-border-title">
-                    <h2>our services</h2>
+                    <h2>最新消息</h2>
+                    <div class="desc-text">掌握最新動態，獲取最新消息，了解行業趨勢。</div>
                 </div>
 
                 <div class="row clearfix">
 
-                    <!--Featured Service Column-->
-                    <div class="featured-service-column col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <figure class="image-box"><a href="service-single.html"><img src="~/FrontEnd/images/resource/featured-image-20.jpg" alt=""></a><div class="icon-box"><span class="flaticon-truck-1"></span></div></figure>
-                            <div class="lower-content">
-                                <h3>Transportation</h3>
-                                <div class="text">praising pain was born and I will give you a complete account </div>
-                                <a href="service-single.html" class="theme-btn btn-style-two">Read More</a>
+                    @{
+                        foreach (NewsPageViewModel item in Model.lstNewsPageViewModel)
+                        {
+                            <!--Featured Service Column-->
+                            <div class="featured-service-column col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+                                    <figure class="image-box"><a href="service-single.html"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
+                                    <div class="lower-content">
+                                        <h3>@item.Title</h3>
+                                        <div class="text">@item.Description</div>
+                                        <a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.NewsId" class="theme-btn btn-style-two">閱讀更多</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!--Featured Service Column-->
-                    <div class="featured-service-column col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="inner-box wow fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
-                            <figure class="image-box"><a href="service-single.html"><img src="~/FrontEnd/images/resource/featured-image-21.jpg" alt=""></a><div class="icon-box"><span class="flaticon-interface-2"></span></div></figure>
-                            <div class="lower-content">
-                                <h3>Cargo</h3>
-                                <div class="text">praising pain was born and I will give you a complete account </div>
-                                <a href="service-single.html" class="theme-btn btn-style-two">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Featured Service Column-->
-                    <div class="featured-service-column col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="inner-box wow fadeInUp" data-wow-delay="400ms" data-wow-duration="1500ms">
-                            <figure class="image-box"><a href="service-single.html"><img src="~/FrontEnd/images/resource/featured-image-22.jpg" alt=""></a><div class="icon-box"><span class="flaticon-tractor-side-view"></span></div></figure>
-                            <div class="lower-content">
-                                <h3>Logistic</h3>
-                                <div class="text">praising pain was born and I will give you a complete account </div>
-                                <a href="service-single.html" class="theme-btn btn-style-two">Read More</a>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
 
                 </div>
             </div>
@@ -374,86 +356,39 @@
         <section class="default-two-column bg-lightgrey">
             <div class="outer-container">
                 <div class="left-border-title">
-                    <h2>Our Projects</h2>
-                    <div class="desc-text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using</div>
+                    <h2>最新商品</h2>
+                    <div class="desc-text">最新電腦周邊產品，提升您的電腦體驗！探索先進技術和優秀設計。遊戲必備配件、辦公效率工具等多種選擇。</div>
                 </div>
 
                 <div class="items-container row clearfix">
 
-                    <!--Default Portfolio Item-->
-                    <div class="portfolio-item-three masonry-item col-lg-8 col-sm-12 col-xs-12">
-                        <div class="inner-box">
-                            <figure class="image-box"><a href="~/FrontEnd/images/gallery/16.jpg" class="image-link lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/gallery/16.jpg" alt=""></a></figure>
-                            <div class="layer-one"></div>
-                            <div class="layer-two"></div>
-                            <div class="hover-info">
-                                <a href="~/FrontEnd/images/gallery/16.jpg" class="image-link lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <h4><a href="project-single.html">Project Spartan</a></h4>
-                                <div class="info">US. Motors</div>
+                    @{
+                        int currentNum = 1;
+                        foreach (ShopPageViewModel item in Model.lstShopPageViewModel)
+                        {
+
+                            <!--Default Portfolio Item-->
+                            <div class="portfolio-item-three masonry-item col-lg-4 col-sm-6 col-xs-12">
+                                <div class="inner-box">
+                                    <figure class="image-box">
+                                    <a href="@Url.Content("~/uploads/Product/" + item.ProductImg1)" class="image-link lightbox-image" title="@item.Title">
+                                        <img src="@Url.Content("~/uploads/Product/" + item.ProductImg1)" alt=""></a>
+                                    </figure>
+                                    <div class="layer-one"></div>
+                                    <div class="layer-two"></div>
+                                    <div class="hover-info">
+                                    <a href="@Url.Content("~/uploads/Product/" + item.ProductImg1)" class="image-link lightbox-image" title="@item.Title"><span class="icon flaticon-cross"></span></a>
+                                        <h4><a href="project-single.html" style="color:black">@item.Title</a></h4>
+                                        <div class="info">@item.ProductTypeName</div>
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
 
-                    <!--Default Portfolio Item-->
-                    <div class="portfolio-item-three masonry-item col-lg-4 col-sm-6 col-xs-12">
-                        <div class="inner-box">
-                            <figure class="image-box"><a href="~/FrontEnd/images/gallery/17.jpg" class="image-link lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/gallery/17.jpg" alt=""></a></figure>
-                            <div class="layer-one"></div>
-                            <div class="layer-two"></div>
-                            <div class="hover-info">
-                                <a href="~/FrontEnd/images/gallery/17.jpg" class="image-link lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <h4><a href="project-single.html">Project Spartan</a></h4>
-                                <div class="info">US. Motors</div>
-                            </div>
+                             currentNum++;
+                        }
+                    }
 
-                        </div>
-                    </div>
-
-                    <!--Default Portfolio Item-->
-                    <div class="portfolio-item-three masonry-item col-lg-4 col-sm-6 col-xs-12">
-                        <div class="inner-box">
-                            <figure class="image-box"><a href="~/FrontEnd/images/gallery/18.jpg" class="image-link lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/gallery/18.jpg" alt=""></a></figure>
-                            <div class="layer-one"></div>
-                            <div class="layer-two"></div>
-                            <div class="hover-info">
-                                <a href="~/FrontEnd/images/gallery/18.jpg" class="image-link lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <h4><a href="project-single.html">Project Spartan</a></h4>
-                                <div class="info">US. Motors</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!--Default Portfolio Item-->
-                    <div class="portfolio-item-three masonry-item col-lg-4 col-sm-6 col-xs-12">
-                        <div class="inner-box">
-                            <figure class="image-box"><a href="~/FrontEnd/images/gallery/19.jpg" class="image-link lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/gallery/19.jpg" alt=""></a></figure>
-                            <div class="layer-one"></div>
-                            <div class="layer-two"></div>
-                            <div class="hover-info">
-                                <a href="~/FrontEnd/images/gallery/19.jpg" class="image-link lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <h4><a href="project-single.html">Project Spartan</a></h4>
-                                <div class="info">US. Motors</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!--Default Portfolio Item-->
-                    <div class="portfolio-item-three masonry-item col-lg-4 col-sm-6 col-xs-12">
-                        <div class="inner-box">
-                            <figure class="image-box"><a href="~/FrontEnd/images/gallery/20.jpg" class="image-link lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/gallery/20.jpg" alt=""></a></figure>
-                            <div class="layer-one"></div>
-                            <div class="layer-two"></div>
-                            <div class="hover-info">
-                                <a href="~/FrontEnd/images/gallery/20.jpg" class="image-link lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <h4><a href="project-single.html">Project Spartan</a></h4>
-                                <div class="info">US. Motors</div>
-                            </div>
-
-                        </div>
-                    </div>
 
                 </div>
 
