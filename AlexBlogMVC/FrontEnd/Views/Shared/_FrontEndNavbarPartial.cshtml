@@ -1,0 +1,119 @@
+﻿@using AlexBlogMVC.Areas.BackEnd.Models;
+@{
+    Layout = null;
+    List<NewsClass> newsType = ViewBag.NewsType as List<NewsClass>;
+    List<ProductClass> productType = ViewBag.ProductType as List<ProductClass>;
+    var page = 1;
+}
+
+<!-- Header Style Four -->
+<header class="header-style-four site-header">
+
+
+    <!-- Main Box -->
+    <div class="main-box">
+        <div class="outer-container clearfix">
+            <!--Logo Box-->
+            <div class="logo-box">
+                <div class="logo"><a asp-controller="Default" asp-action="Index"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></div>
+            </div>
+
+            <!--Nav Outer-->
+            <div class="nav-outer clearfix">
+                <!-- Main Menu -->
+                <nav class="main-menu">
+                    <div class="navbar-header">
+                        <!-- Toggle Button -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <div class="navbar-collapse collapse clearfix">
+                        <ul class="navigation clearfix">
+                            <li><a asp-controller="Default" asp-action="Index">主頁</a></li>
+                            <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
+                            <li><a href="contact.html">購物頁</a></li>
+                            <li class="dropdown">
+                                <a href="#">新聞</a>
+                                <ul>
+                                    <li><a asp-controller="NewsPage" asp-action="index">全部</a></li>
+                                    @{
+                                        foreach (NewsClass item in newsType)
+                                        {
+                                            var url = Url.Action("Index", "NewsPage", new { ClassType = item.NewsClassNum, Page = page });
+                                            <li><a href="@url">@item.NewsClassName</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            <li><a href="contact.html">聯絡我</a></li>
+                        </ul>
+                    </div>
+                </nav><!-- Main Menu End-->
+
+            </div><!--Nav Outer End-->
+            <!-- Hidden Nav Toggler -->
+            <div class="nav-toggler">
+                <button class="hidden-bar-opener"><span class="icon fa fa-bars"></span></button>
+            </div><!-- / Hidden Nav Toggler -->
+
+
+        </div>
+    </div>
+
+</header>
+<!--End Header Style Four-->
+<!-- Hidden Navigation Bar -->
+<section class="hidden-bar right-align">
+
+    <div class="hidden-bar-closer">
+        <button class="btn"><i class="fa fa-close"></i></button>
+    </div>
+
+    <!-- Hidden Bar Wrapper -->
+    <div class="hidden-bar-wrapper">
+
+        <!-- .logo -->
+        <div class="logo text-center">
+            <a asp-controller="Default" asp-action="Index"><img src="~/FrontEnd/images/logo-sidebar.png" alt=""></a>
+        </div><!-- /.logo -->
+        <!-- .Side-menu -->
+        <div class="side-menu">
+            <!-- .navigation -->
+            <ul class="navigation clearfix">
+
+                <li><a asp-controller="Default" asp-action="Index">主頁</a></li>
+                <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
+                <li><a href="contact.html">購物頁</a></li>
+                <li class="dropdown">
+                    <a href="#">新聞</a>
+                    <ul>
+                        <li><a asp-controller="NewsPage" asp-action="index">全部</a></li>
+                        @{
+                            foreach (NewsClass item in newsType)
+                            {
+                                var url = Url.Action("Index", "NewsPage", new { ClassType = item.NewsClassNum, Page = page });
+                                <li><a href="@url">@item.NewsClassName</a></li>
+                            }
+                        }
+                    </ul>
+                </li>
+                <li><a href="contact.html">聯絡我</a></li>
+
+            </ul>
+        </div><!-- /.Side-menu -->
+
+        <div class="social-icons">
+            <ul>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+        </div>
+
+    </div><!-- / Hidden Bar Wrapper -->
+</section><!-- / Hidden Bar -->

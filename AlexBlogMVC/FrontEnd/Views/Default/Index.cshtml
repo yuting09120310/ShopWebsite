@@ -2,16 +2,13 @@
 @model AlexBlogMVC.FrontEnd.ViewModel.DefaultViewModel;
 @{
     Layout = null;
-    List<NewsClass> newsType = ViewBag.NewsType as List<NewsClass>;
-    List<ProductClass> productType = ViewBag.ProductType as List<ProductClass>;
-    var page = 1;
+    ViewData["Title"] = "主頁";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Factorian - Multiniche HTML Template | Homepage Transportation</title>
+    <title>@ViewData["Title"]</title>
     <!-- Stylesheets -->
     <link href="~/FrontEnd/css/bootstrap.css" rel="stylesheet">
     <link href="~/FrontEnd/css/revolution-slider.css" rel="stylesheet">
@@ -33,121 +30,12 @@
         <!-- Preloader -->
         <div class="preloader"></div>
 
-        <!-- Header Style Three -->
-        <header class="header-style-three site-header">
-            <!-- Main Box -->
-            <div class="main-box">
-                <div class="outer-container clearfix">
-                    <!--Logo Box-->
-                    <div class="logo-box">
-                        <div class="logo"><a href="index.html"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></div>
-                    </div>
-
-                    <!--Nav Outer-->
-                    <div class="nav-outer clearfix">
-                        <!-- Main Menu -->
-                        <nav class="main-menu">
-                            <div class="navbar-header">
-                                <!-- Toggle Button -->
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <div class="navbar-collapse collapse clearfix">
-                                <ul class="navigation clearfix">
-
-                                    <li><a asp-controller="Default" asp-action="Index">主頁</a></li>
-                                    <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
-                                    <li><a href="contact.html">購物頁</a></li>
-                                    <li class="dropdown">
-                                        <a href="#">新聞</a>
-                                        <ul>
-                                            <li><a asp-controller="NewsPage" asp-action="index">全部</a></li>
-                                            @{
-                                                foreach (NewsClass item in newsType)
-                                                {
-                                                    var url = Url.Action("Index", "NewsPage", new { ClassType = item.NewsClassNum, Page = page });
-                                                    <li><a href="@url">@item.NewsClassName</a></li>
-                                                }
-                                            }
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">聯絡我</a></li>
-
-                                </ul>
-                            </div>
-                        </nav><!-- Main Menu End-->
-
-                    </div><!--Nav Outer End-->
-
-                    <!-- Hidden Nav Toggler -->
-                    <div class="nav-toggler">
-                        <button class="hidden-bar-opener"><span class="icon fa fa-bars"></span></button>
-                    </div><!-- / Hidden Nav Toggler -->
+        @{
+            @Html.Partial("_FrontEndNavbarPartial")
+        }
 
 
-                </div>
-            </div>
-
-        </header>
-        <!--End Header Style Three-->
-        <!-- Hidden Navigation Bar -->
-        <section class="hidden-bar right-align">
-
-            <div class="hidden-bar-closer">
-                <button class="btn"><i class="fa fa-close"></i></button>
-            </div>
-
-            <!-- Hidden Bar Wrapper -->
-            <div class="hidden-bar-wrapper">
-
-                <!-- .logo -->
-                <div class="logo text-center">
-                    <a href="index.html"><img src="~/FrontEnd/images/logo-sidebar.png" alt=""></a>
-                </div><!-- /.logo -->
-                <!-- .Side-menu -->
-                <div class="side-menu">
-                    <!-- .navigation -->
-                    <ul class="navigation clearfix">
-                        
-                        <li><a asp-controller="Default" asp-action="Index">主頁</a></li>
-                        <li><a asp-controller="AboutUs" asp-action="Index">關於我</a></li>
-                        <li><a href="contact.html">購物頁</a></li>
-                        <li class="dropdown">
-                            <a href="#">新聞</a>
-                            <ul>
-                                <li><a asp-controller="NewsPage" asp-action="index">全部</a></li>
-                                @{
-                                    foreach (NewsClass item in newsType)
-                                    {
-                                        var url = Url.Action("Index", "NewsPage", new { ClassType = item.NewsClassNum, Page = page });
-                                        <li><a href="@url">@item.NewsClassName</a></li>
-                                    }
-                                }
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">聯絡我</a></li>
-
-                    </ul>
-                </div><!-- /.Side-menu -->
-
-                <div class="social-icons">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-
-            </div><!-- / Hidden Bar Wrapper -->
-        </section><!-- / Hidden Bar -->
-
-
-        <!--Main Slider-->
+        <!--輪播-->
         <section class="main-slider style-one">
 
             <div class="tp-banner-container">
@@ -277,63 +165,9 @@
             </div>
         </section>
 
-        <!--Main Footer-->
-        <footer class="main-footer">
-
-            <!--Widgets Section-->
-            <div class="widgets-section" style="background-image:url(images/background/image-2.jpg);">
-                <div class="outer-container">
-                    <div class="row clearfix">
-                        <!--Big Column-->
-                        <div class="big-column col-md-6 col-sm-12 col-xs-12">
-                            <div class="row clearfix">
-
-                                <!--Footer Column-->
-                                <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                </div>
-
-                                <!--Footer Column-->
-                                <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                    <div class="footer-widget about-widget">
-                                        <figure class="footer-logo"><a href="index.html"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></figure>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <!--Big Column-->
-                        <div class="big-column col-md-6 col-sm-12 col-xs-12">
-                            <div class="row clearfix">
-
-                                <!--Footer Column-->
-                                <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                    <div class="footer-widget links-widget">
-                                        <h2>聯絡我</h2>
-                                        <div class="widget-content">
-                                            <ul class="list">
-                                                <li>Email   : yuting09210310@gmail.com</li>
-                                                <li>Tel     : +886 968977794</li>
-                                                <li>GitHub  : yuting09120310 </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--Footer Column-->
-                                <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </footer>
+        @{
+            @Html.Partial("_FrontEndFooterPartial")
+        }
 
     </div>
     <!--End pagewrapper-->
@@ -371,18 +205,9 @@
         </div>
     </div>
 
-
-    <script src="~/FrontEnd/js/jquery.js"></script>
-    <script src="~/FrontEnd/js/bootstrap.min.js"></script>
-    <script src="~/FrontEnd/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="~/FrontEnd/js/revolution.min.js"></script>
-    <script src="~/FrontEnd/js/jquery.fancybox.pack.js"></script>
-    <script src="~/FrontEnd/js/jquery.fancybox-media.js"></script>
-    <script src="~/FrontEnd/js/mixitup.js"></script>
-    <script src="~/FrontEnd/js/isotope.js"></script>
-    <script src="~/FrontEnd/js/owl.js"></script>
-    <script src="~/FrontEnd/js/wow.js"></script>
-    <script src="~/FrontEnd/js/knob.js"></script>
-    <script src="~/FrontEnd/js/script.js"></script>
+    @{
+        @Html.Partial("_FrontEndScriptPartial")
+    }
+    
 </body>
 </html>
