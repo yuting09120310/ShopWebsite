@@ -154,166 +154,48 @@
                 <div class="tp-banner">
                     <ul>
 
-                        <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="~/FrontEnd/images/main-slider/8.jpg" data-saveperformance="off" data-title="Awesome Title Here">
-                            <img src="~/FrontEnd/images/main-slider/8.jpg" alt="" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
+                        @{
+                            foreach(Banner item in Model.lstBanner)
+                            {
+                                <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="@Url.Content("~/uploads/Banner/" + item.BannerImg1)" data-saveperformance="off" data-title="Awesome Title Here">
+                                    <img src="@Url.Content("~/uploads/Banner/" + item.BannerImg1)" alt="" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
 
-                            <!--Transparent layer Full-->
-                            <div class="transparent-bg-layer-full"></div>
+                                    <!--Transparent layer Full-->
+                                    <div class="transparent-bg-layer-full"></div>
 
-                            <div class="tp-caption sfb sft tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="-50"
-                                 data-speed="1500"
-                                 data-start="500"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <h3 class="bigger-text">We’re the best in <br>transportaion business</h3>
-                            </div>
+                                    <div class="tp-caption sfb sft tp-resizeme"
+                                     data-x="left" data-hoffset="15"
+                                     data-y="center" data-voffset="-50"
+                                     data-speed="1500"
+                                     data-start="500"
+                                     data-easing="easeOutExpo"
+                                     data-splitin="none"
+                                     data-splitout="none"
+                                     data-elementdelay="0.01"
+                                     data-endelementdelay="0.3"
+                                     data-endspeed="1200"
+                                     data-endeasing="Power4.easeIn">
+                                        <h3 class="bigger-text">@item.BannerTitle</h3>
+                                    </div>
 
-                            <div class="tp-caption sfb sfb tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="80"
-                                 data-speed="1500"
-                                 data-start="1000"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <div class="text">Accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque <br>corrupti quos dolores et quas molestias excepturi</div>
-                            </div>
+                                    <div class="tp-caption sfb sfb tp-resizeme"
+                                     data-x="left" data-hoffset="15"
+                                     data-y="center" data-voffset="80"
+                                     data-speed="1500"
+                                     data-start="1000"
+                                     data-easing="easeOutExpo"
+                                     data-splitin="none"
+                                     data-splitout="none"
+                                     data-elementdelay="0.01"
+                                     data-endelementdelay="0.3"
+                                     data-endspeed="1200"
+                                     data-endeasing="Power4.easeIn">
+                                        <div class="text">@item.BannerDescription</div>
+                                    </div>
 
-                            <div class="tp-caption sfb sfb tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="180"
-                                 data-speed="1500"
-                                 data-start="1500"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <a href="#" class="theme-btn btn-style-one">View Details</a>
-                            </div>
-
-                        </li>
-
-                        <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="~/FrontEnd/images/main-slider/8.jpg" data-saveperformance="off" data-title="Awesome Title Here">
-                            <img src="~/FrontEnd/images/main-slider/8.jpg" alt="" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-
-                            <!--Transparent layer Full-->
-                            <div class="transparent-bg-layer-full"></div>
-
-                            <div class="tp-caption sfb sft tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="-50"
-                                 data-speed="1500"
-                                 data-start="500"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <h3 class="bigger-text">We’re the best in <br>transportaion business</h3>
-                            </div>
-
-                            <div class="tp-caption sfb sfb tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="80"
-                                 data-speed="1500"
-                                 data-start="1000"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <div class="text">Accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque <br>corrupti quos dolores et quas molestias excepturi</div>
-                            </div>
-
-                            <div class="tp-caption sfb sfb tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="180"
-                                 data-speed="1500"
-                                 data-start="1500"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <a href="#" class="theme-btn btn-style-one">View Details</a>
-                            </div>
-
-                        </li>
-
-                        <li data-transition="slideup" data-slotamount="1" data-masterspeed="1000" data-thumb="~/FrontEnd/images/main-slider/8.jpg" data-saveperformance="off" data-title="Awesome Title Here">
-                            <img src="~/FrontEnd/images/main-slider/8.jpg" alt="" data-bgposition="center bottom" data-bgfit="cover" data-bgrepeat="no-repeat">
-
-                            <!--Transparent layer Full-->
-                            <div class="transparent-bg-layer-full"></div>
-
-                            <div class="tp-caption sfb sft tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="-50"
-                                 data-speed="1500"
-                                 data-start="500"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <h3 class="bigger-text">We’re the best in <br>transportaion business</h3>
-                            </div>
-
-                            <div class="tp-caption sfb sfb tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="80"
-                                 data-speed="1500"
-                                 data-start="1000"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <div class="text">Accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque <br>corrupti quos dolores et quas molestias excepturi</div>
-                            </div>
-
-                            <div class="tp-caption sfb sfb tp-resizeme"
-                                 data-x="left" data-hoffset="15"
-                                 data-y="center" data-voffset="180"
-                                 data-speed="1500"
-                                 data-start="1500"
-                                 data-easing="easeOutExpo"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.3"
-                                 data-endspeed="1200"
-                                 data-endeasing="Power4.easeIn">
-                                <a href="#" class="theme-btn btn-style-one">View Details</a>
-                            </div>
-
-                        </li>
-
-
+                                </li>
+                            }
+                        }
                     </ul>
 
                     <div class="tp-bannertimer"></div>

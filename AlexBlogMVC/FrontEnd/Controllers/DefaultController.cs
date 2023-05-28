@@ -19,6 +19,19 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public IActionResult Index()
         {
+            List<Banner> banner = (from n in _context.Banners
+                                   where n.BannerPublish == true
+                                   orderby n.BannerNum descending
+                                   select new Banner
+                                   {
+                                       BannerNum= n.BannerNum,
+                                       BannerTitle= n.BannerTitle,
+                                       BannerDescription= n.BannerDescription,
+                                       BannerImg1= n.BannerImg1,
+                                   }
+                                   ).ToList();
+
+
             List<NewsPageViewModel> newsPage = (from n in _context.News
                                                   where n.NewsPublish == true
                                                   orderby n.NewsNum descending
@@ -56,6 +69,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
             DefaultViewModel dvm = new DefaultViewModel()
             {
+                lstBanner = banner,
                 lstNewsPageViewModel = newsPage,
                 lstShopPageViewModel = shopPage
             };
