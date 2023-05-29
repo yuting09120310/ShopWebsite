@@ -2,7 +2,10 @@
 
 @{
     ViewData["Title"] = "最新消息";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "最新消息", new string[] { "Alex前台", "最新消息" } } };
 }
+
+@Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict)
 
 <section class="default-news-section">
     <div class="auto-container">

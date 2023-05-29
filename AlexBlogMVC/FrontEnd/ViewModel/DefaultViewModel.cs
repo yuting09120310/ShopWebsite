@@ -9,6 +9,6 @@ namespace AlexBlogMVC.FrontEnd.ViewModel
         public List<NewsPageViewModel> lstNewsPageViewModel { get; set; }
 
 
-        public List<ShopPageViewModel> lstShopPageViewModel { get; set; }
+        public List<SingleProductViewModel> lstShopPageViewModel { get; set; }
     }
 }

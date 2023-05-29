@@ -2,8 +2,10 @@
 
 @{
     ViewData["Title"] = "關於我";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "關於我", new string[] { "Alex前台", "關於我" } } };
 }
 
+@Html.Partial("_FrontEndPageTitlePartial",breadcrumbDict)
 
 <section class="default-content-section extended">
     <div class="auto-container">

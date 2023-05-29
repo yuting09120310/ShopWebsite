@@ -4,6 +4,7 @@ namespace AlexBlogMVC.FrontEnd.ViewModel
 {
     public class NewsPageViewModel
     {
+
         public long NewsId { get; set; }
 
         public string Title { get; set; }

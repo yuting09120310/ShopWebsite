@@ -50,10 +50,10 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
 
 
-            List<ShopPageViewModel> shopPage = (from n in _context.Products
+            List<SingleProductViewModel> shopPage = (from n in _context.Products
                                                 where n.ProductPublish == true
                                                 orderby n.ProductNum descending
-                                                select new ShopPageViewModel
+                                                select new SingleProductViewModel
                                                 {
                                                     ProductId = n.ProductNum,
                                                     Title = n.ProductTitle,

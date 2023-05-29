@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<section class="page-title" style="background-image:url('@Url.Content("~/uploads/Banner/" + ViewBag.Banner)');">
+            <div class="auto-container">
+                <div class="clearfix">
+                    <!--Title -->
+                    <div class="title-column">
+                        @foreach (var item in Model)
+                        {
+                            <h1>@item.Key</h1>
+                            
+                        }
+                    </div>
+                    <!--Bread Crumb -->
+                    <div class="breadcrumb-column">
+                        <ul class="bread-crumb clearfix">
+                            @foreach (var item in Model)
+                            {
+                                @foreach (string subItem in item.Value)
+                                {
+                                    <li class="breadcrumb-item">@subItem</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>

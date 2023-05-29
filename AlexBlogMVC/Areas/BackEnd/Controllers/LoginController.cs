@@ -3,16 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
-    [Area("BackEnd")]
-    public class LoginController : Controller
+    public class LoginController : GenericController
     {
 
-        private readonly BlogMvcContext _context;
-
-        public LoginController(BlogMvcContext context) 
-        {
-            _context= context;
-        }
+        public LoginController(BlogMvcContext context) : base(context) { }
 
 
         public IActionResult Index()

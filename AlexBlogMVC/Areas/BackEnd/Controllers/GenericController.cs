@@ -30,6 +30,7 @@ namespace AlexBlogMVC.Areas.Controllers
                          where c.MenuGroupPublish == true
                          orderby c.MenuGroupNum ascending
                          select c;
+
             ViewBag.module = module.ToList();
 
 
@@ -38,6 +39,16 @@ namespace AlexBlogMVC.Areas.Controllers
                                             s in _context.AdminRoles on c.MenuSubNum equals s.MenuSubNum
                             where c.MenuSubPublish == true && s.GroupNum == GroupNum
                             select c;
+
+
+            foreach (var item in moduleFun)
+            {
+                if (item.MenuSubName == "帳號修改")
+                {
+                    item.MenuSubUrl += HttpContext.Session.GetString("AdminNum");
+                }
+            }
+
 
             ViewBag.moduleFun = moduleFun.ToList();
         }

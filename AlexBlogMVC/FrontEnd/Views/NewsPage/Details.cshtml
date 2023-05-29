@@ -1,10 +1,11 @@
 ﻿@model AlexBlogMVC.FrontEnd.ViewModel.NewsPageViewModel
 
 @{
+    var breadcrumbDict = new Dictionary<string, string[]> { { "最新消息", new string[] { "Alex前台", "最新消息", Model.NewsTypeName } } };
     ViewData["Title"] = @Model.Title;
 }
 
-
+@Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict)
 
 <section class="news-detail-section">
     <div class="auto-container">

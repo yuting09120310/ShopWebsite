@@ -48,77 +48,6 @@
           
           <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
             <ul class="nav-menus">
-              <li class="cart-nav onhover-dropdown">
-                <div class="cart-box">
-                  <svg>
-                    <use href="~/BackEnd/assets/svg/icon-sprite.svg#stroke-ecommerce"></use>
-                  </svg><span class="badge rounded-pill badge-success">2</span>
-                </div>
-                <div class="cart-dropdown onhover-show-div">
-                  <h6 class="f-18 mb-0 dropdown-title">Cart</h6>
-                  <ul>
-                    <li>
-                      <div class="media"><img class="img-fluid b-r-5 me-3 img-60" src="~/BackEnd/assets/images/other-images/cart-img.jpg" alt="">
-                        <div class="media-body"><span>Furniture Chair for Home</span>
-                          <div class="qty-box">
-                            <div class="input-group"><span class="input-group-prepend">
-                                <button class="btn quantity-left-minus" type="button" data-type="minus" data-field="">-</button></span>
-                              <input class="form-control input-number" type="text" name="quantity" value="1"><span class="input-group-prepend">
-                                <button class="btn quantity-right-plus" type="button" data-type="plus" data-field="">+</button></span>
-                            </div>
-                          </div>
-                          <h6 class="font-primary">$500</h6>
-                        </div>
-                        <div class="close-circle"><a class="bg-danger" href="#"><i data-feather="x"></i></a></div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="media"><img class="img-fluid b-r-5 me-3 img-60" src="~/BackEnd/assets/images/other-images/cart-img.jpg" alt="">
-                        <div class="media-body"><span>Furniture Chair for Home</span>
-                          <div class="qty-box">
-                            <div class="input-group"><span class="input-group-prepend">
-                                <button class="btn quantity-left-minus" type="button" data-type="minus" data-field="">-</button></span>
-                              <input class="form-control input-number" type="text" name="quantity" value="1"><span class="input-group-prepend">
-                                <button class="btn quantity-right-plus" type="button" data-type="plus" data-field="">+</button></span>
-                            </div>
-                          </div>
-                          <h6 class="font-primary">$500.00</h6>
-                        </div>
-                        <div class="close-circle"><a class="bg-danger" href="#"><i data-feather="x"></i></a></div>
-                      </div>
-                    </li>
-                    <li class="total">
-                      <h6 class="mb-0">Order Total : <span class="f-right">$1000.00</span></h6>
-                    </li>
-                    <li class="text-center"><a class="d-block mb-3 view-cart f-w-700" href="cart.html">Go to your cart</a><a class="btn btn-primary view-checkout" href="checkout.html">Checkout</a></li>
-                  </ul>
-                </div>
-              </li>
-              <li class="onhover-dropdown">
-                <div class="notification-box">
-                  <svg>
-                    <use href="~/BackEnd/assets/svg/icon-sprite.svg#notification"></use>
-                  </svg><span class="badge rounded-pill badge-secondary">4 </span>
-                </div>
-                <div class="onhover-show-div notification-dropdown">
-                  <h6 class="f-18 mb-0 dropdown-title">Notitications                               </h6>
-                  <ul>
-                    <li class="b-l-primary border-4">
-                      <p>Delivery processing <span class="font-danger">10 min.</span></p>
-                    </li>
-                    <li class="b-l-success border-4">
-                      <p>Order Complete<span class="font-success">1 hr</span></p>
-                    </li>
-                    <li class="b-l-secondary border-4">
-                      <p>Tickets Generated<span class="font-secondary">3 hr</span></p>
-                    </li>
-                    <li class="b-l-warning border-4">
-                      <p>Delivery Complete<span class="font-warning">6 hr</span></p>
-                    </li>
-                    <li><a class="f-w-700" href="#">Check all</a></li>
-                  </ul>
-                </div>
-              </li>
               <li class="profile-nav onhover-dropdown pe-0 py-0">
                 <div class="media profile-media"><img class="b-r-10" src="~/BackEnd/assets/images/dashboard/profile.png" alt="">
                   <div class="media-body"><span>@ViewBag.AdminName</span>
@@ -126,11 +55,7 @@
                   </div>
                 </div>
                 <ul class="profile-dropdown onhover-show-div">
-                  <li><a href="#"><i data-feather="user"></i><span>Account </span></a></li>
-                  <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
-                  <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
-                  <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-                  <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+                  <li><a asp-controller="LogOut" asp-action="Index"><i data-feather="log-in"> </i><span>登出</span></a></li>
                 </ul>
               </li>
             </ul>

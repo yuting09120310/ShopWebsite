@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\BackEnd\" />
     <Folder Include="Views\" />
   </ItemGroup>
 
