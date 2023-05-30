@@ -42,4 +42,6 @@ public partial class News
     public string? Ip { get; set; }
 
     public DateTime? NewsOffTime { get; set; }
+
+    public string? Tag { get; set; }
 }

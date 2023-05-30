@@ -44,6 +44,11 @@ namespace AlexBlogMVC.Areas.ViewModel
 
         public string? ProductImgListAlt { get; set; }
 
+
+        [Display(Name = "價格")]
+        public int ProductPrice { get; set; }
+
+
         public string? ProductVideo1 { get; set; }
 
         [Display(Name = "狀態")]

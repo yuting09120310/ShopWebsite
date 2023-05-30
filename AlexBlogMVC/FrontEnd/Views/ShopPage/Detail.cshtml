@@ -1,0 +1,316 @@
+﻿@{
+    ViewData["Title"] = "商品頁面";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "商品頁面", new string[] { "Alex前台", "商品頁面" } } };
+}
+
+@Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict)
+<!--Shop Single-->
+    <div class="shop-single shop-page">
+        <div class="outer-container shop-container">
+
+            <!--Prod Info Section-->
+            <section class="prod-info-section">
+
+                <div class="row clearfix">
+
+                    <div class="carousel-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="carousel-outer wow fadeInLeft">
+
+                            <ul class="image-carousel">
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                                <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
+                            </ul>
+
+                            <ul class="thumbs-carousel">
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-1.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-2.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-3.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-4.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-1.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-2.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-3.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-4.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-1.jpg" alt=""></li>
+                                <li><img src="~/FrontEnd/images/resource/products/shop-thumb-3.jpg" alt=""></li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <!--Content Column-->
+                    <div class="content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="outer wow fadeInRight">
+                            <div class="title-box">
+                                <h2>Planet Power Drill Machine</h2>
+                                <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>
+                                <div class="price">$ 35.00 <span class="strike-through">$75.00</span></div>
+                            </div>
+                            <div class="desc-text">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
+                            <!--Options-->
+                            <div class="prod-options">
+                                <div class="clearfix">
+                                    <div class="form-group">
+                                        <strong>Color : </strong>
+                                        <select name="sel-color">
+                                            <option>Select Color</option>
+                                            <option>Black</option>
+                                            <option>Blue</option>
+                                            <option>Red</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <strong>Size : </strong>
+                                        <select name="sel-color">
+                                            <option>Select Size</option>
+                                            <option>Small</option>
+                                            <option>Large</option>
+                                            <option>X Large</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <strong>QTY : </strong>
+                                        <input type="number" name="qty" value="2" max="10" min="0" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Add-->
+                            <div class="add-options">
+                                <button type="button" class="theme-btn add-cart-btn">Add to cart</button>
+                                <button type="button" class="theme-btn add-fav"><span class="icon flaticon-heart-1"></span></button>
+                            </div>
+
+                            <!--Share Options-->
+                            <div class="share-options">
+                                <strong>Share This :</strong>
+                                <a href="#"><span class="fa fa-pinterest-square"></span></a>
+                                <a href="#"><span class="fa fa-twitter-square"></span></a>
+                                <a href="#"><span class="fa fa-facebook-square"></span></a>
+                                <a href="#"><span class="fa fa-instagram"></span></a>
+                                <a href="#"><span class="fa fa-behance"></span></a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!--Product Info Tabs-->
+            <div class="product-info-tabs">
+
+                <!--Product Tabs-->
+                <section class="prod-tabs" id="product-tabs">
+
+                    <!--Tab Btns-->
+                    <div class="tab-btns clearfix">
+                        <a href="#prod-description" class="tab-btn">Product description</a>
+                        <a href="#prod-reviews" class="tab-btn active-btn">reviews</a>
+                        <a href="#prod-tags" class="tab-btn">product tags</a>  
+                    </div>
+
+                    <!--Tabs Container-->
+                    <div class="tabs-container">
+
+                        <!--Tab-->
+                        <div class="tab" id="prod-description">
+                            <h3>Product Description</h3>
+                            <div class="content">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <p>Goodbye gray sky hello blue. There's nothing can hold me when I hold you. Feels so right it cant be wrong. Rockin' and rollin' all week long. Said Californ'y is the place you ought to be.</p>
+                            </div>
+                        </div>
+
+                        <!--Tab / Active Tab-->
+                        <div class="tab active-tab" id="prod-reviews">
+                            <div class="row clearfix">
+                                <div class="reviews-column col-lg-6 col-md-12 col-xs-12">
+                                    <h3>3 Reviews Found</h3>
+                                    <!--Reviews Container-->
+                                    <div class="reviews-container">
+
+                                        <!--Reviews-->
+                                        <article class="review-box clearfix">
+                                            <figure class="rev-thumb"><img src="~/FrontEnd/images/resource/author-thumb-1.jpg" alt=""></figure>
+                                            <div class="rev-content">
+                                                <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
+                                                <div class="rev-info"><strong>Admin</strong> – April 03, 2016: </div>
+                                                <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
+                                            </div>
+                                        </article>
+
+                                        <article class="review-box clearfix">
+                                            <figure class="rev-thumb"><img src="~/FrontEnd/images/resource/author-thumb-2.jpg" alt=""></figure>
+                                            <div class="rev-content">
+                                                <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
+                                                <div class="rev-info"><strong>Ahsan</strong> – April 01, 2016: </div>
+                                                <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
+                                            </div>
+                                        </article>
+
+                                        <article class="review-box clearfix">
+                                            <figure class="rev-thumb"><img src="~/FrontEnd/images/resource/author-thumb-3.jpg" alt=""></figure>
+                                            <div class="rev-content">
+                                                <div class="rating"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></div>
+                                                <div class="rev-info"><strong>Tafseer</strong> – March 31, 2016: </div>
+                                                <div class="rev-text"><p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis</p></div>
+                                            </div>
+                                        </article>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-column col-lg-6 col-md-12 col-xs-12">
+                                    <!--Add Review-->
+                                    <div class="add-review">
+                                        <h3>Add a Review</h3>
+
+                                        <form method="post" action="shop-single.html">
+                                            <div class="row clearfix">
+                                                <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                                    <label>Your Name *</label>
+                                                    <input type="text" name="name" value="" placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                                    <label>Your Email *</label>
+                                                    <input type="email" name="email" value="" placeholder="" required>
+                                                </div>
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Rate Now </label>
+                                                    <div class="rating">
+                                                        <a href="#" class="rate-box" title="1 Out of 5"><span class="fa fa-star"></span></a>
+                                                        <a href="#" class="rate-box" title="2 Out of 5"><span class="fa fa-star"></span> <span class="fa fa-star"></span></a>
+                                                        <a href="#" class="rate-box" title="3 Out of 5"><span class="fa fa-star"></span> <span class="fa fa-star"> </span> <span class="fa fa-star"></span></a>
+                                                        <a href="#" class="rate-box" title="4 Out of 5"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></a>
+                                                        <a href="#" class="rate-box" title="5 Out of 5"><span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span></a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                                    <label>Your Review</label>
+                                                    <textarea name="review-message"></textarea>
+                                                </div>
+                                                <div class="form-group text-right col-md-12 col-sm-12 col-xs-12">
+                                                    <button type="button" class="theme-btn">Add Review</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--Tab-->
+                        <div class="tab" id="prod-tags">
+                            <h3>Product Tags</h3>
+                            <div class="content">
+                                <p>There are many variations seds of passages of books are available, but the majority have suffered alteration in some seds form, by injected humour, or randomised words which don't look even slightly ut believable.</p>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Top Sellers Section-->
+    <section class="products-section top-sellers">
+        <div class="outer-container">
+            <div class="default-sec-title"><h2>Upsell Products</h2></div>
+
+            <div class="row clearfix">
+                <!--Product item-->
+                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-10.jpg" alt=""></a>
+                            <div class="options">
+                                <a href="~/FrontEnd/images/resource/products/image-10.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
+                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
+                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
+                            </div>
+                        </figure>
+                        <div class="prod-tag sale-tag">Sale</div>
+                        <div class="lower-content">
+                            <h3><a href="shop-single.html">DeWalt</a></h3>
+                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
+                            <div class="price">$ 18.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Product item-->
+                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-11.jpg" alt=""></a>
+                            <div class="options">
+                                <a href="~/FrontEnd/images/resource/products/image-11.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
+                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
+                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
+                            </div>
+                        </figure>
+                        <div class="lower-content">
+                            <h3><a href="shop-single.html">DeWalt</a></h3>
+                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
+                            <div class="price">$ 23.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Product item-->
+                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-12.jpg" alt=""></a>
+                            <div class="options">
+                                <a href="~/FrontEnd/images/resource/products/image-12.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
+                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
+                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
+                            </div>
+                        </figure>
+                        <div class="prod-tag new-tag">New</div>
+                        <div class="lower-content">
+                            <h3><a href="shop-single.html">Cumi</a></h3>
+                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
+                            <div class="price">$ 25.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Product item-->
+                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="inner-box">
+                        <figure class="image-box">
+                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-13.jpg" alt=""></a>
+                            <div class="options">
+                                <a href="~/FrontEnd/images/resource/products/image-13.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
+                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
+                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
+                            </div>
+                        </figure>
+                        <div class="lower-content">
+                            <h3><a href="shop-single.html">Crocodile</a></h3>
+                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
+                            <div class="price">$ 29.00</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>

@@ -35,6 +35,8 @@ public partial class Product
 
     public string? ProductVideo1 { get; set; }
 
+    public int ProductPrice { get; set; }
+
     public bool? ProductPublish { get; set; }
 
     public DateTime? ProductPutTime { get; set; }

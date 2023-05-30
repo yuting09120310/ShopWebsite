@@ -27,7 +27,7 @@
                                     <div class="product-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                         <div class="inner-box">
                                             <figure class="image-box">
-                                                <a href="shop.html"><img src="@Url.Content("~/uploads/Product/" + product.ProductImg1)" alt=""></a>
+                                                <a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@product.ProductId"><img src="@Url.Content("~/uploads/Product/" + product.ProductImg1)" alt=""></a>
                                                 <div class="options">
                                                     <a href="@Url.Content("~/uploads/Product/" + product.ProductImg1)" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
                                                     <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
@@ -35,9 +35,9 @@
                                                 </div>
                                             </figure>
                                             <div class="lower-content">
-                                                <h3><a href="shop-single.html">@product.Title</a></h3>
+                                                <h3><a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@product.ProductId">@product.Title</a></h3>
                                                 <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                                                <div class="price">$ 15.00</div>
+                                                <div class="price">$ @product.Price</div>
                                             </div>
                                         </div>
                                     </div>

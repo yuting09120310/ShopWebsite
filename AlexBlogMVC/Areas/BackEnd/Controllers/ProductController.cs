@@ -43,7 +43,8 @@ namespace AlexBlogMVC.Areas.Controllers
                                                        CreateTime = n.CreateTime,
                                                        EditTime = n.EditTime,
                                                        ProductOffTime = n.ProductOffTime,
-                                                       ProductPublish = n.ProductPublish
+                                                       ProductPublish = n.ProductPublish,
+                                                       ProductPrice = n.ProductPrice
                                                    };
 
 
@@ -136,6 +137,7 @@ namespace AlexBlogMVC.Areas.Controllers
                     ProductOffTime = productViewModel.ProductOffTime,
                     Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
                     CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                    ProductPrice = productViewModel.ProductPrice
                 };
 
                 _context.Add(product);
@@ -188,6 +190,7 @@ namespace AlexBlogMVC.Areas.Controllers
                     EditorName = (from editor in _context.Admins where editor.AdminNum == products.Editor select editor.AdminName).FirstOrDefault(),
                     Ip = products.Ip,
                     ProductImg1 = products.ProductImg1,
+                    ProductPrice = products.ProductPrice
                 }
             ).FirstOrDefault();
 
@@ -272,6 +275,7 @@ namespace AlexBlogMVC.Areas.Controllers
                         EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                         Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
                         Ip = productViewModel.Ip,
+                        ProductPrice = productViewModel.ProductPrice,
                     };
 
                     if (productViewModel.FileData != null)

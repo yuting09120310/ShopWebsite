@@ -35,11 +35,12 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                     ProductTypeName = (from creator in _context.ProductClasses
                                                                        where creator.ProductClassNum == n.ProductClass
                                                                        select creator.ProductClassName).FirstOrDefault(),
+                                                    Price = n.ProductPrice,
                                                 }).ToList();
 
             List<ProductClass> productClasses = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
 
-
+            
             ///搜尋條件
             if(ClassType != null)
             {
@@ -54,6 +55,12 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             };
 
             return View(shopPageViewModel);
+        }
+
+
+        public IActionResult Detail(long Id)
+        {
+            return View();
         }
     }
 }
