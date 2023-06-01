@@ -21,6 +21,8 @@ namespace AlexBlogMVC.FrontEnd.ViewModel
 
         public string contxt { get; set; }
 
+        public string? Tag { get; set; }
+
 
         //取得留言
         public List<UserComment> getCommants { get; set; }

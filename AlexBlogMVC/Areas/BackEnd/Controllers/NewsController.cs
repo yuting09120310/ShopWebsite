@@ -131,6 +131,7 @@ namespace AlexBlogMVC.Areas.Controllers
                     NewsOffTime = newsViewModel.NewsOffTime,
                     Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
                     CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                    Tag = newsViewModel.Tag
                 };
 
                 _context.Add(news);
@@ -184,6 +185,7 @@ namespace AlexBlogMVC.Areas.Controllers
                     EditorName = (from editor in _context.Admins where editor.AdminNum == news.Editor select editor.AdminName).FirstOrDefault(),
                     Ip = news.Ip,
                     NewsImg1 = news.NewsImg1,
+                    Tag = news.Tag
                 }
             ).FirstOrDefault();
 
@@ -264,6 +266,7 @@ namespace AlexBlogMVC.Areas.Controllers
                         EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                         Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
                         Ip = newsViewModel.Ip,
+                        Tag = newsViewModel.Tag
                     };
 
                     if (newsViewModel.FileData != null)

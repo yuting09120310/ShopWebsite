@@ -67,7 +67,7 @@ namespace AlexBlogMVC.Areas.ViewModel
 
         public IFormFile? FileData { get; set; }
 
-
+        public string? Tag { get; set; }
 
 
 

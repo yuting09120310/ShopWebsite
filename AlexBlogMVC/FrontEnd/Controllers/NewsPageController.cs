@@ -21,7 +21,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
 
         // GET: News
-        public async Task<IActionResult> Index(string ClassType, string Page)
+        public async Task<IActionResult> Index(string ClassType, string Page, string searchValue)
         {
             int itemsPerPage = 5;
 
@@ -37,14 +37,26 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                       NewsImg1 = n.NewsImg1,
                                                       CreateTime = n.CreateTime,
                                                       ClassId = n.NewsClass,
-                                                      NewsTypeName = (from creator in _context.NewsClasses
+                                                      NewsTypeName = (from creator in _context.NewsClasses    
                                                                       where creator.NewsClassNum == n.NewsClass
                                                                       select creator.NewsClassName).FirstOrDefault(),
+                                                      Tag = n.Tag
                                                   };
 
-            if (!string.IsNullOrEmpty(ClassType) && Convert.ToInt64(ClassType) != 0)
+
+            if (string.IsNullOrEmpty(ClassType))
+            {
+                ClassType = "0";
+            }
+            else
             {
                 query = query.Where(x => x.ClassId == Convert.ToInt64(ClassType));
+            }
+
+
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                query = query.Where(x => x.Tag.Contains(searchValue));
             }
 
 
@@ -90,6 +102,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                 where creator.NewsClassNum == n.NewsClass
                                 select creator.NewsClassName).FirstOrDefault(),
                     contxt = n.NewsContxt,
+                    Tag = n.Tag
                 }
             ).FirstOrDefault();
 

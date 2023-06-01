@@ -24,10 +24,13 @@
         <!--Post Tags-->
         <div class="post-tags">
             <strong>TAGS : </strong>
-            <a href="#">Business</a>
-            <a href="#">Article</a>
-            <a href="#">Blog</a>
-            <a href="#">Creative</a>
+            @{
+                string[] Tags = Model.Tag.Split(',');
+                foreach (string tag in Tags)
+                {
+                    <a asp-action="Index" asp-controller="NewsPage" asp-route-searchValue="@tag">@tag</a>
+                }
+            }
         </div>
 
         <!--Comments Container-->
