@@ -8,8 +8,10 @@
 
         public string Amount { get; set; }
 
-        public string Price { get; set; }
+        public int Price { get; set; }
 
         public string Total { get; set; }
+
+
     }
 }

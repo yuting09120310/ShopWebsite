@@ -111,11 +111,23 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         public IActionResult Cart()
         {
             var sessionKeys = HttpContext.Session.Keys;
-            foreach (var key in sessionKeys)
+
+
+            foreach (var productId in sessionKeys)
             {
-                var value = HttpContext.Session.GetString(key);
-                // 使用取得的鍵和值進行後續操作
-                // ...
+
+                List<CartViewModel> cart = (from n in _context.Products
+                                                   where n.ProductNum == Convert.ToInt64(productId)
+                                                   select new CartViewModel
+                                                   {
+                                                       ProductId = n.ProductNum,
+                                                       Title = n.ProductTitle,
+                                                       
+                                                       Price = n.ProductPrice * ,
+                                                   }).FirstOrDefault();
+
+                var amount = HttpContext.Session.GetString(productId);
+
             }
 
 
