@@ -83,5 +83,8 @@ namespace AlexBlogMVC.Areas.ViewModel
 
 
         public IFormFile? FileData { get; set; }
+
+
+        public List<IFormFile>? FileDatas { get; set; }
     }
 }

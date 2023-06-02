@@ -28,6 +28,8 @@ namespace AlexBlogMVC.FrontEnd.ViewModel
 
         public string ProductImg1 { get; set; }
 
+        public string ProductImgList { get; set; }
+
         public string contxt { get; set; }
 
         public int Price { get; set; }
