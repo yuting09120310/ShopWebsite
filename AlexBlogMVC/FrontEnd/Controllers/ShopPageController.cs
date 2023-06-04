@@ -23,31 +23,31 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         public IActionResult Index(string ClassType)
         {
             List<SingleProductViewModel> shopPage = (from n in _context.Products
-                                                where n.ProductPublish == true
-                                                orderby n.ProductNum descending
-                                                select new SingleProductViewModel
-                                                {
-                                                    ProductId = n.ProductNum,
-                                                    Title = n.ProductTitle,
-                                                    Description = n.ProductDescription,
-                                                    ProductImg1 = n.ProductImg1,
-                                                    CreateTime = n.CreateTime,
-                                                    ClassId = n.ProductClass,
-                                                    ProductTypeName = (from creator in _context.ProductClasses
-                                                                       where creator.ProductClassNum == n.ProductClass
-                                                                       select creator.ProductClassName).FirstOrDefault(),
-                                                    Price = n.ProductPrice,
-                                                }).ToList();
+                                                     where n.ProductPublish == true
+                                                     orderby n.ProductNum descending
+                                                     select new SingleProductViewModel
+                                                     {
+                                                         ProductId = n.ProductNum,
+                                                         Title = n.ProductTitle,
+                                                         Description = n.ProductDescription,
+                                                         ProductImg1 = n.ProductImg1,
+                                                         CreateTime = n.CreateTime,
+                                                         ClassId = n.ProductClass,
+                                                         ProductTypeName = (from creator in _context.ProductClasses
+                                                                            where creator.ProductClassNum == n.ProductClass
+                                                                            select creator.ProductClassName).FirstOrDefault()!,
+                                                         Price = n.ProductPrice,
+                                                     }).ToList();
 
             List<ProductClass> productClasses = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
 
-            
+
             ///搜尋條件
-            if(ClassType != null)
+            if (ClassType != null)
             {
                 shopPage = shopPage.Where(x => x.ClassId == Convert.ToInt64(ClassType)).ToList();
             }
-            
+
 
             ShopPageViewModel shopPageViewModel = new ShopPageViewModel()
             {
@@ -67,21 +67,21 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         public IActionResult Detail(long Id)
         {
             SingleProductViewModel shopPage = (from n in _context.Products
-                                              where n.ProductNum == Id
-                                              select new SingleProductViewModel
-                                              {
-                                                  ProductId = n.ProductNum,
-                                                  Title = n.ProductTitle,
-                                                  Description = n.ProductDescription,
-                                                  contxt = n.ProductContxt,
-                                                  ProductImg1 = n.ProductImg1,
-                                                  CreateTime = n.CreateTime,
-                                                  ClassId = n.ProductClass,
-                                                  ProductTypeName = (from creator in _context.ProductClasses
-                                                                     where creator.ProductClassNum == n.ProductClass
-                                                                     select creator.ProductClassName).FirstOrDefault(),
-                                                  Price = n.ProductPrice,
-                                              }).FirstOrDefault();
+                                               where n.ProductNum == Id
+                                               select new SingleProductViewModel
+                                               {
+                                                   ProductId = n.ProductNum,
+                                                   Title = n.ProductTitle,
+                                                   Description = n.ProductDescription,
+                                                   contxt = n.ProductContxt,
+                                                   ProductImg1 = n.ProductImg1,
+                                                   CreateTime = n.CreateTime,
+                                                   ClassId = n.ProductClass,
+                                                   ProductTypeName = (from creator in _context.ProductClasses
+                                                                      where creator.ProductClassNum == n.ProductClass
+                                                                      select creator.ProductClassName).FirstOrDefault(),
+                                                   Price = n.ProductPrice,
+                                               }).FirstOrDefault()!;
 
             return View(shopPage);
         }
@@ -93,7 +93,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         /// <param name="Id">商品編號</param>
         /// <param name="amount">數量</param>
         /// <returns></returns>
-        public IActionResult AddCart(string Id , string amount)
+        public IActionResult AddCart(string Id, string amount)
         {
             HttpContext.Session.SetString(Id, amount);
             return RedirectToAction("Index", "ShopPage");
@@ -142,6 +142,20 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
                 cartViewModel.Total += cart.Price * cart.amount;
             }
+
+            return View(cartViewModel);
+        }
+
+
+        /// <summary>
+        /// 購物車頁面
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Cart(CartViewModel cartViewModel)
+        {
+            cartViewModel.singleProductViewModels = new List<SingleProductViewModel>();
+            ViewBag.result = "下訂成功!!";
 
             return View(cartViewModel);
         }

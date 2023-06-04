@@ -107,7 +107,7 @@
                             <!--Featured Service Column-->
                             <div class="featured-service-column col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                 <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                                    <figure class="image-box"><a href="service-single.html"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
+                                    <figure class="image-box"><a asp-controller="NewsPage" asp-action="Details" asp-route-id="@item.NewsId"><img src="@Url.Content("~/uploads/News/" + item.NewsImg1)" alt=""></a></figure>
                                     <div class="lower-content">
                                         <h3>@item.Title</h3>
                                         <div class="text">@item.Description</div>
@@ -148,7 +148,7 @@
                                     <div class="layer-two"></div>
                                     <div class="hover-info">
                                     <a href="@Url.Content("~/uploads/Product/" + item.ProductImg1)" class="image-link lightbox-image" title="@item.Title"><span class="icon flaticon-cross"></span></a>
-                                        <h4><a href="project-single.html" style="color:black">@item.Title</a></h4>
+                                        <h4><a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@item.ProductId" style="color:black">@item.Title</a></h4>
                                         <div class="info">@item.ProductTypeName</div>
                                     </div>
                                 </div>
