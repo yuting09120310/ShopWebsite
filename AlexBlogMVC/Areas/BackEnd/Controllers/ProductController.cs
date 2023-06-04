@@ -29,7 +29,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
             IEnumerable<ProductViewModel> viewModel = from n in _context.Products
@@ -65,7 +65,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
             ProductViewModel newsViewModel = new ProductViewModel()
@@ -100,7 +100,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
 
@@ -160,7 +160,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
             if (id == null)
@@ -232,7 +232,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
 
@@ -320,7 +320,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
 

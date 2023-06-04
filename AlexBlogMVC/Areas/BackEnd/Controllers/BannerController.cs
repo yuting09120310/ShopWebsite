@@ -31,7 +31,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
             IEnumerable<BannerViewModel> viewModel = from a in _context.Banners
@@ -64,7 +64,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
             ViewBag.PageTitle = "新增廣告";
@@ -94,7 +94,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
 
@@ -150,7 +150,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
             ViewBag.PageTitle = "編輯廣告";
@@ -216,7 +216,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
 
@@ -301,7 +301,7 @@ namespace AlexBlogMVC.Areas.Controllers
             {
                 return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
             }
-            getMenu();
+            GetMenu();
             #endregion
 
 

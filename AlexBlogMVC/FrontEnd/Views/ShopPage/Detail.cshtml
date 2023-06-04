@@ -48,29 +48,26 @@
                                 <div class="price">$ @Model.Price </div>
                             </div>
                         <div class="desc-text">@Model.Description</div>
+
                             <!--Options-->
-                            <div class="prod-options">
-                                <div class="clearfix">
-                                    <div class="form-group">
-                                        <strong>數量 : </strong>
-                                        <select name="sel-color">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                            @using (Html.BeginForm("AddCart", "ShopPage", FormMethod.Get))
+                            {
+                            <input type="hidden" name="Id" value="@Model.ProductId" />
+                                <div class="prod-options">
+                                    <div class="clearfix">
+                                        <div class="form-group">
+                                            <strong>數量 : </strong>
+                                        @Html.DropDownList("amount", new SelectList(new List<string> { "1", "2", "3", "4", "5" }))
+                                        </div>
                                     </div>
-                                    
                                 </div>
-                            </div>
 
-                            <!--Add-->
-                            <div class="add-options">
-                            <a asp-route-Id="@Model.ProductId" asp-route-amount="1" asp-controller="ShopPage" asp-action="AddCart"> <button type="button" class="theme-btn add-cart-btn">加入購物車</button> </a>
-                                <button type="button" class="theme-btn add-fav"><span class="icon flaticon-heart-1"></span></button>
-                            </div>
-
+                                <!--Add-->
+                                <div class="add-options">
+                                    <button type="submit" class="theme-btn add-cart-btn" >加入購物車</button>
+                                    <button type="button" class="theme-btn add-fav"><span class="icon flaticon-heart-1"></span></button>
+                                </div>
+                            }
                             <!--Share Options-->
 
                         </div>

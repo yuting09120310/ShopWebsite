@@ -15,7 +15,7 @@ namespace AlexBlogMVC.Controllers
             {
                 return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
             }
-            getMenu();
+            GetMenu();
 
             return View();
         }

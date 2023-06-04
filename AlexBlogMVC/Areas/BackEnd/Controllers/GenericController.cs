@@ -22,7 +22,7 @@ namespace AlexBlogMVC.Areas.Controllers
 
 
         //取得選單
-        public void getMenu()
+        public void GetMenu()
         {
             int GroupNum = Convert.ToInt16(HttpContext.Session.GetString("GroupNum"));
 

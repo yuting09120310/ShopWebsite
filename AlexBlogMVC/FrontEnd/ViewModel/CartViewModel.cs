@@ -2,16 +2,10 @@
 {
     public class CartViewModel
     {
-        public long ProductId { get; set; }
 
-        public string Title { get; set; }
+        public List<SingleProductViewModel> singleProductViewModels { get; set; }
 
-        public string Amount { get; set; }
-
-        public int Price { get; set; }
-
-        public string Total { get; set; }
-
+        public int Total { get; set; }
 
     }
 }

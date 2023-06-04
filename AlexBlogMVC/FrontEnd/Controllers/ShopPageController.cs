@@ -3,6 +3,7 @@ using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Collections.Generic;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
@@ -58,6 +59,11 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         }
 
 
+        /// <summary>
+        /// 商品資訊頁面
+        /// </summary>
+        /// <param name="Id">商品編號</param>
+        /// <returns></returns>
         public IActionResult Detail(long Id)
         {
             SingleProductViewModel shopPage = (from n in _context.Products
@@ -81,57 +87,63 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         }
 
 
-
+        /// <summary>
+        /// 加入購物車
+        /// </summary>
+        /// <param name="Id">商品編號</param>
+        /// <param name="amount">數量</param>
+        /// <returns></returns>
         public IActionResult AddCart(string Id , string amount)
         {
             HttpContext.Session.SetString(Id, amount);
-
-
-            SingleProductViewModel shopPage = (from n in _context.Products
-                                               where n.ProductNum == Convert.ToInt64(Id)
-                                               select new SingleProductViewModel
-                                               {
-                                                   ProductId = n.ProductNum,
-                                                   Title = n.ProductTitle,
-                                                   Description = n.ProductDescription,
-                                                   contxt = n.ProductContxt,
-                                                   ProductImg1 = n.ProductImg1,
-                                                   CreateTime = n.CreateTime,
-                                                   ClassId = n.ProductClass,
-                                                   ProductTypeName = (from creator in _context.ProductClasses
-                                                                      where creator.ProductClassNum == n.ProductClass
-                                                                      select creator.ProductClassName).FirstOrDefault(),
-                                                   Price = n.ProductPrice,
-                                               }).FirstOrDefault();
-
-            return View("Detail", shopPage);
+            return RedirectToAction("Index", "ShopPage");
         }
 
 
+        /// <summary>
+        /// 刪除購物車
+        /// </summary>
+        /// <param name="Id">商品編號</param>
+        /// <returns></returns>
+        public IActionResult DelCart(string Id)
+        {
+            HttpContext.Session.Remove(Id);
+            return RedirectToAction("Cart", "ShopPage");
+        }
+
+
+        /// <summary>
+        /// 購物車頁面
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Cart()
         {
             var sessionKeys = HttpContext.Session.Keys;
 
 
+            CartViewModel cartViewModel = new CartViewModel();
+            cartViewModel.singleProductViewModels = new List<SingleProductViewModel>();
+
             foreach (var productId in sessionKeys)
             {
 
-                List<CartViewModel> cart = (from n in _context.Products
-                                                   where n.ProductNum == Convert.ToInt64(productId)
-                                                   select new CartViewModel
-                                                   {
-                                                       ProductId = n.ProductNum,
-                                                       Title = n.ProductTitle,
-                                                       
-                                                       Price = n.ProductPrice * ,
-                                                   }).FirstOrDefault();
+                SingleProductViewModel cart = (from n in _context.Products
+                                               where n.ProductNum == Convert.ToInt64(productId)
+                                               select new SingleProductViewModel
+                                               {
+                                                   ProductId = n.ProductNum,
+                                                   Title = n.ProductTitle,
+                                                   Price = n.ProductPrice,
+                                                   amount = Convert.ToInt16(HttpContext.Session.GetString(productId)),
+                                                   ProductImg1 = n.ProductImg1
+                                               }).FirstOrDefault();
 
-                var amount = HttpContext.Session.GetString(productId);
+                cartViewModel.singleProductViewModels.Add(cart);
 
+                cartViewModel.Total += cart.Price * cart.amount;
             }
 
-
-            return View();
+            return View(cartViewModel);
         }
     }
 }
