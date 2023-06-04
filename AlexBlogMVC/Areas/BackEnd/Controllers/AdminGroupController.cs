@@ -122,7 +122,7 @@ namespace AlexBlogMVC.Areas.Controllers
             //取得關於Role開頭的Key 重組成字典 以便於後續操作
             Dictionary<string, string> roleDicts = Collection
              .Where(kv => kv.Key.StartsWith("Role"))
-             .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value))
+             .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value!))
              .ToDictionary(kv => kv.Key, kv => kv.Value);
 
 
@@ -212,7 +212,7 @@ namespace AlexBlogMVC.Areas.Controllers
             //取得關於Role開頭的Key 重組成字典 以便於後續操作
             Dictionary<string, string> roleDicts = Collection
              .Where(kv => kv.Key.StartsWith("Role"))
-             .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value))
+             .Select(kv => new KeyValuePair<string, string>(kv.Key.Split('_')[1], kv.Value!))
              .ToDictionary(kv => kv.Key, kv => kv.Value);
 
 

@@ -34,19 +34,20 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-            IEnumerable<BannerViewModel> viewModel = from a in _context.Banners
-                                                    select new BannerViewModel
-                                                    {
-                                                        BannerNum = a.BannerNum,
-                                                        BannerTitle = a.BannerTitle,
-                                                        BannerDescription = a.BannerDescription,
-                                                        BannerPutTime = a.BannerPutTime,
-                                                        BannerImg1= a.BannerImg1,
-                                                        CreateTime = a.CreateTime,
-                                                        EditTime = a.EditTime,
-                                                        BannerOffTime = a.BannerOffTime,
-                                                        BannerPublish = a.BannerPublish
-                                                    };
+            IEnumerable<BannerViewModel> viewModel = await _context.Banners
+                                                        .Select(a => new BannerViewModel
+                                                        {
+                                                            BannerNum = a.BannerNum,
+                                                            BannerTitle = a.BannerTitle,
+                                                            BannerDescription = a.BannerDescription,
+                                                            BannerPutTime = a.BannerPutTime,
+                                                            BannerImg1 = a.BannerImg1,
+                                                            CreateTime = a.CreateTime,
+                                                            EditTime = a.EditTime,
+                                                            BannerOffTime = a.BannerOffTime,
+                                                            BannerPublish = a.BannerPublish
+                                                        })
+                                                        .ToListAsync();
 
             return View(viewModel);
         }
