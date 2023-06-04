@@ -6,6 +6,12 @@
 
 @Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict)
 
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+
 <section class="h-100 h-custom" style="background-color: #d2c9ff;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -95,6 +101,7 @@
                                             <div class="form-outline">
                                                 <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Name"/>
                                                 <label class="form-label" for="form3Examplea1">輸入姓名</label>
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "field-validation-error" })
                                             </div>
                                         </div>
 
@@ -104,6 +111,7 @@
                                             <div class="form-outline">
                                                 <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Phone"/>
                                                 <label class="form-label" for="form3Examplea1">輸入電話</label>
+                                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "field-validation-error" })
                                             </div>
                                         </div>
 
@@ -137,6 +145,13 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function (event) {

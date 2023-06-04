@@ -120,13 +120,11 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         {
             var sessionKeys = HttpContext.Session.Keys;
 
-
             CartViewModel cartViewModel = new CartViewModel();
             cartViewModel.singleProductViewModels = new List<SingleProductViewModel>();
 
             foreach (var productId in sessionKeys)
             {
-
                 SingleProductViewModel cart = (from n in _context.Products
                                                where n.ProductNum == Convert.ToInt64(productId)
                                                select new SingleProductViewModel
@@ -154,7 +152,35 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         [HttpPost]
         public IActionResult Cart(CartViewModel cartViewModel)
         {
+            var sessionKeys = HttpContext.Session.Keys;
+
             cartViewModel.singleProductViewModels = new List<SingleProductViewModel>();
+            foreach (var productId in sessionKeys)
+            {
+                SingleProductViewModel cart = (from n in _context.Products
+                                               where n.ProductNum == Convert.ToInt64(productId)
+                                               select new SingleProductViewModel
+                                               {
+                                                   ProductId = n.ProductNum,
+                                                   Title = n.ProductTitle,
+                                                   Price = n.ProductPrice,
+                                                   amount = Convert.ToInt16(HttpContext.Session.GetString(productId)),
+                                                   ProductImg1 = n.ProductImg1
+                                               }).FirstOrDefault();
+
+                cartViewModel.singleProductViewModels.Add(cart);
+
+                cartViewModel.Total += cart.Price * cart.amount;
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.result = "下單失敗，請確認填寫內容是否正確!!";
+                return View(cartViewModel);
+            }
+
+
+            HttpContext.Session.Clear();
             ViewBag.result = "下訂成功!!";
 
             return View(cartViewModel);
