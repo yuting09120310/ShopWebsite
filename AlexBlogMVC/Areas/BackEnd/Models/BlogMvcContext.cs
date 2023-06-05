@@ -35,13 +35,17 @@ public partial class BlogMvcContext : DbContext
 
     public virtual DbSet<NewsClass> NewsClasses { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<OrderProduct> OrderProducts { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductClass> ProductClasses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=192.168.0.212;Database=BlogMVC;User ID=sa;Password=alex0310;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=58.114.5.244;Database=BlogMVC;User ID=sa;Password=alex0310;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -228,6 +232,26 @@ public partial class BlogMvcContext : DbContext
                 .HasColumnName("IP");
             entity.Property(e => e.NewsClassId).HasMaxLength(50);
             entity.Property(e => e.NewsClassName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.ToTable("Order");
+
+            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.CustomerName).HasMaxLength(50);
+            entity.Property(e => e.OrderDate).HasColumnType("date");
+            entity.Property(e => e.OrderStatus).HasMaxLength(50);
+            entity.Property(e => e.PaymentMethod).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<OrderProduct>(entity =>
+        {
+            entity.ToTable("OrderProduct");
+
+            entity.Property(e => e.OrderProductId).HasColumnName("OrderProductID");
+            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
         });
 
         modelBuilder.Entity<Product>(entity =>

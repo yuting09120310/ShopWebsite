@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
