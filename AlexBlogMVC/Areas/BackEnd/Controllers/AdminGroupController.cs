@@ -220,10 +220,24 @@ namespace AlexBlogMVC.Areas.Controllers
             foreach (string roleDict in roleDicts.Keys)
             {
                 long menuSubNum = Convert.ToInt64(roleDict);
-                AdminRole ar =  await _context.AdminRoles.Where(x => x.GroupNum == groupNum && x.MenuSubNum == menuSubNum).FirstAsync();
-                ar.Role = roleDicts[roleDict];
-                _context.Update(ar);
-                await _context.SaveChangesAsync();
+                AdminRole ar = await _context.AdminRoles.Where(x => x.GroupNum == groupNum && x.MenuSubNum == menuSubNum).FirstOrDefaultAsync();
+                if (ar != null)
+                {
+                    ar.Role = roleDicts[roleDict];
+                    _context.Update(ar);
+                }
+                else
+                {
+                    ar = new AdminRole()
+                    {
+                        GroupNum = id,
+                        MenuSubNum = menuSubNum,
+                        Role = roleDicts[roleDict],
+                        CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
+                        Creator = Convert.ToInt64(HttpContext.Session.GetString("AdminNum")),
+                    };
+                    _context.Add(ar);
+                }
             }
 
 
