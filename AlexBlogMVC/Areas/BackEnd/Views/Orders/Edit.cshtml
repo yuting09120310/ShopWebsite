@@ -1,59 +1,130 @@
-﻿@model AlexBlogMVC.Areas.BackEnd.Models.Order
+﻿@using AlexBlogMVC.Areas.ViewModel;
+@model AlexBlogMVC.Areas.ViewModel.OrderViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "編輯訂單";
+    var breadcrumbDict = new Dictionary<string, string[]> { { "編輯訂單", new string[] { "訂單管理", "編輯訂單" } } };
 }
 
-<h1>Edit</h1>
+<!-- 麵包屑及標題-->
+@Html.Partial("_PageTitlePartial", breadcrumbDict)
 
-<h4>Order</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OrderId" />
-            <div class="form-group">
-                <label asp-for="CustomerName" class="control-label"></label>
-                <input asp-for="CustomerName" class="form-control" />
-                <span asp-validation-for="CustomerName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentMethod" class="control-label"></label>
-                <input asp-for="PaymentMethod" class="form-control" />
-                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShippingAddress" class="control-label"></label>
-                <input asp-for="ShippingAddress" class="form-control" />
-                <span asp-validation-for="ShippingAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control" />
-                <span asp-validation-for="TotalAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderStatus" class="control-label"></label>
-                <input asp-for="OrderStatus" class="form-control" />
-                <span asp-validation-for="OrderStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="card">
+    <div class="card-header">
+        <h5>編輯訂單</h5>
     </div>
-</div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="order.OrderId" />
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col">
+
+                    <div class="mb-3 row">
+                        <label asp-for="order.CustomerName" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.order.CustomerName
+                        </div>
+                        <span asp-validation-for="order.CustomerName" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="order.OrderDate" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.order.OrderDate
+                        </div>
+                        <span asp-validation-for="order.OrderDate" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="order.PaymentMethod" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="order.PaymentMethod" class="form-control" placeholder="付款方式" />
+                        </div>
+                        <span asp-validation-for="order.PaymentMethod" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="order.ShippingAddress" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="order.ShippingAddress" class="form-control" placeholder="寄送地址" />
+                        </div>
+                        <span asp-validation-for="order.ShippingAddress" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="order.TotalAmount" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9 col-form-label">
+                            @Model.order.TotalAmount
+                        </div>
+                        <span asp-validation-for="order.TotalAmount" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label asp-for="order.OrderStatus" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <select asp-for="order.OrderStatus" class="form-control">
+                                <option value="1">揀貨中</option>
+                                <option value="2">已出貨</option>
+                                <option value="3">已到貨</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="order.OrderStatus" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="row">
+                @{
+                    foreach (OrderProductViewModel item in Model.orderProduct)
+                    {
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                <img src="@Url.Content("~/uploads/Product/" + @item.ProductImg)"
+                                     class="img-fluid rounded-3" alt="Cotton T-shirt">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                <h6 class="text-black mb-0">@item.ProductName</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+
+                                <h6 class="mb-0">@item.Quantity 組</h6>
+
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                <h6 class="mb-0">$ @item.Price</h6>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                    }
+                }
+
+            </div>
+
+        </div>
+        <div class="card-footer text-end">
+            <div class="col-sm-9 offset-sm-3">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <input class="btn btn-light" type="reset" value="Cancel">
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

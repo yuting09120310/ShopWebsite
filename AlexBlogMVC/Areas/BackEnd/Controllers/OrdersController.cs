@@ -99,17 +99,42 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
         // GET: BackEnd/Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Orders == null)
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(menuSubNum, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            GetMenu();
+            #endregion
+
+            OrderViewModel orderViewModel = _context.Orders
+                                                .Select(o => new OrderViewModel
+                                                {
+                                                    order = o,
+                                                    orderProduct = _context.OrderProducts
+                                                    .Where(x => x.OrderId == o.OrderId)
+                                                    .Select(op => new OrderProductViewModel
+                                                    {
+                                                        OrderProductId = op.OrderProductId,
+                                                        ProductName = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductTitle).FirstOrDefault()!,
+                                                        ProductImg = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductImg1).FirstOrDefault()!,
+                                                        ProductId = op.ProductId,
+                                                        Quantity = op.Quantity,
+                                                        Price = op.Price,
+                                                        Discount = op.Discount
+                                                    }).ToList()
+                                                }).FirstOrDefault()!;
+
+            if (orderViewModel == null)
             {
                 return NotFound();
             }
 
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            return View(order);
+            return View(orderViewModel);
         }
 
         // POST: BackEnd/Orders/Edit/5
@@ -117,34 +142,24 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,CustomerId,OrderDate,PaymentMethod,ShippingAddress,TotalAmount,OrderStatus")] Order order)
+        public async Task<IActionResult> Edit(OrderViewModel orderViewModel)
         {
-            if (id != order.OrderId)
-            {
-                return NotFound();
-            }
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(order);
+                    _context.Update(orderViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(order.OrderId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                   
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(order);
+            return View(orderViewModel);
         }
 
         // GET: BackEnd/Orders/Delete/5
