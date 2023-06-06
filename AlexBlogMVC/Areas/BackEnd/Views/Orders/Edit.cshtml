@@ -16,6 +16,8 @@
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="order.OrderId" />
+        <input type="hidden" asp-for="order.TotalAmount" />
+        <input type="hidden" asp-for="order.OrderDate" />
 
         <div class="card-body">
             <div class="row">
@@ -24,8 +26,8 @@
 
                     <div class="mb-3 row">
                         <label asp-for="order.CustomerName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.order.CustomerName
+                        <div class="col-sm-9">
+                            <input asp-for="order.CustomerName" class="form-control" placeholder="訂購人姓名" />
                         </div>
                         <span asp-validation-for="order.CustomerName" class="text-danger"></span>
                     </div>
@@ -72,9 +74,9 @@
                         <label asp-for="order.OrderStatus" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <select asp-for="order.OrderStatus" class="form-control">
-                                <option value="1">揀貨中</option>
-                                <option value="2">已出貨</option>
-                                <option value="3">已到貨</option>
+                                <option value="揀貨中">揀貨中</option>
+                                <option value="已出貨">已出貨</option>
+                                <option value="已到貨">已到貨</option>
                             </select>
                         </div>
                         <span asp-validation-for="order.OrderStatus" class="text-danger"></span>
@@ -110,6 +112,22 @@
                         <hr class="my-4">
                     }
                 }
+
+
+                <!-- 其他表單元素 -->
+
+                @for (var i = 0; i < Model.orderProduct.Count; i++)
+                {
+                    <input type="hidden" asp-for="orderProduct[i].OrderProductId" />
+                    <input type="hidden" asp-for="orderProduct[i].OrderId" />
+                    <input type="hidden" asp-for="orderProduct[i].ProductId" />
+                    <input type="hidden" asp-for="orderProduct[i].Quantity" />
+                    <input type="hidden" asp-for="orderProduct[i].Price" />
+                    <input type="hidden" asp-for="orderProduct[i].Discount" />
+                }
+
+                <!-- 其他表單元素 -->
+
 
             </div>
 

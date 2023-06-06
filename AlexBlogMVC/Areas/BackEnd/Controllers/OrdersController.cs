@@ -73,6 +73,7 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
             return View(order);
         }
 
+
         // GET: BackEnd/Orders/Create
         public IActionResult Create()
         {
@@ -112,6 +113,7 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
             #endregion
 
             OrderViewModel orderViewModel = _context.Orders
+                                                .Where(x => x.OrderId == id)
                                                 .Select(o => new OrderViewModel
                                                 {
                                                     order = o,
@@ -120,6 +122,7 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
                                                     .Select(op => new OrderProductViewModel
                                                     {
                                                         OrderProductId = op.OrderProductId,
+                                                        OrderId  = op.OrderId,
                                                         ProductName = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductTitle).FirstOrDefault()!,
                                                         ProductImg = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductImg1).FirstOrDefault()!,
                                                         ProductId = op.ProductId,
@@ -144,13 +147,38 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(OrderViewModel orderViewModel)
         {
-
+            #region 登入 權限判斷
+            if (!LoginState())
+            {
+                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
+            }
+            if (!CheckRole(menuSubNum, "U"))
+            {
+                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
+            }
+            GetMenu();
+            #endregion
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(orderViewModel);
+                    _context.Orders.Update(orderViewModel.order);
+
+                    foreach (OrderProductViewModel item in orderViewModel.orderProduct)
+                    {
+                        OrderProduct orderProduct = new OrderProduct()
+                        {
+                            OrderProductId = item.OrderProductId,
+                            OrderId = item.OrderId,
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity,
+                            Price = item.Price,
+                            Discount = item.Discount
+                        };
+                        _context.OrderProducts.Update(orderProduct);
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
