@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AlexBlogMVC.Areas.BackEnd.Models;
 using AlexBlogMVC.Areas.Controllers;
 using AlexBlogMVC.Areas.ViewModel;
+using Newtonsoft.Json;
 
 namespace AlexBlogMVC.Areas.BackEnd.Controllers
 {
@@ -55,48 +56,6 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
         }
 
 
-        // GET: BackEnd/Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Orders == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
-
-
-        // GET: BackEnd/Orders/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-
-        // POST: BackEnd/Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,CustomerId,OrderDate,PaymentMethod,ShippingAddress,TotalAmount,OrderStatus")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(order);
-        }
-
         // GET: BackEnd/Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -139,6 +98,7 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
 
             return View(orderViewModel);
         }
+
 
         // POST: BackEnd/Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -190,27 +150,20 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
             return View(orderViewModel);
         }
 
+
         // GET: BackEnd/Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Orders == null)
-            {
-                return NotFound();
-            }
-
             var order = await _context.Orders
                 .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
 
-            return View(order);
+            string res =  JsonConvert.SerializeObject(order);
+
+            return Json(res);
         }
 
+
         // POST: BackEnd/Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Orders == null)
@@ -226,6 +179,7 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool OrderExists(int id)
         {

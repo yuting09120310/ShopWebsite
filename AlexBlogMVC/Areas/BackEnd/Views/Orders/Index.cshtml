@@ -78,7 +78,7 @@
                                         <td>
                                             <ul class="action">
                                                 <li class="edit"> <a asp-action="Edit" asp-route-id="@item.order.OrderId"><i class="icon-pencil-alt"></i></a></li>
-                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.order.OrderId"><i class="icon-trash"></i></a></li>
+                                                <li class="delete"><a href="#" class="deletes" data-id="@item.order.OrderId"><i class="icon-trash"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -91,6 +91,65 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    $('.deletes').click(function () {
+            
+        var orderId = $(this).data('id');
+        console.log(orderId)
+
+        axios.get('/BackEnd/Orders/Delete/5')
+            .then(function (response) {
+                // 處理回應
+                console.log(response);
+
+                // 將回應的資料插入到模態對話框中
+                var title = response.data.title;
+                console.log('title : ' + title);
+
+                var content = response.data;
+                console.log('content : ' + content);
+
+                $('#exampleModalLabel').text(title);
+                $('.modal-body').text(content);
+
+                // 開啟模態對話框
+                $('#exampleModal').modal('show');
+            })
+            .catch(function (error) {
+                // 處理錯誤
+                console.log(error);
+            });
+
+    });
+
+
+    $('.close').click(function () {
+        $('#exampleModal').modal('hide');
+    });
+</script>
 
 
 <script>

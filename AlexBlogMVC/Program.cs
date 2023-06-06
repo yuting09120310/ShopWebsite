@@ -49,7 +49,7 @@ app.UseAuthorization();
 // Areas區域Route配置 （Controller需增加屬性 EX：[Area("Admin")]）
 app.MapControllerRoute(
     name: "Areas",
-    pattern: "{area:exists}/{controller}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller}/{action=Index}/{id?}/");
 
 
 app.MapControllerRoute(
