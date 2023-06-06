@@ -120,7 +120,7 @@
         var orderId = $(this).data('id');
         console.log(orderId)
 
-        axios.get('/BackEnd/Orders/Delete/5')
+        axios.get('/BackEnd/Orders/Delete/' + orderId)
             .then(function (response) {
                 // 處理回應
                 console.log(response);
