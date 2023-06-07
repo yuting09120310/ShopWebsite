@@ -99,7 +99,7 @@
                                         <h5 class="text-uppercase mb-3">收件人姓名</h5>
                                         <div class="mb-5">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Name"/>
+                                                <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Name" autocomplete="off"/>
                                                 <label class="form-label" for="form3Examplea1">輸入姓名</label>
                                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "field-validation-error" })
                                             </div>
@@ -109,7 +109,7 @@
                                         <h5 class="text-uppercase mb-3">電話</h5>
                                         <div class="mb-5">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Phone"/>
+                                                <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Phone" autocomplete="off" />
                                                 <label class="form-label" for="form3Examplea1">輸入電話</label>
                                                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "field-validation-error" })
                                             </div>
@@ -119,7 +119,7 @@
                                         <h5 class="text-uppercase mb-2">地址</h5>
                                         <div class="mb-5">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" asp-for="Address"/>
+                                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" asp-for="Address" autocomplete="off" />
                                                 <label class="form-label" for="form3Examplea2">輸入地址</label>
                                             </div>
                                         </div>
@@ -135,6 +135,16 @@
                                                 data-mdb-ripple-color="dark">
                                             結帳
                                         </button>
+
+
+
+                                        @for (var i = 0; i < Model.singleProductViewModels.Count; i++)
+                                        {
+                                            <input type="hidden" asp-for="singleProductViewModels[i].ProductImg1" />
+                                            <input type="hidden" asp-for="singleProductViewModels[i].ProductId" />
+                                            <input type="hidden" asp-for="singleProductViewModels[i].amount" />
+                                            <input type="hidden" asp-for="singleProductViewModels[i].Price" />
+                                        }
                                     </form>
                                 </div>
                             </div>
