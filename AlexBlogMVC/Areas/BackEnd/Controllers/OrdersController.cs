@@ -151,6 +151,7 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
         }
 
 
+        //詢問視窗
         // GET: BackEnd/Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -163,21 +164,23 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
         }
 
 
+        // 確定刪除
         // POST: BackEnd/Orders/Delete/5
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Orders == null)
-            {
-                return Problem("Entity set 'BlogMvcContext.Orders'  is null.");
-            }
-            var order = await _context.Orders.FindAsync(id);
-            if (order != null)
-            {
-                _context.Orders.Remove(order);
-            }
-            
+            // 刪除Order
+            Order order = _context.Orders.Where(x => x.OrderId == id).FirstOrDefault();
+            _context.Orders.Remove(order);
+
+            // 取得符合條件的 OrderProduct
+            List<OrderProduct> orderProducts = _context.OrderProducts.Where(x => x.OrderId == id).ToList();
+
+            // 刪除 OrderProduct
+            _context.OrderProducts.RemoveRange(orderProducts);
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Json("刪除成功");
         }
 
 
