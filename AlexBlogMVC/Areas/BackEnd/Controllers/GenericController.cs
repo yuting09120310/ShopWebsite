@@ -41,15 +41,6 @@ namespace AlexBlogMVC.Areas.Controllers
                             select c;
 
 
-            foreach (var item in moduleFun)
-            {
-                if (item.MenuSubName == "帳號修改")
-                {
-                    item.MenuSubUrl += HttpContext.Session.GetString("AdminNum");
-                }
-            }
-
-
             ViewBag.moduleFun = moduleFun.ToList();
         }
 

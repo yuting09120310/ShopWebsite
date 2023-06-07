@@ -19,8 +19,10 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public IActionResult Index()
         {
+            DateTime today = DateTime.Today;
+
             List<Banner> banner = (from n in _context.Banners
-                                   where n.BannerPublish == true
+                                   where n.BannerPublish == true && n.BannerPutTime < today && n.BannerOffTime > today
                                    orderby n.BannerNum descending
                                    select new Banner
                                    {
@@ -33,7 +35,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
 
             List<NewsPageViewModel> newsPage = (from n in _context.News
-                                                  where n.NewsPublish == true
+                                                  where n.NewsPublish == true && n.NewsPutTime < today && n.NewsOffTime > today
                                                   orderby n.NewsNum descending
                                                   select new NewsPageViewModel
                                                   {
@@ -51,7 +53,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
 
             List<SingleProductViewModel> shopPage = (from n in _context.Products
-                                                where n.ProductPublish == true
+                                                where n.ProductPublish == true && n.ProductPutTime < today && n.ProductOffTime > today
                                                 orderby n.ProductNum descending
                                                 select new SingleProductViewModel
                                                 {

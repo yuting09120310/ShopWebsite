@@ -52,7 +52,14 @@
                                         </td>
                                         
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.GroupPublish)
+                                            @{
+                                                if (@item.GroupPublish == true)
+                                                {
+                                                    <span>啟用</span>
+                                                }else{
+                                                    <span>未啟用</span>
+                                                }
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreateTime)

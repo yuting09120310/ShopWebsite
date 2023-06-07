@@ -18,7 +18,13 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public void getBanner()
         {
-            Banner banner = _context.Banners.Where(x => x.BannerPublish == true).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            DateTime today = DateTime.Today;
+
+            Banner banner = _context.Banners
+                .Where(x => x.BannerPublish == true && x.BannerPutTime < today && x.BannerOffTime > today)
+                .OrderBy(x => Guid.NewGuid())
+                .FirstOrDefault();
+
             ViewBag.Banner = banner.BannerImg1;
         }
 

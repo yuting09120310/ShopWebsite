@@ -24,8 +24,10 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public IActionResult Index(string ClassType)
         {
+            DateTime today = DateTime.Today;
+
             List<SingleProductViewModel> shopPage = (from n in _context.Products
-                                                     where n.ProductPublish == true
+                                                     where n.ProductPublish == true && n.ProductPutTime < today && n.ProductOffTime > today
                                                      orderby n.ProductNum descending
                                                      select new SingleProductViewModel
                                                      {

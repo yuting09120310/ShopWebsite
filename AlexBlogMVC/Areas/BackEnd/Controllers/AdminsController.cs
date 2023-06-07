@@ -47,7 +47,8 @@ namespace AlexBlogMVC.Areas.Controllers
                                 EditTime = a.EditTime,
                                 Editor = a.Editor,
                                 GroupNum = a.GroupNum,
-                                GroupName = subg?.GroupName
+                                GroupName = subg?.GroupName,
+                                LastLogin = a.LastLogin,
                             };
 
             return View(viewModel);

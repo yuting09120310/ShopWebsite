@@ -236,10 +236,17 @@ namespace AlexBlogMVC.Areas.Controllers
                         CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                         Creator = Convert.ToInt64(HttpContext.Session.GetString("AdminNum")),
                     };
-                    _context.Add(ar);
+                    _context.AdminRoles.Add(ar);
                 }
             }
+            
 
+            AdminGroup adminGroup = _context.AdminGroups.Where(x => x.GroupNum == groupNum).FirstOrDefault();
+            adminGroup.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            adminGroup.Editor = Convert.ToInt64(HttpContext.Session.GetString("AdminNum"));
+
+
+            _context.SaveChangesAsync();
 
             return RedirectToAction("Edit");
         }

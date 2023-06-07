@@ -23,11 +23,14 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         // GET: News
         public async Task<IActionResult> Index(string ClassType, string Page, string searchValue)
         {
+
+            DateTime today = DateTime.Today;
+
             int itemsPerPage = 5;
 
             // 根據 ClassType 過濾資料
             IQueryable<NewsPageViewModel> query = from n in _context.News
-                                                  where n.NewsPublish == true
+                                                  where n.NewsPublish == true && n.NewsPutTime < today && n.NewsOffTime > today
                                                   orderby n.NewsNum descending
                                                   select new NewsPageViewModel
                                                   {
