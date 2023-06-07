@@ -50,7 +50,7 @@
                         <div class="desc-text">@Model.Description</div>
 
                             <!--Options-->
-                            @using (Html.BeginForm("AddCart", "ShopPage", FormMethod.Get))
+                            @using (Html.BeginForm("AddCart", "Cart", FormMethod.Get))
                             {
                             <input type="hidden" name="Id" value="@Model.ProductId" />
                                 <div class="prod-options">
