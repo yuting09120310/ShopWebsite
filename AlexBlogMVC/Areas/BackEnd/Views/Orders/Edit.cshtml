@@ -89,47 +89,6 @@
 
             <div class="row">
                 @Html.EditorFor(model => model.orderProduct)
-                @*@{
-                    foreach (OrderProductViewModel item in Model.orderProduct)
-                    {
-                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                <img src="@Url.Content("~/uploads/Product/" + @item.ProductImg)"
-                                     class="img-fluid rounded-3" alt="Cotton T-shirt">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                <h6 class="text-black mb-0">@item.ProductName</h6>
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-
-                                <h6 class="mb-0">@item.Quantity 組</h6>
-
-                            </div>
-                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                <h6 class="mb-0">$ @item.Price</h6>
-                            </div>
-                        </div>
-
-                        <hr class="my-4">
-                    }
-                }*@
-
-
-                <!-- 其他表單元素 -->
-
-                @for (var i = 0; i < Model.orderProduct.Count; i++)
-                {
-                    <input type="hidden" asp-for="orderProduct[i].OrderProductId" />
-                    <input type="hidden" asp-for="orderProduct[i].OrderId" />
-                    <input type="hidden" asp-for="orderProduct[i].ProductId" />
-                    <input type="hidden" asp-for="orderProduct[i].Quantity" />
-                    <input type="hidden" asp-for="orderProduct[i].Price" />
-                    <input type="hidden" asp-for="orderProduct[i].Discount" />
-                }
-
-                <!-- 其他表單元素 -->
-
-
             </div>
 
         </div>
