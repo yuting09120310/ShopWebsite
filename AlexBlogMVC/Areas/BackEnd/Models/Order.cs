@@ -9,6 +9,8 @@ public partial class Order
 
     public string CustomerName { get; set; } = null!;
 
+    public string Email { get; set; } = null!;
+
     public DateTime OrderDate { get; set; }
 
     public string PaymentMethod { get; set; } = null!;

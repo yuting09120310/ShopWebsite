@@ -1,4 +1,5 @@
-﻿@model AlexBlogMVC.FrontEnd.ViewModel.CartViewModel
+﻿@using AlexBlogMVC.FrontEnd.ViewModel;
+@model AlexBlogMVC.FrontEnd.ViewModel.CartViewModel
 @{
     ViewData["Title"] = "購物車";
     var breadcrumbDict = new Dictionary<string, string[]> { { "結帳", new string[] { "Alex前台", "購物車" } } };
@@ -109,9 +110,9 @@
                                         <h5 class="text-uppercase mb-3">電話</h5>
                                         <div class="mb-5">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="Phone" autocomplete="off" />
+                                                <input type="text" id="form3Examplea1" class="form-control form-control" asp-for="EMail" autocomplete="off" />
                                                 <label class="form-label" for="form3Examplea1">輸入電話</label>
-                                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "field-validation-error" })
+                                                @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "field-validation-error" })
                                             </div>
                                         </div>
 
