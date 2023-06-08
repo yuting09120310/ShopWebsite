@@ -35,10 +35,10 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         /// </summary>
         /// <param name="OrderID">訂單編號</param>
         /// <returns></returns>
-        public IActionResult SearchResult(string OrderID)
+        public IActionResult SearchResult(int OrderID)
         {
             OrderViewModel orderViewModel = _context.Orders
-                                                .Where(x => x.OrderId == Convert.ToInt64(OrderID))
+                                                .Where(x => x.OrderId == OrderID)
                                                 .Select(o => new OrderViewModel
                                                 {
                                                     order = o,
@@ -55,7 +55,12 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                         Price = op.Price,
                                                         Discount = op.Discount
                                                     }).ToList()
-                                                }).FirstOrDefault()!;
+                                                }).FirstOrDefault();
+
+            if(orderViewModel == null)
+            {
+                TempData["ErrorMessage"] = "查無此訂單資訊";
+            }
 
             return View(orderViewModel);
         }
