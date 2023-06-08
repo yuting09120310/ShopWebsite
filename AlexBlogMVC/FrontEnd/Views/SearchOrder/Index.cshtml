@@ -1,0 +1,94 @@
+﻿@{
+    var breadcrumbDict = new Dictionary<string, string[]> { { "查詢訂單", new string[] { "Alex前台", "查詢訂單" } } };
+    ViewData["Title"] = "查詢訂單";
+}
+
+@Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict)
+
+<style>
+    #code {
+        cursor: pointer;
+        font-family: Arial;
+        font-style: italic;
+        font-weight: bold;
+        border: 0;
+        letter-spacing: 8px;
+        color: blue;
+        background-color: red;
+        padding: 4px;
+        width: 120px;
+        height: 30px;
+        text-align: center
+    }
+
+    #recode {
+        cursor: pointer;
+        font-size: 10px;
+    }
+
+</style>
+
+<section class="vh-10" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-stepper text-black" style="border-radius: 16px;">
+
+                    <div class="card-body p-5">
+
+                        <form asp-action="SearchResult" asp-controller="SearchOrder" method="get">
+                            <div class="row mt-3 mx-4">
+                                <div class="col-12">
+                                    <label class="order-form-label">請輸入代碼</label>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-outline">
+                                        <input type="text" id="form3" class="form-control order-form-input" name="OrderID"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="row mt-3 mx-4">
+                                <div class="col-12">
+                                    <label class="order-form-label">驗證碼</label>
+                                
+                                </div>
+                                <div class="col-12 row">
+                                    <div class="col-6">
+                                        <input type="text" id="validText" class="form-control order-form-input" />
+                                    </div>
+                                    <div class="col-6 row">
+                                        <div class="col-3">
+                                            <canvas id='auth-code'></canvas>
+                                        </div>
+                                        <div class="col-6">
+                                            <button id='reBtn' style="left: 15px;bottom: 6px;border-style: none;border: none;outline: none;font-size: 20px;cursor: pointer;">換圖</button>
+                                        </div>
+                                    </div>
+
+                                    <span id=result style="color:red"></span>
+                                </div>
+                            </div>*@
+
+                            <br />
+                            <br />
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button type="submit" id="btnSubmit" class="btn btn-primary d-block mx-auto btn-submit">送出</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+</script>
