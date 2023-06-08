@@ -2,6 +2,7 @@
 using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Text;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
@@ -123,29 +124,38 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             ViewBag.result = "下訂成功!!";
 
 
-            SendMail(cartViewModel.EMail, "AlexBlog 訂單成功", @$"
-                親愛的客戶，
+            StringBuilder emailContent = new StringBuilder();
 
-                感謝您的訂單！我們很高興通知您，您的訂單已經成功處理並準備出貨。
+            emailContent.AppendLine(@"
+親愛的客戶，
 
-                訂單詳細資訊：
-                訂單編號：{order.OrderId}
-                下單日期：{order.OrderDate}
-                付款方式：{order.PaymentMethod}
-                運送地址：{order.ShippingAddress}
+感謝您的訂單！我們很高興通知您，您的訂單已經成功處理並準備出貨。
 
-                以下是您所訂購的商品：
-                [商品清單]
+訂單詳細資訊：
+訂單編號：" + order.OrderId + @"
+下單日期：" + order.OrderDate + @"
+付款方式：" + order.PaymentMethod + @"
+運送地址：" + order.ShippingAddress + @"
 
-                如果您需要追蹤訂單或有任何問題，請聯繫我們的客戶服務部門。我們將竭誠為您提供協助。
+以下是您所訂購的商品：");
+            foreach (var item in cartViewModel.singleProductViewModels)
+            {
+                emailContent.AppendLine(item.Title);
+            }
 
-                再次感謝您的購買，期待與您保持良好的合作關係。
+            emailContent.AppendLine(@"
 
-                祝您有美好的一天！
+如果您需要追蹤訂單或有任何問題，請聯繫我們的客戶服務部門。我們將竭誠為您提供協助。
 
-                您的公司名稱
+再次感謝您的購買，期待與您保持良好的合作關係。
 
-            ");
+祝您有美好的一天！
+
+AlexBlogMVC");
+
+            
+            SendMail(cartViewModel.EMail, "AlexBlog 訂單成功", emailContent.ToString());
+
 
 
             cartViewModel.Name = string.Empty;
