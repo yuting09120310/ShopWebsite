@@ -30,7 +30,7 @@
                                                 <a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@product.ProductId"><img src="@Url.Content("~/uploads/Product/" + product.ProductImg1)" alt=""></a>
                                                 <div class="options">
                                                     <a href="@Url.Content("~/uploads/Product/" + product.ProductImg1)" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                                    <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
+                                                    <a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@product.ProductId" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
                                                 </div>
                                             </figure>
                                             <div class="lower-content">
