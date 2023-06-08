@@ -39,9 +39,11 @@ namespace AlexBlogMVC.Areas.ViewModel
         public long? NewsViews { get; set; }
 
         [Display(Name = "上架時間")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? NewsPutTime { get; set; }
 
         [Display(Name = "建立時間")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreateTime { get; set; }
 
         [Display(Name = "新增者ID")]
@@ -54,6 +56,7 @@ namespace AlexBlogMVC.Areas.ViewModel
         public string? EditorName { get; set; }
 
         [Display(Name = "編輯時間")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EditTime { get; set; }
 
         [Display(Name = "編號ID")]
@@ -62,6 +65,7 @@ namespace AlexBlogMVC.Areas.ViewModel
         public string? Ip { get; set; }
 
         [Display(Name = "下架時間")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? NewsOffTime { get; set; }
 
 

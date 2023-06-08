@@ -38,6 +38,7 @@
     <link id="color" rel="stylesheet" href="~/BackEnd/assets/css/color-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="~/BackEnd/assets/css/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <!-- login page start-->
@@ -88,5 +89,23 @@
       <script src="~/BackEnd/assets/js/script.js"></script>
       <!-- Plugin used-->
     </div>
+
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            var errorMessage = "@Html.Raw(TempData["ErrorMessage"])";
+
+            Swal.fire({
+                    position: 'center-center',
+                    icon: 'error',
+                    title: errorMessage,
+                    showConfirmButton: false,
+                    timer: 1500
+            })
+        </script>
+    }
+
+
   </body>
 </html>

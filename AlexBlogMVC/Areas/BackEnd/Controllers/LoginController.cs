@@ -22,6 +22,7 @@ namespace AlexBlogMVC.Areas.Controllers
 
             if(admin == null)
             {
+                TempData["ErrorMessage"] = "登入失敗，請檢查帳號和密碼。";
                 return View();
             }
 
