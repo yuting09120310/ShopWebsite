@@ -98,7 +98,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                 PaymentMethod = "貨到付款",
                 ShippingAddress = cartViewModel.Address,
                 TotalAmount = cartViewModel.Total,
-                OrderStatus = "揀貨中"
+                OrderStatus = "確認中"
             };
             _context.Orders.Add(order);
             _context.SaveChanges();
