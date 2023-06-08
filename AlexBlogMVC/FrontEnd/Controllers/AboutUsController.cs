@@ -13,11 +13,15 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getBanner();
-            getNewsType();
+            GetBanner();
+            GetNewsType();
         }
 
 
+        /// <summary>
+        /// 關於我
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             var viewModel = new AboutUsPageViewModel();

@@ -2,6 +2,8 @@
 using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Net.Mail;
+using System.Net;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
@@ -10,19 +12,29 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public SearchOrderController(BlogMvcContext context) : base(context) { }
 
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getBanner();
-            getNewsType();
+            GetBanner();
+            GetNewsType();
         }
 
 
+        /// <summary>
+        /// 搜尋頁面
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();
         }
 
 
+        /// <summary>
+        /// 搜尋結果
+        /// </summary>
+        /// <param name="OrderID">訂單編號</param>
+        /// <returns></returns>
         public IActionResult SearchResult(string OrderID)
         {
             OrderViewModel orderViewModel = _context.Orders

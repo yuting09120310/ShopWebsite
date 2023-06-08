@@ -15,12 +15,18 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getBanner();
-            getNewsType();
+            GetBanner();
+            GetNewsType();
         }
 
 
-        // GET: News
+        /// <summary>
+        /// 最新消息首頁
+        /// </summary>
+        /// <param name="ClassType">消息類別</param>
+        /// <param name="Page">當前頁數</param>
+        /// <param name="searchValue">搜尋內容</param>
+        /// <returns></returns>
         public async Task<IActionResult> Index(string ClassType, string Page, string searchValue)
         {
 
@@ -79,10 +85,14 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         }
 
 
-        // GET: News/Details/5
+        /// <summary>
+        /// 消息文章
+        /// </summary>
+        /// <param name="id">消息編號</param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(long? id)
         {
-            getBanner();
+            GetBanner();
 
             if (id == null || _context.News == null)
             {
@@ -130,6 +140,11 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         }
 
 
+        /// <summary>
+        /// 新增留言
+        /// </summary>
+        /// <param name="newsPageViewModel">文章 + 留言</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Comments(NewsPageViewModel newsPageViewModel)
         {

@@ -13,8 +13,8 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getBanner();
-            getNewsType();
+            GetBanner();
+            GetNewsType();
         }
 
 

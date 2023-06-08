@@ -13,10 +13,14 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            getNewsType();
+            GetNewsType();
         }
 
 
+        /// <summary>
+        /// 首頁
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             DateTime today = DateTime.Today;
