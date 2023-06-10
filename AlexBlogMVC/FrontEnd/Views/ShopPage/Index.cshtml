@@ -98,28 +98,21 @@
                         
                         <!-- Popular Posts -->
                         <div class="sidebar-widget shop-widget boxed-widget shop-posts wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <div class="widget-title"><h2>TOP SALES</h2></div>
+                            <div class="widget-title"><h2>銷量最高</h2></div>
                             
-                            <article class="post">
-                            	<figure class="post-thumb"><a href="#"><img src="~/FrontEnd/images/resource/products/thumb-1.jpg" alt=""></a></figure>
-                                <h4><a href="#">Baby Panda</a></h4>
-                                <div class="rating"><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star-half-empty"></span></div>
-                                <div class="item-price">$ 35.00 <span class="strike-through">$75.00</span></div>
-                            </article>
                             
-                            <article class="post">
-                            	<figure class="post-thumb"><a href="#"><img src="~/FrontEnd/images/resource/products/thumb-2.jpg" alt=""></a></figure>
-                                <h4><a href="#">Black Widow</a></h4>
-                                <div class="rating"><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star-half-empty"></span></div>
-                                <div class="item-price">$ 35.00 <span class="strike-through">$75.00</span></div>
-                            </article>
                             
-                            <article class="post">
-                            	<figure class="post-thumb"><a href="#"><img src="~/FrontEnd/images/resource/products/thumb-3.jpg" alt=""></a></figure>
-                                <h4><a href="#">Bumblebee</a></h4>
-                                <div class="rating"><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star-half-empty"></span></div>
-                                <div class="item-price">$ 35.00 <span class="strike-through">$75.00</span></div>
-                            </article>
+                        @{
+                            foreach (var product in Model.TopProducts)
+                            {
+                                <article class="post">
+                                    <figure class="post-thumb"><a href="#"><img src="@Url.Content("~/uploads/Product/" + product.ProductImg1)" alt=""></a></figure>
+                                    <h4><a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@product.ProductId">@product.Title</a></h4>
+                                    <div class="item-price">$@product.Price<span class="strike-through"></span></div>
+                                    <!-- <div class="item">已售出 2</div> -->
+                                </article>
+                            }
+                        }
                             
                         </div>
                         

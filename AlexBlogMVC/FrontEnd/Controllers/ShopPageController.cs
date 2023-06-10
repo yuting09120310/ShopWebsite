@@ -27,7 +27,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         {
             DateTime today = DateTime.Today;
 
-            int itemsPerPage = 9;
+            int itemsPerPage = 6;
 
             IQueryable<SingleProductViewModel> shopPage = from n in _context.Products
                                                      where n.ProductPublish == true && n.ProductPutTime < today && n.ProductOffTime > today
@@ -47,6 +47,37 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                      };
 
             List<ProductClass> productClasses = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
+
+
+            // 取得最多訂單的 ProductId
+            List<int> topProductIds = _context.OrderProducts
+                                        .GroupBy(p => p.ProductId)
+                                        .OrderByDescending(g => g.Count())
+                                        .Take(3)
+                                        .Select(g => g.Key)
+                                        .ToList();
+
+            // 將搜尋出來的結果 去取產品
+            var topProducts = _context.Products
+                                .Where(p => topProductIds.Contains(Convert.ToInt32(p.ProductNum)))
+                                .Select(n => new SingleProductViewModel
+                                {
+                                    ProductId = n.ProductNum,
+                                    Title = n.ProductTitle,
+                                    Description = n.ProductDescription,
+                                    ProductImg1 = n.ProductImg1,
+                                    CreateTime = n.CreateTime,
+                                    ClassId = n.ProductClass,
+                                    ProductTypeName = _context.ProductClasses
+                                        .Where(creator => creator.ProductClassNum == n.ProductClass)
+                                        .Select(creator => creator.ProductClassName)
+                                        .FirstOrDefault()!,
+                                    Price = n.ProductPrice
+                                })
+                                .ToList();
+
+
+
 
 
             //搜尋條件
@@ -77,7 +108,8 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             ShopPageViewModel shopPageViewModel = new ShopPageViewModel()
             {
                 ListProductViewModels = shopPage.ToList(),
-                ListproductClass = productClasses
+                ListproductClass = productClasses,
+                TopProducts = topProducts
             };
 
             return View(shopPageViewModel);

@@ -6,5 +6,7 @@ namespace AlexBlogMVC.FrontEnd.ViewModel
     {
         public List<SingleProductViewModel> ListProductViewModels { get; set; }
         public List<ProductClass> ListproductClass { get; set; }
+
+        public List<SingleProductViewModel> TopProducts { get; set; }
     }
 }
