@@ -3,6 +3,8 @@ using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
@@ -323,25 +325,15 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-
-            if (id == null || _context.Products == null)
-            {
-                return NotFound();
-            }
-
             var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.ProductNum == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
 
-            return View(product);
+            string res = JsonConvert.SerializeObject(product);
+
+            return Json(res);
         }
 
-        // POST: Product/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.Products == null)
@@ -355,7 +347,13 @@ namespace AlexBlogMVC.Areas.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            //取得該篇廣告的圖片並刪除
+            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product");
+            var filePath = Path.Combine(direPath, product.ProductImg1);
+            System.IO.File.Delete(filePath);
+
+            return Json("刪除完成");
         }
 
         private bool ProductExists(long id)
