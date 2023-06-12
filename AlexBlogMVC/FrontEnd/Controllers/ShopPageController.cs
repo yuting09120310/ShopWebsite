@@ -23,7 +23,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         }
 
 
-        public IActionResult Index(string ClassType, string Page)
+        public IActionResult Index(string ClassType, string Page, string searchValue)
         {
             DateTime today = DateTime.Today;
 
@@ -44,6 +44,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                                             where creator.ProductClassNum == n.ProductClass
                                                                             select creator.ProductClassName).FirstOrDefault()!,
                                                          Price = n.ProductPrice,
+                                                         tag = n.Tag
                                                      };
 
             List<ProductClass> productClasses = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
@@ -88,6 +89,13 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             else
             {
                 shopPage = shopPage.Where(x => x.ClassId == Convert.ToInt64(ClassType));
+            }
+
+
+            // 如果有搜尋條件
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                shopPage = shopPage.Where(x => x.tag.Contains(searchValue));
             }
 
 
@@ -138,6 +146,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                                       where creator.ProductClassNum == n.ProductClass
                                                                       select creator.ProductClassName).FirstOrDefault(),
                                                    Price = n.ProductPrice,
+                                                   tag = n.Tag
                                                }).FirstOrDefault()!;
 
             return View(shopPage);

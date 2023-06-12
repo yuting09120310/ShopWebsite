@@ -52,4 +52,6 @@ public partial class Product
     public string? Ip { get; set; }
 
     public DateTime? ProductOffTime { get; set; }
+
+    public string Tag { get; set; } = null!;
 }

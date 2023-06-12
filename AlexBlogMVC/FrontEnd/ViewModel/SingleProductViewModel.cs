@@ -26,5 +26,7 @@
         public int Price { get; set; }
 
         public int amount { get; set; }
+
+        public string tag { get; set; }
     }
 }

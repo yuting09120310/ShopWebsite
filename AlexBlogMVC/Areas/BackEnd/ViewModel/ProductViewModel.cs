@@ -85,8 +85,9 @@ namespace AlexBlogMVC.Areas.ViewModel
         [Display(Name = "最後編輯者")]
         public string? EditorName { get; set; }
 
-
         public IFormFile? FileData { get; set; }
+
+        public string Tag { get; set; }
 
 
         public List<IFormFile>? FileDatas { get; set; }

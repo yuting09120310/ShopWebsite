@@ -73,7 +73,13 @@
                         <span asp-validation-for="ProductContxt" class="text-danger"></span>
                     </div>
 
-
+                    <div class="mb-3 row">
+                        <label asp-for="Tag" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="Tag" class="form-control" placeholder="請用,分隔" />
+                        </div>
+                        <span asp-validation-for="Tag" class="text-danger"></span>
+                    </div>
 
                     <div class="mb-3 row">
                         <label asp-for="ProductImg1" class="col-sm-3 col-form-label"></label>
