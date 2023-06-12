@@ -55,23 +55,27 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             CartViewModel cartViewModel = new CartViewModel();
             cartViewModel.singleProductViewModels = new List<SingleProductViewModel>();
 
-            foreach (var productId in sessionKeys)
+            foreach (var productIdString in sessionKeys)
             {
-                SingleProductViewModel cart = (from n in _context.Products
-                                               where n.ProductNum == Convert.ToInt64(productId)
-                                               select new SingleProductViewModel
-                                               {
-                                                   ProductId = n.ProductNum,
-                                                   Title = n.ProductTitle,
-                                                   Price = n.ProductPrice,
-                                                   amount = Convert.ToInt16(HttpContext.Session.GetString(productId)),
-                                                   ProductImg1 = n.ProductImg1
-                                               }).FirstOrDefault();
+                if (int.TryParse(productIdString, out int productId))
+                {
+                    SingleProductViewModel cart = (from n in _context.Products
+                                                   where n.ProductNum == Convert.ToInt64(productId)
+                                                   select new SingleProductViewModel
+                                                   {
+                                                       ProductId = n.ProductNum,
+                                                       Title = n.ProductTitle,
+                                                       Price = n.ProductPrice,
+                                                       amount = Convert.ToInt16(HttpContext.Session.GetString(productIdString)),
+                                                       ProductImg1 = n.ProductImg1
+                                                   }).FirstOrDefault()!;
 
-                cartViewModel.singleProductViewModels.Add(cart);
+                    cartViewModel.singleProductViewModels.Add(cart);
 
-                cartViewModel.Total += cart.Price * cart.amount;
+                    cartViewModel.Total += cart.Price * cart.amount;
+                }
             }
+
 
             return View(cartViewModel);
         }

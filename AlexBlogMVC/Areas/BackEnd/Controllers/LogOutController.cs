@@ -12,7 +12,10 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
 
         public IActionResult Index()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("AdminNum"); 
+            HttpContext.Session.Remove("AdminName"); 
+            HttpContext.Session.Remove("GroupNum");
+
             return RedirectToAction("Index", "Login");
         }
     }
