@@ -2,6 +2,7 @@
 using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
@@ -228,24 +229,15 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-            if (id == null || _context.NewsClasses == null)
-            {
-                return NotFound();
-            }
-
             var newsClass = await _context.NewsClasses
                 .FirstOrDefaultAsync(m => m.NewsClassNum == id);
-            if (newsClass == null)
-            {
-                return NotFound();
-            }
 
-            return View(newsClass);
+            string res = JsonConvert.SerializeObject(newsClass);
+
+            return Json(res);
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.NewsClasses == null)
@@ -259,7 +251,7 @@ namespace AlexBlogMVC.Areas.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json("刪除完成");
         }
 
 
