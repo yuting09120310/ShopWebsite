@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace AlexBlogMVC.FrontEnd.Controllers
@@ -22,11 +23,13 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         }
 
 
-        public IActionResult Index(string ClassType)
+        public IActionResult Index(string ClassType, string Page)
         {
             DateTime today = DateTime.Today;
 
-            List<SingleProductViewModel> shopPage = (from n in _context.Products
+            int itemsPerPage = 6;
+
+            IQueryable<SingleProductViewModel> shopPage = from n in _context.Products
                                                      where n.ProductPublish == true && n.ProductPutTime < today && n.ProductOffTime > today
                                                      orderby n.ProductNum descending
                                                      select new SingleProductViewModel
@@ -41,22 +44,72 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                                             where creator.ProductClassNum == n.ProductClass
                                                                             select creator.ProductClassName).FirstOrDefault()!,
                                                          Price = n.ProductPrice,
-                                                     }).ToList();
+                                                     };
 
             List<ProductClass> productClasses = _context.ProductClasses.Where(x => x.ProductClassPublish == true).ToList();
 
 
-            ///搜尋條件
-            if (ClassType != null)
+            // 取得最多訂單的 ProductId
+            List<int> topProductIds = _context.OrderProducts
+                                        .GroupBy(p => p.ProductId)
+                                        .OrderByDescending(g => g.Count())
+                                        .Take(3)
+                                        .Select(g => g.Key)
+                                        .ToList();
+
+            // 將搜尋出來的結果 去取產品
+            var topProducts = _context.Products
+                                .Where(p => topProductIds.Contains(Convert.ToInt32(p.ProductNum)))
+                                .Select(n => new SingleProductViewModel
+                                {
+                                    ProductId = n.ProductNum,
+                                    Title = n.ProductTitle,
+                                    Description = n.ProductDescription,
+                                    ProductImg1 = n.ProductImg1,
+                                    CreateTime = n.CreateTime,
+                                    ClassId = n.ProductClass,
+                                    ProductTypeName = _context.ProductClasses
+                                        .Where(creator => creator.ProductClassNum == n.ProductClass)
+                                        .Select(creator => creator.ProductClassName)
+                                        .FirstOrDefault()!,
+                                    Price = n.ProductPrice
+                                })
+                                .ToList();
+
+
+
+
+
+            //搜尋條件
+            if (string.IsNullOrEmpty(ClassType) || ClassType == "0")
             {
-                shopPage = shopPage.Where(x => x.ClassId == Convert.ToInt64(ClassType)).ToList();
+                ClassType = "0";
             }
+            else
+            {
+                shopPage = shopPage.Where(x => x.ClassId == Convert.ToInt64(ClassType));
+            }
+
+
+            // 計算總頁數
+            int totalPages = (int)Math.Ceiling((double)shopPage.Count() / itemsPerPage);
+
+            // 根據 Page 參數進行分頁
+            int currentPage = string.IsNullOrEmpty(Page) ? 1 : Convert.ToInt32(Page);
+            shopPage = shopPage.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+
+
+            // 傳遞資料到檢視
+            ViewBag.ClassType = ClassType;
+            ViewBag.Page = currentPage;
+            ViewBag.TotalPages = totalPages;
 
 
             ShopPageViewModel shopPageViewModel = new ShopPageViewModel()
             {
-                ListProductViewModels = shopPage,
-                ListproductClass = productClasses
+                ListProductViewModels = shopPage.ToList(),
+                ListproductClass = productClasses,
+                TopProducts = topProducts
             };
 
             return View(shopPageViewModel);

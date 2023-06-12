@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
@@ -261,7 +262,7 @@ namespace AlexBlogMVC.Areas.Controllers
         }
 
         // GET: Admins/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(long id)
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -276,24 +277,15 @@ namespace AlexBlogMVC.Areas.Controllers
             #endregion
 
 
-            if (id == null || _context.Admins == null)
-            {
-                return NotFound();
-            }
-
             var admin = await _context.Admins
                 .FirstOrDefaultAsync(m => m.AdminNum == id);
-            if (admin == null)
-            {
-                return NotFound();
-            }
 
-            return View(admin);
+            string res = JsonConvert.SerializeObject(admin);
+
+            return Json(res);
         }
 
-        // POST: Admins/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.Admins == null)
@@ -307,7 +299,8 @@ namespace AlexBlogMVC.Areas.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Json("刪除成功");
         }
 
         private bool AdminExists(long id)

@@ -48,11 +48,22 @@
                     <!-- Styled Pagination -->
                     <div class="styled-pagination text-center padd-top-30">
                         <ul>
-                        	<li><a class="prev" href="#"><span class="fa fa-angle-double-left"></span>&ensp;Prev</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#" class="active">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a class="next" href="#">Next&ensp;<span class="fa fa-angle-double-right"></span></a></li>
+                        @{
+                            int TotalPages = Convert.ToInt32(ViewBag.TotalPages);
+                            int Page = Convert.ToInt32(ViewBag.Page);
+                            for (int i = 1; i <= TotalPages; i++)
+                            {
+                                var preUrl = Url.Action("Index", "ShopPage", new { ClassType = ViewBag.ClassType, Page = i });
+                                if (i == Page)
+                                {
+                                    <li><a href="@preUrl" class="active">@i</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@preUrl">@i</a></li>
+                                }
+                            }
+                        }
                         </ul>
                     </div>
                 
@@ -70,13 +81,16 @@
                             <div class="widget-title"><h2>商品類別</h2></div>
                             
                             <ul class="list">
-                                @{
-                                    foreach(ProductClass productClass in Model.ListproductClass)
-                                    {
-                                        var url = Url.Action("Index", "ShopPage", new { ClassType = productClass.ProductClassNum });
-                                        <li><a href="@url"><div class="clearfix"><span class="pull-left">@productClass.ProductClassName</span> <span class="pull-right fa fa-arrow-right"></span></div></a></li>
-                                    }
+                            @{
+                                var urlAll = Url.Action("Index", "ShopPage", new { ClassType = 0 });
+                                <li><a href="@urlAll"><div class="clearfix"><span class="pull-left">全部</span> <span class="pull-right fa fa-arrow-right"></span></div></a></li>
+
+                                foreach(ProductClass productClass in Model.ListproductClass)
+                                {
+                                    var url = Url.Action("Index", "ShopPage", new { ClassType = productClass.ProductClassNum });
+                                    <li><a href="@url"><div class="clearfix"><span class="pull-left">@productClass.ProductClassName</span> <span class="pull-right fa fa-arrow-right"></span></div></a></li>
                                 }
+                            }
                             </ul>
                             
                         </div>
@@ -84,28 +98,21 @@
                         
                         <!-- Popular Posts -->
                         <div class="sidebar-widget shop-widget boxed-widget shop-posts wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <div class="widget-title"><h2>TOP SALES</h2></div>
+                            <div class="widget-title"><h2>銷量最高</h2></div>
                             
-                            <article class="post">
-                            	<figure class="post-thumb"><a href="#"><img src="~/FrontEnd/images/resource/products/thumb-1.jpg" alt=""></a></figure>
-                                <h4><a href="#">Baby Panda</a></h4>
-                                <div class="rating"><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star-half-empty"></span></div>
-                                <div class="item-price">$ 35.00 <span class="strike-through">$75.00</span></div>
-                            </article>
                             
-                            <article class="post">
-                            	<figure class="post-thumb"><a href="#"><img src="~/FrontEnd/images/resource/products/thumb-2.jpg" alt=""></a></figure>
-                                <h4><a href="#">Black Widow</a></h4>
-                                <div class="rating"><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star-half-empty"></span></div>
-                                <div class="item-price">$ 35.00 <span class="strike-through">$75.00</span></div>
-                            </article>
                             
-                            <article class="post">
-                            	<figure class="post-thumb"><a href="#"><img src="~/FrontEnd/images/resource/products/thumb-3.jpg" alt=""></a></figure>
-                                <h4><a href="#">Bumblebee</a></h4>
-                                <div class="rating"><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star"></span><span class="star fa fa-star-half-empty"></span></div>
-                                <div class="item-price">$ 35.00 <span class="strike-through">$75.00</span></div>
-                            </article>
+                        @{
+                            foreach (var product in Model.TopProducts)
+                            {
+                                <article class="post">
+                                    <figure class="post-thumb"><a href="#"><img src="@Url.Content("~/uploads/Product/" + product.ProductImg1)" alt=""></a></figure>
+                                    <h4><a asp-controller="ShopPage" asp-action="Detail" asp-route-id="@product.ProductId">@product.Title</a></h4>
+                                    <div class="item-price">$@product.Price<span class="strike-through"></span></div>
+                                    <!-- <div class="item">已售出 2</div> -->
+                                </article>
+                            }
+                        }
                             
                         </div>
                         

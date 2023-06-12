@@ -53,7 +53,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                   };
 
 
-            if (string.IsNullOrEmpty(ClassType))
+            if (string.IsNullOrEmpty(ClassType) || ClassType == "0")
             {
                 ClassType = "0";
             }
@@ -62,7 +62,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                 query = query.Where(x => x.ClassId == Convert.ToInt64(ClassType));
             }
 
-
+            // 如果有搜尋條件
             if (!string.IsNullOrEmpty(searchValue))
             {
                 query = query.Where(x => x.Tag.Contains(searchValue));
