@@ -3,6 +3,8 @@ using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
@@ -12,11 +14,11 @@ namespace AlexBlogMVC.Areas.Controllers
 
         private readonly IWebHostEnvironment _hostingEnvironment;
 
+
         public NewsController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) : base(context)
         {
             _hostingEnvironment = hostingEnvironment;
         }
-
 
 
         public async Task<IActionResult> Index()
@@ -313,24 +315,15 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-            if (id == null || _context.News == null)
-            {
-                return NotFound();
-            }
-
             var news = await _context.News
                 .FirstOrDefaultAsync(m => m.NewsNum == id);
-            if (news == null)
-            {
-                return NotFound();
-            }
 
-            return View(news);
+            string res = JsonConvert.SerializeObject(news);
+
+            return Json(res);
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.News == null)
@@ -344,7 +337,13 @@ namespace AlexBlogMVC.Areas.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            //取得該篇文章的圖片並刪除
+            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News");
+            var filePath = Path.Combine(direPath, news.NewsImg1);
+            System.IO.File.Delete(filePath);
+
+            return Json("刪除完成");
         }
 
         private bool NewsExists(long id)

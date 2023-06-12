@@ -326,10 +326,10 @@ namespace AlexBlogMVC.Areas.Controllers
             
             await _context.SaveChangesAsync();
 
-
+            //取得該篇廣告的圖片並刪除
             var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner");
             var filePath = Path.Combine(direPath, banner.BannerImg1);
-            System.IO.File.Delete(filePath); // 刪除檔案
+            System.IO.File.Delete(filePath); 
 
 
             return Json("刪除完成");
