@@ -2,6 +2,7 @@
 using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
@@ -213,7 +214,7 @@ namespace AlexBlogMVC.Areas.Controllers
             return View(productClassViewModel);
         }
 
-        // GET: ProductClass/Delete/5
+
         public async Task<IActionResult> Delete(long? id)
         {
             #region 登入 權限判斷
@@ -228,25 +229,15 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-
-            if (id == null || _context.ProductClasses == null)
-            {
-                return NotFound();
-            }
-
             var productClass = await _context.ProductClasses
                 .FirstOrDefaultAsync(m => m.ProductClassNum == id);
-            if (productClass == null)
-            {
-                return NotFound();
-            }
 
-            return View(productClass);
+            string res = JsonConvert.SerializeObject(productClass);
+
+            return Json(res);
         }
 
-        // POST: ProductClass/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.ProductClasses == null)
@@ -260,7 +251,7 @@ namespace AlexBlogMVC.Areas.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json("刪除完成");
         }
 
         private bool ProductClassExists(long id)

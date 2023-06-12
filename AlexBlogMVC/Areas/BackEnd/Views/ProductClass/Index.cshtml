@@ -71,7 +71,7 @@
                                         <td>
                                             <ul class="action">
                                                 <li class="edit"> <a asp-action="Edit" asp-route-id="@item.ProductClassNum"><i class="icon-pencil-alt"></i></a></li>
-                                                <li class="delete"><a asp-action="Delete" asp-route-id="@item.ProductClassNum"><i class="icon-trash"></i></a></li>
+                                                <li class="delete"><a href="#" class="deletes" data-id="@item.ProductClassNum"><i class="icon-trash"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -84,6 +84,92 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">確定要刪除嗎?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveChangesButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var ProductClassNum = "";
+    $('.deletes').click(function () {
+
+        ProductClassNum = $(this).data('id');
+
+        var url = '/BackEnd/ProductClass/Delete/' + ProductClassNum
+
+        axios.get(url)
+            .then(function (response) {
+
+                // 將回應的資料插入到模態對話框中
+                var content = response.data;
+                var obj = JSON.parse(content);
+                $('.modal-body').html(`
+                                                <p>編號: ${obj.ProductClassNum}</p>
+                                                <p>名稱: ${obj.ProductClassName}</p>
+                                            `);
+
+                // 開啟模態對話框
+                $('#exampleModal').modal('show');
+            })
+            .catch(function (error) {
+                // 處理錯誤
+                console.log(error);
+            });
+
+    });
+
+
+    $('.close').click(function () {
+        $('#exampleModal').modal('hide');
+    });
+
+
+    $('#saveChangesButton').click(function () {
+        // 進行 POST 請求
+        axios.post('/BackEnd/ProductClass/DeleteConfirmed/' + ProductClassNum)
+            .then(function (response) {
+                $('#exampleModal').modal('hide');
+                // 處理回應
+                console.log(response.data)
+                Swal.fire({
+                    position: 'center-center',
+                    icon: 'success',
+                    title: response.data,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                // 其他後續處理
+                // 延遲執行 location.reload()
+                setTimeout(function () {
+                    location.reload();
+                }, 1500); // 延遲 1 秒後重新載入網頁
+            })
+            .catch(function (error) {
+                // 處理錯誤
+                console.log(error);
+            });
+    });
+
+</script>
 
 
 <script>
