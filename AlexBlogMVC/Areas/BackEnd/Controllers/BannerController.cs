@@ -2,6 +2,7 @@
 using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace AlexBlogMVC.Areas.Controllers
 {
@@ -14,9 +15,6 @@ namespace AlexBlogMVC.Areas.Controllers
         public BannerController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) :base(context){
             _hostingEnvironment = hostingEnvironment;
         }
-
-
-       
 
 
         // GET: Banner
@@ -290,7 +288,7 @@ namespace AlexBlogMVC.Areas.Controllers
             return View(bannerViewModel);
         }
 
-        // GET: Banner/Delete/5
+
         public async Task<IActionResult> Delete(long? id)
         {
             #region 登入 權限判斷
@@ -305,25 +303,15 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-
-            if (id == null || _context.Banners == null)
-            {
-                return NotFound();
-            }
-
             var banner = await _context.Banners
                 .FirstOrDefaultAsync(m => m.BannerNum == id);
-            if (banner == null)
-            {
-                return NotFound();
-            }
 
-            return View(banner);
+            string res = JsonConvert.SerializeObject(banner);
+
+            return Json(res);
         }
 
-        // POST: Banner/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             if (_context.Banners == null)
@@ -337,7 +325,14 @@ namespace AlexBlogMVC.Areas.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+
+            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner");
+            var filePath = Path.Combine(direPath, banner.BannerImg1);
+            System.IO.File.Delete(filePath); // 刪除檔案
+
+
+            return Json("刪除完成");
         }
 
         private bool BannerExists(long id)
