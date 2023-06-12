@@ -2,6 +2,7 @@
 using AlexBlogMVC.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Data;
 
 namespace AlexBlogMVC.Areas.Controllers
@@ -251,6 +252,7 @@ namespace AlexBlogMVC.Areas.Controllers
             return RedirectToAction("Edit");
         }
 
+
         // GET: AdminGroup/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
@@ -266,38 +268,28 @@ namespace AlexBlogMVC.Areas.Controllers
             GetMenu();
             #endregion
 
-            if (id == null || _context.AdminGroups == null)
-            {
-                return NotFound();
-            }
-
             var adminGroup = await _context.AdminGroups
                 .FirstOrDefaultAsync(m => m.GroupNum == id);
-            if (adminGroup == null)
-            {
-                return NotFound();
-            }
 
-            return View(adminGroup);
+            string res = JsonConvert.SerializeObject(adminGroup);
+
+            return Json(res);
         }
 
-        // POST: AdminGroup/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.AdminGroups == null)
-            {
-                return Problem("Entity set 'BlogMvcContext.AdminGroups'  is null.");
-            }
             var adminGroup = await _context.AdminGroups.FindAsync(id);
             if (adminGroup != null)
             {
                 _context.AdminGroups.Remove(adminGroup);
             }
+
+            var adminRole = await _context.AdminRoles.Where(x => x.GroupNum == id).ToListAsync();
+            adminRole.ForEach(x => _context.AdminRoles.Remove(x));
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json("刪除成功");
         }
 
         private bool AdminGroupExists(long id)
