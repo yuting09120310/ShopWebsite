@@ -45,183 +45,257 @@ public partial class BlogMvcContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=58.114.5.244;Database=BlogMVC;User ID=sa;Password=alex0310;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
+        => optionsBuilder.UseMySql("server=www.db4free.net;database=blogmvc;user id=alexcai0310;password=C!NK67mdEz4Yb@P", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder
+            .UseCollation("utf8mb4_0900_ai_ci")
+            .HasCharSet("utf8mb4");
+
         modelBuilder.Entity<Admin>(entity =>
         {
-            entity.HasKey(e => e.AdminNum);
+            entity.HasKey(e => e.AdminNum).HasName("PRIMARY");
 
             entity.ToTable("Admin");
 
-            entity.Property(e => e.AdminAcc).HasMaxLength(50);
-            entity.Property(e => e.AdminName).HasMaxLength(50);
-            entity.Property(e => e.AdminPwd).HasMaxLength(50);
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.AdminAcc)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.AdminName)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.AdminPublish).HasColumnType("bit(1)");
+            entity.Property(e => e.AdminPwd)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
             entity.Property(e => e.LastLogin).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<AdminGroup>(entity =>
         {
-            entity.HasKey(e => e.GroupNum).HasName("PK_LoginGroup");
+            entity.HasKey(e => e.GroupNum).HasName("PRIMARY");
 
             entity.ToTable("AdminGroup");
 
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
-            entity.Property(e => e.GroupName).HasMaxLength(50);
+            entity.Property(e => e.GroupInfo).HasColumnType("text");
+            entity.Property(e => e.GroupName)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.GroupPublish).HasColumnType("bit(1)");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<AdminRole>(entity =>
         {
-            entity.HasKey(e => e.RoleNum).HasName("PK_LoginRole");
+            entity.HasKey(e => e.RoleNum).HasName("PRIMARY");
 
             entity.ToTable("AdminRole");
 
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
-            entity.Property(e => e.Role).HasMaxLength(50);
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<Banner>(entity =>
         {
-            entity.HasKey(e => e.BannerNum);
+            entity.HasKey(e => e.BannerNum).HasName("PRIMARY");
 
             entity.ToTable("Banner");
 
-            entity.Property(e => e.BannerContxt).HasComment("");
+            entity.Property(e => e.BannerContxt).HasColumnType("text");
+            entity.Property(e => e.BannerDescription).HasColumnType("text");
+            entity.Property(e => e.BannerImg1).HasColumnType("text");
+            entity.Property(e => e.BannerImgAlt).HasColumnType("text");
+            entity.Property(e => e.BannerImgUrl).HasColumnType("text");
             entity.Property(e => e.BannerOffTime).HasColumnType("datetime");
+            entity.Property(e => e.BannerPublish).HasColumnType("bit(1)");
             entity.Property(e => e.BannerPutTime).HasColumnType("datetime");
+            entity.Property(e => e.BannerTitle).HasColumnType("text");
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
-            entity.Property(e => e.Lang).HasMaxLength(50);
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.Lang)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<Comment>(entity =>
         {
+            entity.HasKey(e => e.CommentId).HasName("PRIMARY");
+
             entity.ToTable("Comment");
 
-            entity.Property(e => e.Email).HasMaxLength(200);
-            entity.Property(e => e.UserName).HasMaxLength(50);
+            entity.Property(e => e.Email)
+                .HasMaxLength(200)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.Message).HasColumnType("text");
+            entity.Property(e => e.UserName)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<Contact>(entity =>
         {
-            entity.HasKey(e => e.ContactNum);
+            entity.HasKey(e => e.ContactNum).HasName("PRIMARY");
 
             entity.ToTable("Contact");
 
-            entity.Property(e => e.ContactReTxt).HasComment("");
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.ContactMail).HasColumnType("text");
+            entity.Property(e => e.ContactName).HasColumnType("text");
+            entity.Property(e => e.ContactPhone).HasColumnType("text");
+            entity.Property(e => e.ContactReTxt).HasColumnType("text");
+            entity.Property(e => e.ContactTxt).HasColumnType("text");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<MenuGroup>(entity =>
         {
-            entity.HasKey(e => e.MenuGroupNum);
+            entity.HasKey(e => e.MenuGroupNum).HasName("PRIMARY");
 
             entity.ToTable("MenuGroup");
 
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
-            entity.Property(e => e.MenuGroupIcon).HasMaxLength(50);
-            entity.Property(e => e.MenuGroupId).HasMaxLength(100);
-            entity.Property(e => e.MenuGroupInfo).HasMaxLength(100);
-            entity.Property(e => e.MenuGroupName).HasMaxLength(100);
-            entity.Property(e => e.MenuGroupSort).HasDefaultValueSql("((0))");
-            entity.Property(e => e.MenuGroupUrl).HasMaxLength(100);
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuGroupIcon)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuGroupId)
+                .HasMaxLength(100)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuGroupInfo)
+                .HasMaxLength(100)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuGroupName)
+                .HasMaxLength(100)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuGroupPublish).HasColumnType("bit(1)");
+            entity.Property(e => e.MenuGroupUrl)
+                .HasMaxLength(100)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<MenuSub>(entity =>
         {
-            entity.HasKey(e => e.MenuSubNum);
+            entity.HasKey(e => e.MenuSubNum).HasName("PRIMARY");
 
             entity.ToTable("MenuSub");
 
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
-            entity.Property(e => e.MenuGroupId).HasMaxLength(50);
-            entity.Property(e => e.MenuSubIcon).HasMaxLength(50);
-            entity.Property(e => e.MenuSubId).HasMaxLength(50);
-            entity.Property(e => e.MenuSubInfo).HasMaxLength(50);
-            entity.Property(e => e.MenuSubName).HasMaxLength(50);
-            entity.Property(e => e.MenuSubRole).HasMaxLength(50);
-            entity.Property(e => e.MenuSubSort).HasDefaultValueSql("((0))");
-            entity.Property(e => e.MenuSubUrl).HasMaxLength(100);
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuGroupId)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuSubIcon)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuSubId)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuSubInfo)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuSubName)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuSubPublish).HasColumnType("bit(1)");
+            entity.Property(e => e.MenuSubRole)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.MenuSubUrl)
+                .HasMaxLength(100)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
         });
 
         modelBuilder.Entity<News>(entity =>
         {
-            entity.HasKey(e => e.NewsNum);
+            entity.HasKey(e => e.NewsNum).HasName("PRIMARY");
 
-            entity.Property(e => e.CreateTime)
-                .HasDefaultValueSql("(getdate())")
-                .HasComment("")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Creator).HasComment("");
-            entity.Property(e => e.EditTime)
-                .HasComment("")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Editor).HasComment("");
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
+            entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasComment("")
-                .HasColumnName("IP");
-            entity.Property(e => e.Lang).HasMaxLength(50);
-            entity.Property(e => e.NewsClass).HasComment("");
-            entity.Property(e => e.NewsContxt).HasComment("");
-            entity.Property(e => e.NewsImg1).HasComment("");
-            entity.Property(e => e.NewsImgAlt).HasComment("");
-            entity.Property(e => e.NewsImgUrl).HasComment("");
-            entity.Property(e => e.NewsOffTime)
-                .HasComment("")
-                .HasColumnType("datetime");
-            entity.Property(e => e.NewsPublish).HasComment("");
-            entity.Property(e => e.NewsPutTime)
-                .HasComment("")
-                .HasColumnType("datetime");
-            entity.Property(e => e.NewsSort).HasComment("");
-            entity.Property(e => e.NewsTitle).HasComment("");
-            entity.Property(e => e.NewsViews).HasDefaultValueSql("((0))");
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.Lang)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.NewsContxt).HasColumnType("text");
+            entity.Property(e => e.NewsDescription).HasColumnType("text");
+            entity.Property(e => e.NewsImg1).HasColumnType("text");
+            entity.Property(e => e.NewsImgAlt).HasColumnType("text");
+            entity.Property(e => e.NewsImgUrl).HasColumnType("text");
+            entity.Property(e => e.NewsOffTime).HasColumnType("datetime");
+            entity.Property(e => e.NewsPublish).HasColumnType("bit(1)");
+            entity.Property(e => e.NewsPutTime).HasColumnType("datetime");
+            entity.Property(e => e.NewsTitle).HasColumnType("text");
+            entity.Property(e => e.Tag).HasColumnType("text");
         });
 
         modelBuilder.Entity<NewsClass>(entity =>
         {
-            entity.HasKey(e => e.NewsClassNum);
+            entity.HasKey(e => e.NewsClassNum).HasName("PRIMARY");
 
             entity.ToTable("NewsClass");
 
@@ -229,24 +303,38 @@ public partial class BlogMvcContext : DbContext
             entity.Property(e => e.EditTime).HasColumnType("datetime");
             entity.Property(e => e.Ip)
                 .HasMaxLength(50)
-                .HasColumnName("IP");
-            entity.Property(e => e.NewsClassId).HasMaxLength(50);
-            entity.Property(e => e.NewsClassName).HasMaxLength(50);
+                .HasColumnName("IP")
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.NewsClassId)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.NewsClassName)
+                .HasMaxLength(50)
+                .UseCollation("utf8mb3_general_ci")
+                .HasCharSet("utf8mb3");
+            entity.Property(e => e.NewsClassPublish).HasColumnType("bit(1)");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
+            entity.HasKey(e => e.OrderId).HasName("PRIMARY");
+
             entity.ToTable("Order");
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.CustomerName).HasMaxLength(50);
-            entity.Property(e => e.OrderDate).HasColumnType("date");
+            entity.Property(e => e.Email).HasColumnType("text");
             entity.Property(e => e.OrderStatus).HasMaxLength(50);
             entity.Property(e => e.PaymentMethod).HasMaxLength(50);
+            entity.Property(e => e.ShippingAddress).HasColumnType("text");
         });
 
         modelBuilder.Entity<OrderProduct>(entity =>
         {
+            entity.HasKey(e => e.OrderProductId).HasName("PRIMARY");
+
             entity.ToTable("OrderProduct");
 
             entity.Property(e => e.OrderProductId).HasColumnName("OrderProductID");
@@ -256,23 +344,36 @@ public partial class BlogMvcContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductNum).HasName("PK_Product_1");
+            entity.HasKey(e => e.ProductNum).HasName("PRIMARY");
 
             entity.ToTable("Product");
 
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
             entity.Property(e => e.EditTime).HasColumnType("datetime");
-            entity.Property(e => e.Ip).HasColumnName("IP");
+            entity.Property(e => e.Ip)
+                .HasColumnType("text")
+                .HasColumnName("IP");
             entity.Property(e => e.Lang).HasMaxLength(50);
-            entity.Property(e => e.ProductImgAlt).HasComment("");
-            entity.Property(e => e.ProductImgUrl).HasComment("");
+            entity.Property(e => e.ProductContxt).HasColumnType("text");
+            entity.Property(e => e.ProductDepartment).HasColumnType("text");
+            entity.Property(e => e.ProductDescription).HasColumnType("text");
+            entity.Property(e => e.ProductId).HasColumnType("text");
+            entity.Property(e => e.ProductImg1).HasColumnType("text");
+            entity.Property(e => e.ProductImgAlt).HasColumnType("text");
+            entity.Property(e => e.ProductImgList).HasColumnType("text");
+            entity.Property(e => e.ProductImgListAlt).HasColumnType("text");
+            entity.Property(e => e.ProductImgUrl).HasColumnType("text");
             entity.Property(e => e.ProductOffTime).HasColumnType("datetime");
+            entity.Property(e => e.ProductPublish).HasColumnType("bit(1)");
             entity.Property(e => e.ProductPutTime).HasColumnType("datetime");
+            entity.Property(e => e.ProductTitle).HasColumnType("text");
+            entity.Property(e => e.ProductVideo1).HasColumnType("text");
+            entity.Property(e => e.Tag).HasColumnType("text");
         });
 
         modelBuilder.Entity<ProductClass>(entity =>
         {
-            entity.HasKey(e => e.ProductClassNum).HasName("PK_Product");
+            entity.HasKey(e => e.ProductClassNum).HasName("PRIMARY");
 
             entity.ToTable("ProductClass");
 
@@ -283,6 +384,7 @@ public partial class BlogMvcContext : DbContext
                 .HasColumnName("IP");
             entity.Property(e => e.ProductClassId).HasMaxLength(50);
             entity.Property(e => e.ProductClassName).HasMaxLength(50);
+            entity.Property(e => e.ProductClassPublish).HasColumnType("bit(1)");
         });
 
         OnModelCreatingPartial(modelBuilder);
