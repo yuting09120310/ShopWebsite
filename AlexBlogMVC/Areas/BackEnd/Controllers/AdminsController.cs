@@ -303,6 +303,7 @@ namespace AlexBlogMVC.Areas.Controllers
             return Json("刪除成功");
         }
 
+
         private bool AdminExists(long id)
         {
             return (_context.Admins?.Any(e => e.AdminNum == id)).GetValueOrDefault();
