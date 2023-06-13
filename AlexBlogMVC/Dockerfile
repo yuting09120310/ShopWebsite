@@ -1,22 +1,25 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
+# 使用官方的 .NET SDK 作為基礎鏡像
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["AlexBlogMVC/AlexBlogMVC.csproj", "AlexBlogMVC/"]
-RUN dotnet restore "AlexBlogMVC/AlexBlogMVC.csproj"
-COPY . .
-WORKDIR "/src/AlexBlogMVC"
-RUN dotnet build "AlexBlogMVC.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "AlexBlogMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+# 設定工作目錄
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# 複製專案文件到工作目錄
+COPY . .
+
+# 執行 restore、build 和 publish
+RUN dotnet restore
+RUN dotnet build --configuration Release --no-restore
+RUN dotnet publish --configuration Release --no-build --output /app/publish
+
+# 使用官方的 ASP.NET Core 鏡像作為運行時環境
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+
+# 設定工作目錄
+WORKDIR /app
+
+# 從之前的 build 階段複製構建好的發布文件到運行時鏡像
+COPY --from=build /app/publish .
+
+# 指定容器啟動時運行的命令
 ENTRYPOINT ["dotnet", "AlexBlogMVC.dll"]
