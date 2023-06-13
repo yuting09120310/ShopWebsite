@@ -107,14 +107,14 @@ namespace AlexBlogMVC.Areas.Controllers
                 //接收檔案
                 if (newsViewModel.FileData != null)
                 {
-                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News");
+                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
                     if (!Directory.Exists(direPath))
                     {
                         Directory.CreateDirectory(direPath);
                     }
 
 
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", fileName);
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/News", fileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await newsViewModel.FileData.CopyToAsync(fileStream);
@@ -238,14 +238,15 @@ namespace AlexBlogMVC.Areas.Controllers
                     //接收檔案
                     if (newsViewModel.FileData != null)
                     {
-                        var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News");
+                        var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
+
                         if (!Directory.Exists(direPath))
                         {
                             Directory.CreateDirectory(direPath);
                         }
 
 
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News", fileName);
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/News", fileName);
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await newsViewModel.FileData.CopyToAsync(fileStream);
