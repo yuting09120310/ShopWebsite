@@ -67,7 +67,8 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                        Title = n.ProductTitle,
                                                        Price = n.ProductPrice,
                                                        amount = Convert.ToInt16(HttpContext.Session.GetString(productIdString)),
-                                                       ProductImg1 = n.ProductImg1
+                                                       ProductImg1 = n.ProductImg1,
+                                                       tag= n.Tag
                                                    }).FirstOrDefault()!;
 
                     cartViewModel.singleProductViewModels.Add(cart);
