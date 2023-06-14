@@ -114,7 +114,7 @@ namespace AlexBlogMVC.Areas.Controllers
                     }
 
 
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/News", fileName);
+                    var filePath = Path.Combine(direPath, fileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await newsViewModel.FileData.CopyToAsync(fileStream);
@@ -340,7 +340,7 @@ namespace AlexBlogMVC.Areas.Controllers
             await _context.SaveChangesAsync();
 
             //取得該篇文章的圖片並刪除
-            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\News");
+            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "News");
             var filePath = Path.Combine(direPath, news.NewsImg1);
             System.IO.File.Delete(filePath);
 

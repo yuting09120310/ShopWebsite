@@ -110,7 +110,7 @@ namespace AlexBlogMVC.Areas.Controllers
                         Directory.CreateDirectory(direPath);
                     }
 
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/Banner", fileName);
+                    var filePath = Path.Combine(direPath, fileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await bannerViewModel.FileData.CopyToAsync(fileStream);
@@ -327,7 +327,7 @@ namespace AlexBlogMVC.Areas.Controllers
             await _context.SaveChangesAsync();
 
             //取得該篇廣告的圖片並刪除
-            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Banner");
+            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads" , "Banner");
             var filePath = Path.Combine(direPath, banner.BannerImg1);
             System.IO.File.Delete(filePath); 
 

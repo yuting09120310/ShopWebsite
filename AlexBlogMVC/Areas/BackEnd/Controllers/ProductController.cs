@@ -113,14 +113,14 @@ namespace AlexBlogMVC.Areas.Controllers
                 //接收檔案
                 if (productViewModel.FileData != null)
                 {
-                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product");
+                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "Product");
                     if (!Directory.Exists(direPath))
                     {
                         Directory.CreateDirectory(direPath);
                     }
 
 
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product", fileName);
+                    var filePath = Path.Combine(direPath, fileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await productViewModel.FileData.CopyToAsync(fileStream);
@@ -352,7 +352,7 @@ namespace AlexBlogMVC.Areas.Controllers
             await _context.SaveChangesAsync();
 
             //取得該篇廣告的圖片並刪除
-            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads\\Product");
+            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "Product");
             var filePath = Path.Combine(direPath, product.ProductImg1);
             System.IO.File.Delete(filePath);
 
