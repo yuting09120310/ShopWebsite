@@ -7,12 +7,13 @@
 
 @Html.Partial("_FrontEndPageTitlePartial",breadcrumbDict)
 
-<section class="default-content-section extended">
-    <div class="auto-container">
+
+<section class="default-content-section style-two">
+    <div class="outer-container">
         <div class="row clearfix">
             <!--Text Column-->
             <div class="text-column col-md-7 col-sm-12 col-xs-12">
-                <figure class="logo-image"><a href="index.html"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></figure>
+                <figure class="logo-image"><a asp-action="Index" asp-controller="Default"><img src="~/FrontEnd/images/logo-12.png" alt=""></a></figure>
                 <h2>@Model.Title</h2>
                 <div class="text">
                     <p>@Model.Description</p>

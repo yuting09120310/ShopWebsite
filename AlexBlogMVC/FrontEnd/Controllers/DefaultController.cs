@@ -2,6 +2,7 @@
 using AlexBlogMVC.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlexBlogMVC.FrontEnd.Controllers
 {
@@ -21,11 +22,11 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         /// 首頁
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             DateTime today = DateTime.Today;
 
-            List<Banner> banner = (from n in _context.Banners
+            List<Banner> banner = await (from n in _context.Banners
                                    where n.BannerPublish == true && n.BannerPutTime < today && n.BannerOffTime > today
                                    orderby n.BannerNum descending
                                    select new Banner
@@ -35,10 +36,10 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                        BannerDescription= n.BannerDescription,
                                        BannerImg1= n.BannerImg1,
                                    }
-                                   ).ToList();
+                                   ).ToListAsync();
 
 
-            List<NewsPageViewModel> newsPage = (from n in _context.News
+            List<NewsPageViewModel> newsPage = await (from n in _context.News
                                                   where n.NewsPublish == true && n.NewsPutTime < today && n.NewsOffTime > today
                                                   orderby n.NewsNum descending
                                                   select new NewsPageViewModel
@@ -52,11 +53,11 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                       NewsTypeName = (from creator in _context.NewsClasses
                                                                       where creator.NewsClassNum == n.NewsClass
                                                                       select creator.NewsClassName).FirstOrDefault(),
-                                                  }).Take(3).ToList();
+                                                  }).Take(3).ToListAsync();
 
 
 
-            List<SingleProductViewModel> shopPage = (from n in _context.Products
+            List<SingleProductViewModel> shopPage = await (from n in _context.Products
                                                 where n.ProductPublish == true && n.ProductPutTime < today && n.ProductOffTime > today
                                                 orderby n.ProductNum descending
                                                 select new SingleProductViewModel
@@ -70,7 +71,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                     ProductTypeName = (from creator in _context.ProductClasses
                                                                     where creator.ProductClassNum == n.ProductClass
                                                                     select creator.ProductClassName).FirstOrDefault(),
-                                                }).Take(6).ToList();
+                                                }).Take(6).ToListAsync();
 
 
             DefaultViewModel dvm = new DefaultViewModel()
