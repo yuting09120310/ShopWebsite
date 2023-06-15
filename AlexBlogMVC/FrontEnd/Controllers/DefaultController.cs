@@ -52,7 +52,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
                                                       ClassId = n.NewsClass,
                                                       NewsTypeName = (from creator in _context.NewsClasses
                                                                       where creator.NewsClassNum == n.NewsClass
-                                                                      select creator.NewsClassName).FirstOrDefault(),
+                                                                      select creator.NewsClassName).FirstOrDefault()!,
                                                   }).Take(3).ToListAsync();
 
 

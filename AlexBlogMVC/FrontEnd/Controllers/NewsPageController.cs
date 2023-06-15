@@ -146,21 +146,14 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         /// <param name="newsPageViewModel">文章 + 留言</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Comments(NewsPageViewModel newsPageViewModel)
+        public async Task<IActionResult> Comments([FromBody] Comment comment)
         {
-            Comment comment = new Comment()
-            {
-                NewsId = newsPageViewModel.NewsId,
-                UserName = newsPageViewModel.postComment.UserName,
-                Email = newsPageViewModel.postComment.Email,
-                Message = newsPageViewModel.postComment.Message,
-            };
-
-
             _context.Add(comment);
             _context.SaveChanges();
 
-            return RedirectToAction("Details", "NewsPage", new { id = newsPageViewModel.NewsId });
+            //return RedirectToAction("Details", "NewsPage", new { id = newsPageViewModel.NewsId });
+            return RedirectToAction("Details", "NewsPage");
+
         }
     }
 }

@@ -59,51 +59,70 @@
                         <hr></hr>
                     }
                 }
-
-@*                <!--回覆-->
-                <div class="comment-box reply-comment">
-                    <div class="inner-box">
-                        <figure class="comment-thumb"><img src="~/FrontEnd/images/resource/author-thumb-2.jpg" alt=""></figure>
-                        <h3>Hasib Sharif</h3>
-                        <div class="time">2 hours ago</div>
-                        <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                        <div class="links">
-                            <a href="#" class="theme-btn normal-link"><span class="fa fa-heart-o"></span>  Like</a>
-                            <a href="#" class="theme-btn normal-link"><span class="fa fa-reply"></span>  Reply</a>
-                        </div>
-                    </div>
-                </div>*@
-
-
-
             </div>
 
             <div class="big-title">留下評論</div>
             <!--Reply Form-->
             <div class="reply-form">
-
-                <form method="post" asp-action="Comments">
-                    <input type="hidden" asp-for="NewsId" />
-                    <div class="row clearfix">
-                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" value="" placeholder="姓名" name="postComment.UserName">
-                        </div>
-                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <input type="email" value="" placeholder="信箱" name="postComment.Email">
-                        </div>
-                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <textarea  placeholder="內容.." name="postComment.Message"></textarea>
-                        </div>
-
-                        <div class="form-group text-center col-lg-12 col-md-6 col-sm-12 col-xs-12">
-                            <div class="padd-top-20"><button type="submit" class="theme-btn">送出</button></div>
-                        </div>
+                <div class="row clearfix">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" placeholder="姓名" name="postComment.UserName" id="UserName">
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <input type="email" placeholder="信箱" name="postComment.Email" id="Email">
+                    </div>
+                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <textarea placeholder="內容.." name="postComment.Message" id="Message"></textarea>
                     </div>
 
-                </form>
+                    <div class="form-group text-center col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                        <div class="padd-top-20"><button type="submit" class="theme-btn sendbtn">送出</button></div>
+                    </div>
+                </div>
+
             </div>
         </div>
-
-
     </div>
 </section>
+
+<script>
+        var sendbtn = document.querySelector('.sendbtn')
+        sendbtn.addEventListener("click", (event) => {
+
+            var UserName = document.querySelector('#UserName').value;
+            var Email = document.querySelector('#Email').value;
+            var Message = document.querySelector('#Message').value;
+
+            if(UserName.length == 0 && UserName.length == 0 || UserName.length == 0){
+                alert("資料沒填齊全");
+                return;
+            }
+
+            axios.post('/NewsPage/Comments', { "UserName": UserName, "Email": Email, "Message": Message, "NewsId":@Model.NewsId })
+                .then(function (response) {
+
+                    // 將回應的資料插入到模態對話框中
+                    var content = response.data;
+                    var obj = JSON.parse(content);
+                    $('.modal-body').html(`
+                                <p>訂單編號  : ${obj.OrderId}</p>
+                                <p>訂購人姓名: ${obj.CustomerName}</p>
+                                <p>寄送地址  : ${obj.OrderDate}</p>
+                                <p>訂單金額  : ${obj.TotalAmount}</p>
+                                <p>訂單狀態  : ${obj.OrderStatus}</p>
+                    `);
+
+                    // 開啟模態對話框
+                    var modal = document.getElementById('exampleModal');
+                    modal.classList.add('show');
+                    modal.style.display = 'block';
+                })
+                .catch(function (error) {
+                    // 處理錯誤
+                    console.log(error);
+                });
+        
+        });
+
+</script>
+
