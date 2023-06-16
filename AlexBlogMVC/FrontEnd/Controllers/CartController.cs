@@ -8,10 +8,17 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 {
     public class CartController : GenericController
     {
-
+        /// <summary>
+        /// CartController 的建構函式。
+        /// </summary>
+        /// <param name="context">資料庫操作的環境。</param>
         public CartController(BlogMvcContext context) : base(context) { }
 
 
+        /// <summary>
+        /// 在動作執行之前執行的方法。
+        /// </summary>
+        /// <param name="context">資料庫操作的環境。</param>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             GetBanner();
