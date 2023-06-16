@@ -119,12 +119,15 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
             GetMenu();
             #endregion
 
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // 更新訂單
                     _context.Orders.Update(orderViewModel.order);
 
+                    // 更新訂單產品
                     foreach (OrderProductViewModel item in orderViewModel.orderProduct)
                     {
                         OrderProduct orderProduct = new OrderProduct()
@@ -139,15 +142,25 @@ namespace AlexBlogMVC.Areas.BackEnd.Controllers
                         _context.OrderProducts.Update(orderProduct);
                     }
 
+                    // 儲存變更
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                   
+                    // 處理同時更新衝突的例外錯誤
+                    ViewBag.result = "更新資料異常，請聯繫管理員。";
                 }
+
+                // 重新導向到 Index 頁面
                 return RedirectToAction(nameof(Index));
             }
-            return View(orderViewModel);
+            else
+            {
+                // 模型驗證未通過，返回包含 orderViewModel 的 View
+                ViewBag.result = "驗證未通過，請聯繫管理員。";
+                return View(orderViewModel);
+            }
+
         }
 
 

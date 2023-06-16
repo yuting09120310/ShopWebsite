@@ -44,6 +44,15 @@
 
 
                     <div class="mb-3 row">
+                        <label asp-for="order.Email" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <input asp-for="order.Email" class="form-control" placeholder="信箱" />
+                        </div>
+                        <span asp-validation-for="order.Email" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
                         <label asp-for="order.PaymentMethod" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <input asp-for="order.PaymentMethod" class="form-control" placeholder="付款方式" />
@@ -101,6 +110,23 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var result = '@Html.Raw(ViewBag.result)';  // 將C#的ViewBag.result轉換為JavaScript字串
+
+        if (result.length > 0) {
+            Swal.fire({
+                position: 'center-center',
+                icon: 'error',
+                title: result,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    });
+
+</script>
 
 @section Scripts {
     @{
