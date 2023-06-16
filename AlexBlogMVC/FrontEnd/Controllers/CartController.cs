@@ -98,7 +98,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.result = "下單失敗，請確認填寫內容是否正確!!";
+                ViewBag.result = "下單失敗，確認填寫內容是否正確";
                 cartViewModel.singleProductViewModels ??= new List<SingleProductViewModel>();
 
                 return View(cartViewModel);

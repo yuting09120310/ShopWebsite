@@ -171,7 +171,7 @@
         var result = '@Html.Raw(ViewBag.result)';  // 將C#的ViewBag.result轉換為JavaScript字串
 
         if (result.length > 0) {
-            alert(result);
+            Swal.fire(result, '', '')
         }
     });
 
