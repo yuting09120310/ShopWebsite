@@ -93,35 +93,38 @@
             var Email = document.querySelector('#Email').value;
             var Message = document.querySelector('#Message').value;
 
-            if(UserName.length == 0 && UserName.length == 0 || UserName.length == 0){
-                alert("資料沒填齊全");
+            if(UserName.length == 0 || Email.length == 0 || Message.length == 0){
+                Swal.fire({
+                    position: 'center-center',
+                    icon: 'error',
+                    title: "資料沒填齊全",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 return;
             }
 
             axios.post('/NewsPage/Comments', { "UserName": UserName, "Email": Email, "Message": Message, "NewsId":@Model.NewsId })
-                .then(function (response) {
-
-                    // 將回應的資料插入到模態對話框中
-                    var content = response.data;
-                    var obj = JSON.parse(content);
-                    $('.modal-body').html(`
-                                <p>訂單編號  : ${obj.OrderId}</p>
-                                <p>訂購人姓名: ${obj.CustomerName}</p>
-                                <p>寄送地址  : ${obj.OrderDate}</p>
-                                <p>訂單金額  : ${obj.TotalAmount}</p>
-                                <p>訂單狀態  : ${obj.OrderStatus}</p>
-                    `);
-
-                    // 開啟模態對話框
-                    var modal = document.getElementById('exampleModal');
-                    modal.classList.add('show');
-                    modal.style.display = 'block';
+            .then(function (response) {
+                // 處理回應
+                console.log(response.data)
+                Swal.fire({
+                    position: 'center-center',
+                    icon: 'success',
+                    title: response.data,
+                    showConfirmButton: false,
+                    timer: 1500
                 })
-                .catch(function (error) {
-                    // 處理錯誤
-                    console.log(error);
-                });
-        
+                // 其他後續處理
+                // 延遲執行 location.reload()
+                setTimeout(function () {
+                    location.reload();
+                }, 1500); // 延遲 1 秒後重新載入網頁
+            })
+            .catch(function (error) {
+                // 處理錯誤
+                console.log(error);
+            });
         });
 
 </script>

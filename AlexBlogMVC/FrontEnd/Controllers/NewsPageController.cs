@@ -151,9 +151,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
             _context.Add(comment);
             _context.SaveChanges();
 
-            //return RedirectToAction("Details", "NewsPage", new { id = newsPageViewModel.NewsId });
-            return RedirectToAction("Details", "NewsPage");
-
+            return Json("新增成功");
         }
     }
 }
