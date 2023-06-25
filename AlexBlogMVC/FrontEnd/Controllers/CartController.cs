@@ -1,10 +1,10 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.FrontEnd.ViewModel;
+﻿using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Text;
 
-namespace AlexBlogMVC.FrontEnd.Controllers
+namespace ShopWebsite.FrontEnd.Controllers
 {
     public class CartController : GenericController
     {
@@ -163,7 +163,7 @@ namespace AlexBlogMVC.FrontEnd.Controllers
 
 祝您有美好的一天！
 
-AlexBlogMVC");
+ShopWebsite");
 
             
             SendMail(cartViewModel.EMail, "AlexBlog 訂單成功", emailContent.ToString());

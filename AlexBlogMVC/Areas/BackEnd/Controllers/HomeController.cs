@@ -1,8 +1,8 @@
-﻿using AlexBlogMVC.Areas.Controllers;
-using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.Controllers;
+using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlexBlogMVC.Controllers
+namespace ShopWebsite.Controllers
 {
     public class HomeController : GenericController
     {

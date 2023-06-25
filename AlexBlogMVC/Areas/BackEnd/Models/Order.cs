@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AlexBlogMVC.Areas.BackEnd.Models;
+namespace ShopWebsite.Areas.BackEnd.Models;
 
 public partial class Order
 {

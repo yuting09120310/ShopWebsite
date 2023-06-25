@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.Areas.Controllers;
-using AlexBlogMVC.Areas.ViewModel;
+using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.Controllers;
+using ShopWebsite.Areas.ViewModel;
 using Newtonsoft.Json;
 
-namespace AlexBlogMVC.Areas.BackEnd.Controllers
+namespace ShopWebsite.Areas.BackEnd.Controllers
 {
     [Area("BackEnd")]
     public class OrdersController : GenericController

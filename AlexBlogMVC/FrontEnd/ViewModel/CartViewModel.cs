@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AlexBlogMVC.FrontEnd.ViewModel
+namespace ShopWebsite.FrontEnd.ViewModel
 {
     public class CartViewModel
     {

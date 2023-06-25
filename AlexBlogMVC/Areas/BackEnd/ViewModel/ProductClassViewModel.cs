@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AlexBlogMVC.Areas.ViewModel
+namespace ShopWebsite.Areas.ViewModel
 {
     public class ProductClassViewModel
     {

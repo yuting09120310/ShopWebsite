@@ -1,4 +1,4 @@
-﻿namespace AlexBlogMVC.FrontEnd.ViewModel
+﻿namespace ShopWebsite.FrontEnd.ViewModel
 {
     public class AboutUsPageViewModel
     {

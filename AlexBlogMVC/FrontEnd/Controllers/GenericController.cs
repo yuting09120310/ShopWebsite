@@ -1,4 +1,4 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Net.Mail;
 using System.Net;
 
-namespace AlexBlogMVC.FrontEnd.Controllers
+namespace ShopWebsite.FrontEnd.Controllers
 {
     public class GenericController : Controller
     {

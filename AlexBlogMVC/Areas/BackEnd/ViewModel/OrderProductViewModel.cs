@@ -1,4 +1,4 @@
-﻿namespace AlexBlogMVC.Areas.ViewModel
+﻿namespace ShopWebsite.Areas.ViewModel
 {
 
     public class OrderProductViewModel

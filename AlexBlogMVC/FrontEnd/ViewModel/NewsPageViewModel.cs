@@ -1,6 +1,6 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.BackEnd.Models;
 
-namespace AlexBlogMVC.FrontEnd.ViewModel
+namespace ShopWebsite.FrontEnd.ViewModel
 {
     public class NewsPageViewModel
     {

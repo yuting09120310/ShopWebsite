@@ -1,8 +1,8 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AlexBlogMVC.Areas.Controllers
+namespace ShopWebsite.Areas.Controllers
 {
     [Area("BackEnd")]
     public class GenericController : Controller

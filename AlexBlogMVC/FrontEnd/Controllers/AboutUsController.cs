@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AlexBlogMVC.FrontEnd.ViewModel;
-using AlexBlogMVC.Areas.BackEnd.Models;
+using ShopWebsite.FrontEnd.ViewModel;
+using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AlexBlogMVC.FrontEnd.Controllers
+namespace ShopWebsite.FrontEnd.Controllers
 {
     public class AboutUsController : GenericController
     {

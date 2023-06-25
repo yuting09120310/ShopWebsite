@@ -1,7 +1,7 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.BackEnd.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace AlexBlogMVC.Areas.ViewModel
+namespace ShopWebsite.Areas.ViewModel
 {
     public class AdminGroupViewModel
     {

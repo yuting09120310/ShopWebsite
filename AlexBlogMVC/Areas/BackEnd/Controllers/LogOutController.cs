@@ -1,8 +1,8 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.Areas.Controllers;
+﻿using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlexBlogMVC.Areas.BackEnd.Controllers
+namespace ShopWebsite.Areas.BackEnd.Controllers
 {
     public class LogOutController : GenericController
     {

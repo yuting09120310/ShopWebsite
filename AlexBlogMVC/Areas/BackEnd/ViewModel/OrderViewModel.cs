@@ -1,6 +1,6 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.BackEnd.Models;
 
-namespace AlexBlogMVC.Areas.ViewModel
+namespace ShopWebsite.Areas.ViewModel
 {
     public class OrderViewModel
     {

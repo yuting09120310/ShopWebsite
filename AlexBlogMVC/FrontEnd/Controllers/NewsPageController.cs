@@ -1,11 +1,11 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.FrontEnd.ViewModel;
+﻿using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using static AlexBlogMVC.FrontEnd.ViewModel.NewsPageViewModel;
+using static ShopWebsite.FrontEnd.ViewModel.NewsPageViewModel;
 
-namespace AlexBlogMVC.FrontEnd.Controllers
+namespace ShopWebsite.FrontEnd.Controllers
 {
     public class NewsPageController : GenericController
     {

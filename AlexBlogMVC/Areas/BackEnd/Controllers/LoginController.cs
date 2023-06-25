@@ -1,7 +1,7 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
+﻿using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AlexBlogMVC.Areas.Controllers
+namespace ShopWebsite.Areas.Controllers
 {
     public class LoginController : GenericController
     {

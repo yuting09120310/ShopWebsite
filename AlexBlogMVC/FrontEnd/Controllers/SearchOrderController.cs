@@ -1,11 +1,11 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.Areas.ViewModel;
+﻿using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net.Mail;
 using System.Net;
 
-namespace AlexBlogMVC.FrontEnd.Controllers
+namespace ShopWebsite.FrontEnd.Controllers
 {
     public class SearchOrderController : GenericController
     {

@@ -1,11 +1,11 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.Areas.ViewModel;
+﻿using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Data;
 
-namespace AlexBlogMVC.Areas.Controllers
+namespace ShopWebsite.Areas.Controllers
 {
 
     public class AdminGroupController : GenericController

@@ -1,4 +1,4 @@
-﻿namespace AlexBlogMVC.FrontEnd.ViewModel
+﻿namespace ShopWebsite.FrontEnd.ViewModel
 {
     ////留言
     public class UserComment

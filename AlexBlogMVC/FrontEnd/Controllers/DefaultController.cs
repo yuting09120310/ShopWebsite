@@ -1,10 +1,10 @@
-﻿using AlexBlogMVC.Areas.BackEnd.Models;
-using AlexBlogMVC.FrontEnd.ViewModel;
+﻿using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.FrontEnd.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 
-namespace AlexBlogMVC.FrontEnd.Controllers
+namespace ShopWebsite.FrontEnd.Controllers
 {
     public class DefaultController : GenericController
     {

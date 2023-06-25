@@ -1,4 +1,4 @@
-﻿namespace AlexBlogMVC.FrontEnd.ViewModel
+﻿namespace ShopWebsite.FrontEnd.ViewModel
 {
     /// <summary>
     /// 單一品項
