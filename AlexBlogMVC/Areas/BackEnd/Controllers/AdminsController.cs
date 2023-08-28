@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using ShopWebsite.Areas.BackEnd.Interface;
+using ShopWebsite.Areas.BackEnd.Repository;
 
 namespace ShopWebsite.Areas.Controllers
 {
@@ -12,11 +15,16 @@ namespace ShopWebsite.Areas.Controllers
     {
         int menuSubNum = 1;
 
-        public AdminsController(BlogMvcContext context) : base(context){}
+        IAdminRepository _adminRepository;
+
+
+        public AdminsController(BlogMvcContext context) : base(context){
+            _adminRepository = new AdminRepository(_context);
+        }
 
 
         // GET: Admins
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             #region 登入 權限判斷
             if (!LoginState())
@@ -30,27 +38,7 @@ namespace ShopWebsite.Areas.Controllers
             GetMenu();
             #endregion
 
-            var admins = await _context.Admins.ToListAsync();
-            var adminGroups = await _context.AdminGroups.ToListAsync();
-
-            IEnumerable<AdminViewModel> viewModel = from a in admins
-                            join g in adminGroups on a.GroupNum equals g.GroupNum into ag
-                            from subg in ag.DefaultIfEmpty()
-                            select new AdminViewModel
-                            {
-                                AdminNum = a.AdminNum,
-                                AdminAcc = a.AdminAcc,
-                                AdminName = a.AdminName,
-                                AdminPublish = a.AdminPublish,
-                                AdminPwd = a.AdminPwd,
-                                CreateTime = a.CreateTime,
-                                Creator = a.Creator,
-                                EditTime = a.EditTime,
-                                Editor = a.Editor,
-                                GroupNum = a.GroupNum,
-                                GroupName = subg?.GroupName,
-                                LastLogin = a.LastLogin,
-                            };
+            List<AdminViewModel> viewModel = _adminRepository.GetList();
 
             return View(viewModel);
         }
@@ -72,10 +60,7 @@ namespace ShopWebsite.Areas.Controllers
             #endregion
 
             //取得群組選單資料
-            ViewBag.adminGroup = await _context.AdminGroups
-                                    .Where(g => g.GroupPublish == true)
-                                    .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
-                                    .ToListAsync();
+            ViewBag.adminGroup = _adminRepository.GetAdminGroups();
 
             AdminViewModel viewModel = new AdminViewModel()
             {
@@ -108,31 +93,17 @@ namespace ShopWebsite.Areas.Controllers
 
             if (ModelState.IsValid)
             {
-                Admin admin = new Admin()
-                {
-                    AdminNum = adminViewModel.AdminNum,
-                    GroupNum = adminViewModel.GroupNum,
-                    AdminAcc = adminViewModel.AdminAcc,
-                    AdminPwd = adminViewModel.AdminPwd,
-                    AdminName = adminViewModel.AdminName,
-                    AdminPublish = adminViewModel.AdminPublish,
-                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
-                };
+                _adminRepository.PostCreate(adminViewModel);
 
-                _context.Add(admin);
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                //取得群組選單資料
+                ViewBag.adminGroup = _adminRepository.GetAdminGroups();
 
-
-            //取得群組選單資料
-            ViewBag.adminGroup = await _context.AdminGroups
-                                    .Where(g => g.GroupPublish == true)
-                                    .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
-                                    .ToListAsync();
-
-            return View(adminViewModel);
+                return View(adminViewModel);
+            }
         }
 
 
@@ -157,32 +128,7 @@ namespace ShopWebsite.Areas.Controllers
                 return NotFound();
             }
 
-
-            //進入DB搜尋資料
-            var adminViewModel = (
-                from admins in _context.Admins
-                join adminGroup in _context.AdminGroups on admins.GroupNum equals adminGroup.GroupNum into adminGroups
-                from adminGroup in adminGroups.DefaultIfEmpty()
-                where admins.AdminNum == id
-                select new AdminViewModel
-                {
-                    AdminNum = admins.AdminNum,
-                    GroupName = adminGroup.GroupName,
-                    AdminAcc = admins.AdminAcc,
-                    AdminPwd = null,
-                    AdminName = admins.AdminName,
-                    AdminPublish = admins.AdminPublish,
-                    LastLogin = admins.LastLogin,
-                    CreateTime = admins.CreateTime,
-                    Creator = admins.Creator,
-                    CreatorName = (from creator in _context.Admins where creator.AdminNum == admins.Creator select creator.AdminName).FirstOrDefault(),
-                    EditTime = admins.EditTime,
-                    Editor = admins.Editor,
-                    EditorName = (from editor in _context.Admins where editor.AdminNum == admins.Editor select editor.AdminName).FirstOrDefault(),
-                    Ip = admins.Ip,
-                    GroupNum = admins.GroupNum
-                }
-            ).FirstOrDefault();
+            AdminViewModel adminViewModel = _adminRepository.GetEdit(id);
 
             //如果搜尋是空的 就返回找不到
             if (adminViewModel == null)
@@ -191,10 +137,7 @@ namespace ShopWebsite.Areas.Controllers
             }
 
             //取得群組選單資料
-            ViewBag.adminGroup = await _context.AdminGroups
-                                    .Where(g => g.GroupPublish == true)
-                                    .Select(g => new SelectListItem { Text = g.GroupName, Value = g.GroupNum.ToString() })
-                                    .ToListAsync();
+            ViewBag.adminGroup = _adminRepository.GetAdminGroups();
 
             return View(adminViewModel);
         }
@@ -221,44 +164,16 @@ namespace ShopWebsite.Areas.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    adminViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
-                    adminViewModel.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                adminViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
 
-                    Admin admin = new Admin()
-                    {
-                        AdminNum = adminViewModel.AdminNum,
-                        GroupNum = adminViewModel.GroupNum,
-                        AdminAcc = adminViewModel.AdminAcc,
-                        AdminPwd= adminViewModel.AdminPwd,
-                        AdminName= adminViewModel.AdminName,
-                        LastLogin = adminViewModel.LastLogin,
-                        AdminPublish =adminViewModel.AdminPublish,
-                        CreateTime= adminViewModel.CreateTime,
-                        Creator= adminViewModel.Creator,
-                        EditTime= adminViewModel.EditTime,
-                        Editor= adminViewModel.Editor,
-                        Ip= adminViewModel.Ip,
-                    };
+                _adminRepository.PostEdit(adminViewModel);
 
-                    _context.Update(admin);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdminExists(adminViewModel.AdminNum))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            return View(adminViewModel);
+            else
+            {
+                return View(adminViewModel);
+            }
         }
 
         // GET: Admins/Delete/5
@@ -276,11 +191,7 @@ namespace ShopWebsite.Areas.Controllers
             GetMenu();
             #endregion
 
-
-            var admin = await _context.Admins
-                .FirstOrDefaultAsync(m => m.AdminNum == id);
-
-            string res = JsonConvert.SerializeObject(admin);
+            string res = _adminRepository.Delete(id);
 
             return Json(res);
         }
@@ -288,17 +199,7 @@ namespace ShopWebsite.Areas.Controllers
 
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.Admins == null)
-            {
-                return Problem("Entity set 'BlogMvcContext.Admins'  is null.");
-            }
-            var admin = await _context.Admins.FindAsync(id);
-            if (admin != null)
-            {
-                _context.Admins.Remove(admin);
-            }
-
-            await _context.SaveChangesAsync();
+            _adminRepository.DeleteConfirmed(id);
 
             return Json("刪除成功");
         }
