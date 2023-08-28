@@ -1,13 +1,8 @@
-﻿using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopWebsite.Areas.BackEnd.Interface;
+using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
+using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.Controllers
 {
