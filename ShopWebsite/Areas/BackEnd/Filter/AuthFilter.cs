@@ -50,12 +50,10 @@ namespace ShopWebsite.Areas.BackEnd.Filter
 
                 string menuNum = menuSubNums[0].ToString();
 
-
                 List<long?> Role = _context.AdminRoles
                                  .Where(ms => ms.GroupNum == Convert.ToInt64(GroupNum) && ms.MenuSubNum == Convert.ToInt64(menuNum) && ms.Role.Contains($"{dic[actionName].ToString()}"))
                                  .Select(ms => ms.MenuSubNum)
                                  .ToList();
-
 
                 if (Role.Count == 0)
                 {
