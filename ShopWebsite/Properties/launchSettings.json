@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "AlexBlogMVC": {
+    "ShopWebsite": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "BackEnd/Login",
