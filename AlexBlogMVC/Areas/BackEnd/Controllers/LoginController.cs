@@ -3,10 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ShopWebsite.Areas.Controllers
 {
-    public class LoginController : GenericController
+    [Area("BackEnd")]
+    public class LoginController : Controller
     {
+        public BlogMvcContext _context;
 
-        public LoginController(BlogMvcContext context) : base(context) { }
+
+        public LoginController(BlogMvcContext context)
+        {
+            _context = context;
+        }
 
 
         public IActionResult Index()

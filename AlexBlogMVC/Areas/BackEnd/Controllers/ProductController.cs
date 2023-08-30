@@ -22,17 +22,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Product
         public async Task<IActionResult> Index()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(7, "R"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             IEnumerable<ProductViewModel> viewModel = from n in _context.Products
                                                    select new ProductViewModel
@@ -58,17 +48,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Product/Create
         public async Task<IActionResult> Create()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(7, "C"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             ProductViewModel newsViewModel = new ProductViewModel()
             {
@@ -93,18 +73,7 @@ namespace ShopWebsite.Areas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductViewModel productViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(7, "C"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
-
 
             if (ModelState.IsValid)
             {
@@ -154,17 +123,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Product/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(7, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             if (id == null)
             {
@@ -227,18 +186,7 @@ namespace ShopWebsite.Areas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProductViewModel productViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(7, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
-
 
             if (ModelState.IsValid)
             {
@@ -316,17 +264,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(7, "D"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.ProductNum == id);

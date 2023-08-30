@@ -1,9 +1,11 @@
 ﻿using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using ShopWebsite.Areas.BackEnd.Filter;
 
 namespace ShopWebsite.Areas.Controllers
 {
+    [Auth]
     [Area("BackEnd")]
     public class GenericController : Controller
     {
@@ -43,40 +45,5 @@ namespace ShopWebsite.Areas.Controllers
 
             ViewBag.moduleFun = moduleFun.ToList();
         }
-
-        
-        // 登入判斷
-        public bool LoginState()
-        {
-            string AdminNum = "" + HttpContext.Session.GetString("AdminNum");
-            if (AdminNum.Length == 0)
-            {
-                return false;
-            }
-            return true;
-        }
-
-
-        //權限判斷
-        public bool CheckRole(int menuSubNum, string action)
-        {
-            string GroupNum = HttpContext.Session.GetString("GroupNum");
-            if(GroupNum == null)
-            {
-                return false;
-            }
-
-            var role = _context.AdminRoles.Where(x => x.GroupNum == Convert.ToInt16(GroupNum) && x.MenuSubNum == menuSubNum && x.Role.Contains(action));
-            if (!role.Any())
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-
-
-        
     }
 }

@@ -12,11 +12,11 @@ namespace ShopWebsite.Areas.BackEnd.Interface
         public List<SelectListItem> GetAdminGroups();
 
 
-        public void PostCreate(AdminViewModel adminViewModel);
+        public void Create(AdminViewModel adminViewModel);
 
 
-        public AdminViewModel GetEdit(long? id);
-        public void PostEdit(AdminViewModel adminViewModel);
+        public AdminViewModel Edit(long? id);
+        public void Edit(AdminViewModel adminViewModel);
 
 
         public string Delete(long? id);

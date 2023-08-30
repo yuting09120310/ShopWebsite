@@ -67,7 +67,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 建立新資料
         /// </summary>
         /// <param name="adminViewModel"></param>
-        public void PostCreate(AdminViewModel adminViewModel)
+        public void Create(AdminViewModel adminViewModel)
         {
             Admin admin = new Admin()
             {
@@ -90,7 +90,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得用戶
         /// </summary>
         /// <param name="adminViewModel"></param>
-        public AdminViewModel GetEdit(long? id)
+        public AdminViewModel Edit(long? id)
         {
             //進入DB搜尋資料
             var adminViewModel = (
@@ -126,7 +126,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得用戶
         /// </summary>
         /// <param name="adminViewModel"></param>
-        public void PostEdit(AdminViewModel adminViewModel)
+        public void Edit(AdminViewModel adminViewModel)
         {
             adminViewModel.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 

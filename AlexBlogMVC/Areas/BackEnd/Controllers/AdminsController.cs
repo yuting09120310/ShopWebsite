@@ -8,7 +8,6 @@ namespace ShopWebsite.Areas.Controllers
 {
     public class AdminsController : GenericController
     {
-        int menuSubNum = 1;
 
         IAdminRepository _adminRepository;
 
@@ -21,17 +20,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Admins
         public IActionResult Index()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "R"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             List<AdminViewModel> viewModel = _adminRepository.GetList();
 
@@ -42,18 +31,8 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Admins/Create
         public async Task<IActionResult> Create()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "C"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
-
+            
             //取得群組選單資料
             ViewBag.adminGroup = _adminRepository.GetAdminGroups();
 
@@ -73,22 +52,11 @@ namespace ShopWebsite.Areas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,Creator")] AdminViewModel adminViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "C"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
-
 
             if (ModelState.IsValid)
             {
-                _adminRepository.PostCreate(adminViewModel);
+                _adminRepository.Create(adminViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -105,17 +73,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             //如果傳進來的id是空的 就返回找不到
             if (id == null)
@@ -123,7 +81,7 @@ namespace ShopWebsite.Areas.Controllers
                 return NotFound();
             }
 
-            AdminViewModel adminViewModel = _adminRepository.GetEdit(id);
+            AdminViewModel adminViewModel = _adminRepository.Edit(id);
 
             //如果搜尋是空的 就返回找不到
             if (adminViewModel == null)
@@ -145,23 +103,13 @@ namespace ShopWebsite.Areas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] AdminViewModel adminViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             if (ModelState.IsValid)
             {
                 adminViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
 
-                _adminRepository.PostEdit(adminViewModel);
+                _adminRepository.Edit(adminViewModel);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -174,17 +122,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Admins/Delete/5
         public async Task<IActionResult> Delete(long id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "D"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             string res = _adminRepository.Delete(id);
 

@@ -23,17 +23,7 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
         // GET: BackEnd/Orders
         public async Task<IActionResult> Index()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "R"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             List<OrderViewModel> orderViewModel = _context.Orders
                                                 .Select(o => new OrderViewModel
@@ -59,17 +49,7 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
         // GET: BackEnd/Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             OrderViewModel orderViewModel = _context.Orders
                                                 .Where(x => x.OrderId == id)
@@ -107,18 +87,7 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(OrderViewModel orderViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
-
 
             if (ModelState.IsValid)
             {

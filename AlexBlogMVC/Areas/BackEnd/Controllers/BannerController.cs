@@ -20,17 +20,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Banner
         public async Task<IActionResult> Index()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "R"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             IEnumerable<BannerViewModel> viewModel = await _context.Banners
                                                         .Select(a => new BannerViewModel
@@ -54,17 +44,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Banner/Create
         public async Task<IActionResult> Create()
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "C"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             ViewBag.PageTitle = "新增廣告";
 
@@ -84,18 +64,7 @@ namespace ShopWebsite.Areas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "C"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
-
 
             if (ModelState.IsValid)
             {
@@ -140,17 +109,7 @@ namespace ShopWebsite.Areas.Controllers
         // GET: Banner/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             ViewBag.PageTitle = "編輯廣告";
 
@@ -206,17 +165,8 @@ namespace ShopWebsite.Areas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BannerViewModel bannerViewModel)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "U"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
+            
             GetMenu();
-            #endregion
 
 
             if (ModelState.IsValid)
@@ -291,17 +241,7 @@ namespace ShopWebsite.Areas.Controllers
 
         public async Task<IActionResult> Delete(long? id)
         {
-            #region 登入 權限判斷
-            if (!LoginState())
-            {
-                return View("Error", new List<string> { "401", "尚未登入，請先登入帳號。", "點我登入", "Login", "Index" });
-            }
-            if (!CheckRole(menuSubNum, "D"))
-            {
-                return View("Error", new List<string> { "403", "權限不足，請聯繫管理員。", "回首頁", "Home", "Index" });
-            }
             GetMenu();
-            #endregion
 
             var banner = await _context.Banners
                 .FirstOrDefaultAsync(m => m.BannerNum == id);
