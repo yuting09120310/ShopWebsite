@@ -13,7 +13,7 @@ namespace ShopWebsite.FrontEnd.Controllers
     public class ShopPageController : GenericController
     {
 
-        public ShopPageController(BlogMvcContext context) : base(context) { }
+        public ShopPageController(ShopWebsiteContext context) : base(context) { }
 
 
         public override void OnActionExecuting(ActionExecutingContext context)

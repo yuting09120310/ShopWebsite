@@ -10,7 +10,7 @@ namespace ShopWebsite.FrontEnd.Controllers
     public class SearchOrderController : GenericController
     {
 
-        public SearchOrderController(BlogMvcContext context) : base(context) { }
+        public SearchOrderController(ShopWebsiteContext context) : base(context) { }
 
 
         public override void OnActionExecuting(ActionExecutingContext context)

@@ -6,7 +6,7 @@ namespace ShopWebsite.Controllers
 {
     public class HomeController : GenericController
     {
-        public HomeController(BlogMvcContext context) : base(context) { }
+        public HomeController(ShopWebsiteContext context) : base(context) { }
 
 
         public IActionResult Index()

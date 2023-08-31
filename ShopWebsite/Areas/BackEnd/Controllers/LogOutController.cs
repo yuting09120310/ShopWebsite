@@ -7,7 +7,7 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
     public class LogOutController : GenericController
     {
 
-        public LogOutController(BlogMvcContext context) : base(context) { }
+        public LogOutController(ShopWebsiteContext context) : base(context) { }
 
 
         public IActionResult Index()

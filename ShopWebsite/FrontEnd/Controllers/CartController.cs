@@ -12,7 +12,7 @@ namespace ShopWebsite.FrontEnd.Controllers
         /// CartController 的建構函式。
         /// </summary>
         /// <param name="context">資料庫操作的環境。</param>
-        public CartController(BlogMvcContext context) : base(context) { }
+        public CartController(ShopWebsiteContext context) : base(context) { }
 
 
         /// <summary>

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ShopWebsite.Areas.BackEnd.Models;
 
-public partial class BlogMvcContext : DbContext
+public partial class ShopWebsiteContext : DbContext
 {
-    public BlogMvcContext()
+    public ShopWebsiteContext()
     {
     }
 
-    public BlogMvcContext(DbContextOptions<BlogMvcContext> options)
+    public ShopWebsiteContext(DbContextOptions<ShopWebsiteContext> options)
         : base(options)
     {
     }
@@ -45,7 +43,7 @@ public partial class BlogMvcContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=BlogMVC;User ID=sa;Password=alex0310;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Server=.;Database=ShopWebsite;User ID=sa;Password=Obiz@0000;Trusted_Connection=True;Integrated Security=False;Encrypt=False;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

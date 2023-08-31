@@ -15,7 +15,7 @@ namespace ShopWebsite.Areas.Controllers
         private readonly IWebHostEnvironment _hostingEnvironment;
 
 
-        public NewsController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) : base(context)
+        public NewsController(ShopWebsiteContext context, IWebHostEnvironment hostingEnvironment) : base(context)
         {
             _hostingEnvironment = hostingEnvironment;
         }
@@ -268,7 +268,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             if (_context.News == null)
             {
-                return Problem("Entity set 'BlogMvcContext.News'  is null.");
+                return Problem("Entity set 'ShopWebsiteContext.News'  is null.");
             }
             var news = await _context.News.FindAsync(id);
             if (news != null)

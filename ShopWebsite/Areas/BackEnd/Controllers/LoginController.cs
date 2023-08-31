@@ -6,10 +6,10 @@ namespace ShopWebsite.Areas.Controllers
     [Area("BackEnd")]
     public class LoginController : Controller
     {
-        public BlogMvcContext _context;
+        public ShopWebsiteContext _context;
 
 
-        public LoginController(BlogMvcContext context)
+        public LoginController(ShopWebsiteContext context)
         {
             _context = context;
         }

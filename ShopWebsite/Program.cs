@@ -25,7 +25,7 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
     options.ViewLocationFormats.Add("/FrontEnd/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
 });
 
-builder.Services.AddDbContext<BlogMvcContext>();
+builder.Services.AddDbContext<ShopWebsiteContext>();
 
 var app = builder.Build();
 

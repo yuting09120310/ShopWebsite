@@ -12,7 +12,7 @@ namespace ShopWebsite.Areas.Controllers
     {
         int menuSubNum = 2;
 
-        public AdminGroupController(BlogMvcContext context) : base(context) { }
+        public AdminGroupController(ShopWebsiteContext context) : base(context) { }
 
 
         // GET: AdminGroup

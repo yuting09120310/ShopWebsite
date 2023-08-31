@@ -7,9 +7,9 @@ namespace ShopWebsite.Areas.BackEnd.Filter
 {
     public class AuthFilter : IAuthorizationFilter
     {
-        public BlogMvcContext _context;
+        public ShopWebsiteContext _context;
 
-        public AuthFilter(BlogMvcContext context)
+        public AuthFilter(ShopWebsiteContext context)
         {
             _context = context;
         }

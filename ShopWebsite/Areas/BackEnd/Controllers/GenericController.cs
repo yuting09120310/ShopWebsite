@@ -9,9 +9,9 @@ namespace ShopWebsite.Areas.Controllers
     [Area("BackEnd")]
     public class GenericController : Controller
     {
-        public readonly BlogMvcContext _context;
+        public readonly ShopWebsiteContext _context;
 
-        public GenericController(BlogMvcContext context)
+        public GenericController(ShopWebsiteContext context)
         {
             _context = context;
         }

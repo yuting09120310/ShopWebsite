@@ -12,7 +12,7 @@ namespace ShopWebsite.Areas.Controllers
         IAdminRepository _adminRepository;
 
 
-        public AdminsController(BlogMvcContext context) : base(context){
+        public AdminsController(ShopWebsiteContext context) : base(context){
             _adminRepository = new AdminRepository(_context);
         }
 

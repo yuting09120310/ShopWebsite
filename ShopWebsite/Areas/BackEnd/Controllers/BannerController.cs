@@ -12,7 +12,7 @@ namespace ShopWebsite.Areas.Controllers
 
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public BannerController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) :base(context){
+        public BannerController(ShopWebsiteContext context, IWebHostEnvironment hostingEnvironment) :base(context){
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -256,7 +256,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             if (_context.Banners == null)
             {
-                return Problem("Entity set 'BlogMvcContext.Banners'  is null.");
+                return Problem("Entity set 'ShopWebsiteContext.Banners'  is null.");
             }
             var banner = await _context.Banners.FindAsync(id);
             if (banner != null)

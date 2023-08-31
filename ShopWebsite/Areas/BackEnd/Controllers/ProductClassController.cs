@@ -10,7 +10,7 @@ namespace ShopWebsite.Areas.Controllers
     {
         int menuSubNum = 8;
 
-        public ProductClassController(BlogMvcContext context) : base(context) { }
+        public ProductClassController(ShopWebsiteContext context) : base(context) { }
 
 
         // GET: ProductClass
@@ -180,7 +180,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             if (_context.ProductClasses == null)
             {
-                return Problem("Entity set 'BlogMvcContext.ProductClasses'  is null.");
+                return Problem("Entity set 'ShopWebsiteContext.ProductClasses'  is null.");
             }
             var productClass = await _context.ProductClasses.FindAsync(id);
             if (productClass != null)

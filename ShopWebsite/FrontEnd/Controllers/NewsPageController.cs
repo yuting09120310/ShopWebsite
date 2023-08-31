@@ -15,9 +15,9 @@ namespace ShopWebsite.FrontEnd.Controllers
         /// NewsPageController 的建構函式。
         /// </summary>
         /// <param name="context">資料庫操作的環境。</param>
-        public NewsPageController(BlogMvcContext context) : base(context)
+        public NewsPageController(ShopWebsiteContext context) : base(context)
         {
-            // 調用基底類別的建構函式，並傳遞 BlogMvcContext 上下文對象。
+            // 調用基底類別的建構函式，並傳遞 ShopWebsiteContext 上下文對象。
         }
 
 

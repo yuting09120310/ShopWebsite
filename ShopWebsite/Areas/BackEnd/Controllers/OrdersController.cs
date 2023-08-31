@@ -17,7 +17,7 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
     {
         int menuSubNum = 12;
 
-        public OrdersController(BlogMvcContext context) : base(context) { }
+        public OrdersController(ShopWebsiteContext context) : base(context) { }
 
 
         // GET: BackEnd/Orders

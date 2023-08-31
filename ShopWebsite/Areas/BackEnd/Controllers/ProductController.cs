@@ -13,7 +13,7 @@ namespace ShopWebsite.Areas.Controllers
 
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ProductController(BlogMvcContext context, IWebHostEnvironment hostingEnvironment) : base(context)
+        public ProductController(ShopWebsiteContext context, IWebHostEnvironment hostingEnvironment) : base(context)
         {
             _hostingEnvironment = hostingEnvironment;
         }
@@ -279,7 +279,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'BlogMvcContext.Products'  is null.");
+                return Problem("Entity set 'ShopWebsiteContext.Products'  is null.");
             }
             var product = await _context.Products.FindAsync(id);
             if (product != null)

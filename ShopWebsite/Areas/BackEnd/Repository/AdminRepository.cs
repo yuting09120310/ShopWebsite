@@ -10,9 +10,9 @@ namespace ShopWebsite.Areas.BackEnd.Repository
     public class AdminRepository : IAdminRepository
     {
 
-        private BlogMvcContext _context;
+        private ShopWebsiteContext _context;
 
-        public AdminRepository(BlogMvcContext context)
+        public AdminRepository(ShopWebsiteContext context)
         {
             _context = context;
         }

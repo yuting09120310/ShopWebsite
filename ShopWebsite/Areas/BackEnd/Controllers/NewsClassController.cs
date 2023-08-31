@@ -10,7 +10,7 @@ namespace ShopWebsite.Areas.Controllers
     {
         int menuSubNum = 6;
 
-        public NewsClassController(BlogMvcContext context) : base(context) { }
+        public NewsClassController(ShopWebsiteContext context) : base(context) { }
 
 
         public async Task<IActionResult> Index()
@@ -180,7 +180,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             if (_context.NewsClasses == null)
             {
-                return Problem("Entity set 'BlogMvcContext.NewsClasses'  is null.");
+                return Problem("Entity set 'ShopWebsiteContext.NewsClasses'  is null.");
             }
             var newsClass = await _context.NewsClasses.FindAsync(id);
             if (newsClass != null)
