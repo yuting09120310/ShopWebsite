@@ -42,6 +42,7 @@ namespace ShopWebsite.Areas.BackEnd.Filter
                 dic.Add("Index", "R");
                 dic.Add("Edit", "U");
                 dic.Add("Delete", "D");
+                dic.Add("DeleteConfirmed", "D");
 
                 List<long> menuSubNums = _context.MenuSubs
                                  .Where(ms => ms.MenuSubUrl.StartsWith($"/BackEnd/{controllerName}/"))
