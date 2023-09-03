@@ -1,108 +1,64 @@
 ﻿using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel;
+using System.IO;
+using Microsoft.Extensions.Hosting.Internal;
+using ShopWebsite.Areas.BackEnd.Interface;
+using ShopWebsite.Areas.BackEnd.Repository;
 
 namespace ShopWebsite.Areas.Controllers
 {
     public class BannerController : GenericController
     {
-        int menuSubNum = 4;
+        IBannerRepository _bannerRepository;
 
         private readonly IWebHostEnvironment _hostingEnvironment;
 
         public BannerController(ShopWebsiteContext context, IWebHostEnvironment hostingEnvironment) :base(context){
             _hostingEnvironment = hostingEnvironment;
+            _bannerRepository = new BannerRepository(context);
         }
 
 
-        // GET: Banner
         public async Task<IActionResult> Index()
         {
             GetMenu();
-
-            IEnumerable<BannerViewModel> viewModel = await _context.Banners
-                                                        .Select(a => new BannerViewModel
-                                                        {
-                                                            BannerNum = a.BannerNum,
-                                                            BannerTitle = a.BannerTitle,
-                                                            BannerDescription = a.BannerDescription,
-                                                            BannerPutTime = a.BannerPutTime,
-                                                            BannerImg1 = a.BannerImg1,
-                                                            CreateTime = a.CreateTime,
-                                                            EditTime = a.EditTime,
-                                                            BannerOffTime = a.BannerOffTime,
-                                                            BannerPublish = a.BannerPublish
-                                                        })
-                                                        .ToListAsync();
+          
+            List<BannerIndexViewModel> viewModel = _bannerRepository.GetList();
 
             return View(viewModel);
         }
 
 
-        // GET: Banner/Create
         public async Task<IActionResult> Create()
         {
             GetMenu();
 
             ViewBag.PageTitle = "新增廣告";
 
-            BannerViewModel viewModel = new BannerViewModel()
-            {
-                CreatorName = HttpContext.Session.GetString("AdminName")
-            };
-
+            BannerCreateViewModel viewModel = _bannerRepository.Create();
 
             return View(viewModel);
         }
 
-        // POST: Banner/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerNum,Lang,ProductClass,BannerSort,BannerTitle,BannerDescription,BannerContxt,BannerImg1,BannerImgUrl,BannerImgAlt,BannerPublish,BannerPutTime,CreateTime,Creator,EditTime,Editor,Ip,BannerOffTime,FileData")] BannerViewModel bannerViewModel)
+        public async Task<IActionResult> Create(BannerCreateViewModel bannerViewModel)
         {
             GetMenu();
 
             if (ModelState.IsValid)
             {
-                string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".jpg";
+                _bannerRepository.SaveFile(bannerViewModel.BannerImg1, _hostingEnvironment.WebRootPath);
 
-                //接收檔案
-                if (bannerViewModel.FileData != null)
-                {
-                    var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads" , "Banner");
-                    if (!Directory.Exists(direPath))
-                    {
-                        Directory.CreateDirectory(direPath);
-                    }
-
-                    var filePath = Path.Combine(direPath, fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await bannerViewModel.FileData.CopyToAsync(fileStream);
-                    }
-                }
-
-                Banner banner = new Banner()
-                {
-                    BannerTitle = bannerViewModel.BannerTitle,
-                    BannerDescription = bannerViewModel.BannerDescription,
-                    BannerContxt = bannerViewModel.BannerContxt,
-                    BannerPublish = bannerViewModel.BannerPublish,
-                    BannerPutTime = bannerViewModel.BannerPutTime,
-                    BannerOffTime = bannerViewModel.BannerOffTime,
-                    Creator = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
-                    CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                    BannerImg1 = fileName
-                };
-
-                _context.Add(banner);
-                await _context.SaveChangesAsync();
+                _bannerRepository.Create(bannerViewModel, Convert.ToInt64(HttpContext.Session.GetString("AdminNum")));
+                
                 return RedirectToAction(nameof(Index));
             }
+
             return View(bannerViewModel);
         }
 
@@ -118,123 +74,35 @@ namespace ShopWebsite.Areas.Controllers
                 return NotFound();
             }
 
-
-            //進入DB搜尋資料
-            var bannerViewModel = (
-                from banner in _context.Banners
-                where banner.BannerNum == id
-                select new BannerViewModel
-                {
-                    BannerNum = banner.BannerNum,
-                    BannerTitle = banner.BannerTitle,
-                    BannerDescription = banner.BannerDescription,
-                    BannerContxt = banner.BannerContxt,
-                    BannerPublish = banner.BannerPublish,
-                    BannerPutTime= banner.BannerPutTime,
-                    BannerOffTime = banner.BannerOffTime,
-                    CreateTime = banner.CreateTime,
-                    Creator = banner.Creator,
-                    CreatorName = (from creator in _context.Admins where creator.AdminNum == banner.Creator select creator.AdminName).FirstOrDefault(),
-                    EditTime = banner.EditTime,
-                    Editor = banner.Editor,
-                    EditorName = (from editor in _context.Admins where editor.AdminNum == banner.Editor select editor.AdminName).FirstOrDefault(),
-                    Ip = banner.Ip,
-                    BannerImg1 = banner.BannerImg1,
-                }
-            ).FirstOrDefault();
-
-            if (bannerViewModel.BannerImg1 != null)
-            {
-                bannerViewModel.FileData = new FormFile(new MemoryStream(), 0, 0, bannerViewModel.BannerImg1.ToString(), bannerViewModel.BannerImg1.ToString());
-            }
-
+            BannerEditViewModel bannerViewModel = _bannerRepository.Edit(id);
 
             if (bannerViewModel == null)
             {
                 return NotFound();
             }
 
-
             return View(bannerViewModel);
         }
 
-        // POST: Banner/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BannerViewModel bannerViewModel)
+        public async Task<IActionResult> Edit(BannerEditViewModel bannerViewModel)
         {
-            
             GetMenu();
-
 
             if (ModelState.IsValid)
             {
-                try
+                if (bannerViewModel.BannerImg1 != null)
                 {
-
-                    string fileName = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_ffff") + ".jpg";
-
-                    //接收檔案
-                    if (bannerViewModel.FileData != null)
-                    {
-                        var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "Banner");
-                        if (!Directory.Exists(direPath))
-                        {
-                            Directory.CreateDirectory(direPath);
-                        }
-
-                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/Banner", fileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await bannerViewModel.FileData.CopyToAsync(fileStream);
-                        }
-                    }
-
-                    //將資料寫入db
-                    Banner banner = new Banner()
-                    {
-                        BannerNum= bannerViewModel.BannerNum,
-                        BannerTitle = bannerViewModel.BannerTitle,
-                        BannerDescription = bannerViewModel.BannerDescription,
-                        BannerContxt = bannerViewModel.BannerContxt,
-                        BannerPublish = bannerViewModel.BannerPublish,
-                        BannerPutTime = bannerViewModel.BannerPutTime,
-                        BannerOffTime = bannerViewModel.BannerOffTime,
-                        CreateTime = bannerViewModel.CreateTime,
-                        Creator = bannerViewModel.Creator,
-                        EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                        Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum")),
-                        Ip = bannerViewModel.Ip,
-                    };
-
-                    if (bannerViewModel.FileData != null)
-                    {
-                        banner.BannerImg1 = fileName;
-                    }
-                    else
-                    {
-                        banner.BannerImg1 = bannerViewModel.BannerImg1;
-                    }
-
-
-                    _context.Update(banner);
-                    await _context.SaveChangesAsync();
+                    _bannerRepository.SaveFile(bannerViewModel.BannerImg1, _hostingEnvironment.WebRootPath);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BannerExists(bannerViewModel.BannerNum))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
+                _bannerRepository.Edit(bannerViewModel, Convert.ToInt64(HttpContext.Session.GetString("AdminNum")));
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(bannerViewModel);
         }
 
@@ -243,34 +111,15 @@ namespace ShopWebsite.Areas.Controllers
         {
             GetMenu();
 
-            var banner = await _context.Banners
-                .FirstOrDefaultAsync(m => m.BannerNum == id);
+            string result = _bannerRepository.Delete(id);
 
-            string res = JsonConvert.SerializeObject(banner);
-
-            return Json(res);
+            return Json(result);
         }
 
 
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            if (_context.Banners == null)
-            {
-                return Problem("Entity set 'ShopWebsiteContext.Banners'  is null.");
-            }
-            var banner = await _context.Banners.FindAsync(id);
-            if (banner != null)
-            {
-                _context.Banners.Remove(banner);
-            }
-            
-            await _context.SaveChangesAsync();
-
-            //取得該篇廣告的圖片並刪除
-            var direPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads" , "Banner");
-            var filePath = Path.Combine(direPath, banner.BannerImg1);
-            System.IO.File.Delete(filePath); 
-
+            _bannerRepository.DeleteConfirmed(id, _hostingEnvironment.WebRootPath);
 
             return Json("刪除完成");
         }

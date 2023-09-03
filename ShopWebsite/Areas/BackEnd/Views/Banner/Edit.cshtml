@@ -1,9 +1,15 @@
-﻿@model ShopWebsite.Areas.ViewModel.BannerViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel.BannerEditViewModel
 
 @{
     ViewData["Title"] = "編輯廣告";
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯廣告", new string[] { "廣告管理", "廣告設定", "編輯廣告" } } };
 }
+
+<style>
+    .cke_editor_BannerContxt{
+        border: solid 1px #ced4da;
+    }
+</style>
 
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
 
@@ -16,18 +22,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <input type="hidden" asp-for="CreateTime" />
-                    <input type="hidden" asp-for="Creator" />
                     <input type="hidden" asp-for="BannerNum" />
-                    <input type="hidden" asp-for="Ip" />
-
-                    <div class="mb-3 row">
-                        <label asp-for="EditorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.EditorName
-                        </div>
-                        <span asp-validation-for="EditorName" class="text-danger"></span>
-                    </div>
 
                     <div class="mb-3 row">
                         <label asp-for="BannerTitle" class="col-sm-3 col-form-label"></label>
@@ -48,47 +43,21 @@
                     <div class="mb-3 row">
                         <label asp-for="BannerContxt" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            @*<input asp-for="BannerContxt" class="form-control" type="password" autocomplete="off" />*@
-                            <textarea asp-for="BannerContxt" class="form-control ckeditor"></textarea>
+                            <textarea asp-for="BannerContxt" class="form-control ckeditor" style="border:solid 2px"></textarea>
                         </div>
                         <span asp-validation-for="BannerContxt" class="text-danger"></span>
                     </div>
 
-
-@*                    <div class="mb-3 row">
-                        <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9">
-                            <input asp-for="FileData" class="form-control" type="file" autocomplete="off" id="fileInput" />
-                        </div>
-                        <span asp-validation-for="FileData" class="text-danger"></span>
-                        
-                        <br></br>
-
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-9">
-                            <canvas id="previewCanvas" width="200" height="200"></canvas>
-                        </div>
-                    </div>
-*@
-
                     <div class="mb-3 row">
                         <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
+                            <label style="display:block; border: solid 1px #ced4da;">
+                                <img id="imgPreview" src="~/uploads/Banner/@Model.BannerImg1.FileName" style="width:50%" />
+                                <input asp-for="BannerImg1" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
+                            </label>
                         </div>
-                        <span asp-validation-for="FileData" class="text-danger"></span>
+                        <span asp-validation-for="BannerImg1" class="text-danger"></span>
                     </div>
-
-                    <div class="mb-3 row">
-                        <label class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9">
-                            <img id="preview" src="~/uploads/Banner/@Model.BannerImg1" style="max-width:200px;max-height:200px;" />
-                            <input asp-for="BannerImg1" class="form-control" type="hidden" />
-                        </div>
-                    </div>
-
-                    
-
 
                     <div class="mb-3 row">
                         <label asp-for="BannerPutTime" class="col-sm-3 col-form-label"></label>
@@ -144,21 +113,16 @@
 
 
 <script>
-    function previewFile(input) {
-        var preview = document.getElementById('preview');
-        var file = input.files[0];
-        var reader = new FileReader();
+    var imgPreview = document.querySelector('#imgPreview');
 
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
+    var file = document.querySelector('#imgPreview');
 
-        if (file) {
-            reader.readAsDataURL(file);
-            document.getElementById('BannerImg1').value = file.name;
-        } else {
-            preview.src = "";
-            document.getElementById('BannerImg1').value = "";
+
+    function showPreview(event) {
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            imgPreview.src = src;
+            imgPreview.style.display = "block";
         }
     }
 

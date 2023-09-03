@@ -1,9 +1,15 @@
-﻿@model ShopWebsite.Areas.ViewModel.BannerViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel.BannerCreateViewModel
 
 @{
     ViewData["Title"] = "新增廣告";
     var breadcrumbDict = new Dictionary<string, string[]> { { "新增廣告", new string[] { "廣告管理", "廣告設定", "新增廣告" } } };
 }
+
+<style>
+    .cke_editor_BannerContxt {
+        border: solid 1px #ced4da;
+    }
+</style>
 
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
 
@@ -16,14 +22,6 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-
-                    <div class="mb-3 row">
-                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.CreatorName
-                        </div>
-                        <span asp-validation-for="CreatorName" class="text-danger"></span>
-                    </div>
 
                     <div class="mb-3 row">
                         <label asp-for="BannerTitle" class="col-sm-3 col-form-label"></label>
@@ -51,25 +49,16 @@
                         <span asp-validation-for="BannerContxt" class="text-danger"></span>
                     </div>
 
-
-
                     <div class="mb-3 row">
                         <label asp-for="BannerImg1" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
-                            <span asp-validation-for="FileData" class="text-danger"></span>
+                            <label style="display:block; border: solid 1px #ced4da;">
+                                <img id="imgPreview" src="~/BackEnd/cloud-upload.jpg" style="width:50%" />
+                                <input asp-for="BannerImg1" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
+                            </label>
                         </div>
+                        <span asp-validation-for="BannerImg1" class="text-danger"></span>
                     </div>
-
-                    <div class="mb-3 row">
-                        <label class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9">
-                            <img id="preview" src="" style="max-width:200px;max-height:200px;" />
-                            <input asp-for="BannerImg1" class="form-control" type="hidden" />
-                        </div>
-                    </div>
-
-
 
                     <div class="mb-3 row">
                         <label asp-for="BannerPutTime" class="col-sm-3 col-form-label"></label>
@@ -112,21 +101,16 @@
 </div>
 
 <script>
-    function previewFile(input) {
-        var preview = document.getElementById('preview');
-        var file = input.files[0];
-        var reader = new FileReader();
+    var imgPreview = document.querySelector('#imgPreview');
 
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
+    var file = document.querySelector('#imgPreview');
 
-        if (file) {
-            reader.readAsDataURL(file);
-            document.getElementById('BannerImg1').value = file.name;
-        } else {
-            preview.src = "";
-            document.getElementById('BannerImg1').value = "";
+
+    function showPreview(event) {
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            imgPreview.src = src;
+            imgPreview.style.display = "block";
         }
     }
 
