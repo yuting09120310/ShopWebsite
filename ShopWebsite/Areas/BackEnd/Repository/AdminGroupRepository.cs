@@ -172,15 +172,13 @@ namespace ShopWebsite.Areas.BackEnd.Repository
             adminGroup.GroupInfo = Collection["GroupInfo"].ToString();
             adminGroup.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             adminGroup.Editor = AdminNum;
+            _context.Update(adminGroup);
+
 
             _context.SaveChangesAsync();
         }
 
 
-        /// <summary>
-        /// 取得刪除json
-        /// </summary>
-        /// <param name="adminViewModel"></param>
         public string Delete(long? id)
         {
             var adminGroup = _context.AdminGroups

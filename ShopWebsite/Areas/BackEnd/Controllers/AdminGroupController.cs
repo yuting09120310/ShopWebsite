@@ -74,7 +74,7 @@ namespace ShopWebsite.Areas.Controllers
 
             _adminGroupRepository.Edit(Collection, AdminNum);
 
-            return RedirectToAction("Edit");
+            return RedirectToAction("Index");
         }
 
 
