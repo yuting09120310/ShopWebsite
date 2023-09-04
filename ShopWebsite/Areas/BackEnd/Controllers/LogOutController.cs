@@ -4,12 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ShopWebsite.Areas.BackEnd.Controllers
 {
-    public class LogOutController : GenericController
+    [Area("BackEnd")]
+    public class LogOutController : Controller
     {
-
-        public LogOutController(ShopWebsiteContext context) : base(context) { }
-
-
         public IActionResult Index()
         {
             HttpContext.Session.Remove("AdminNum"); 
