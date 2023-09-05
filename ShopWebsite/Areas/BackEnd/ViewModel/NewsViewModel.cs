@@ -26,7 +26,7 @@ namespace ShopWebsite.Areas.ViewModel
         public string? NewsContxt { get; set; }
 
         [Display(Name = "圖片")]
-        public string? NewsImg1 { get; set; }
+        public IFormFile? NewsImg1 { get; set; }
 
         [Display(Name = "連結")]
         public string? NewsImgUrl { get; set; }
