@@ -31,7 +31,7 @@ public partial class News
 
     public DateTime? NewsPutTime { get; set; }
 
-    public DateTime CreateTime { get; set; }
+    public DateTime? CreateTime { get; set; }
 
     public long? Creator { get; set; }
 

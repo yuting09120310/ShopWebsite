@@ -1,9 +1,15 @@
-﻿@model ShopWebsite.Areas.ViewModel.NewsViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel.NewsEditViewModel
 
 @{
     ViewData["Title"] = "編輯消息";
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯消息", new string[] { "消息管理", "消息設定", "編輯消息" } } };
 }
+
+<style>
+    .cke_editor_NewsContxt {
+        border: solid 1px #ced4da;
+    }
+</style>
 
 <!-- 麵包屑及標題-->
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
@@ -18,18 +24,7 @@
             <div class="row">
                 <div class="col">
 
-                    <input type="hidden" asp-for="CreateTime" />
-                    <input type="hidden" asp-for="Creator" />
                     <input type="hidden" asp-for="NewsNum" />
-                    <input type="hidden" asp-for="Ip" />
-
-                    <div class="mb-3 row">
-                        <label asp-for="EditorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.EditorName
-                        </div>
-                        <span asp-validation-for="EditorName" class="text-danger"></span>
-                    </div>
 
                     <div class="mb-3 row">
                         <label asp-for="NewsClass" class="col-sm-3 col-form-label"></label>
@@ -59,7 +54,6 @@
                     <div class="mb-3 row">
                         <label asp-for="NewsContxt" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            @*<input asp-for="BannerContxt" class="form-control" type="password" autocomplete="off" />*@
                             <textarea asp-for="NewsContxt" class="form-control ckeditor"></textarea>
                         </div>
                         <span asp-validation-for="NewsContxt" class="text-danger"></span>
@@ -78,19 +72,13 @@
                     <div class="mb-3 row">
                         <label asp-for="NewsImg1" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
+                            <label style="display:block; border: solid 1px #ced4da;">
+                                <img id="imgPreview" src="~/uploads/News/@Model.NewsImg1.FileName" style="width:50%" />
+                                <input asp-for="NewsImg1" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
+                            </label>
                         </div>
-                        <span asp-validation-for="FileData" class="text-danger"></span>
+                        <span asp-validation-for="NewsImg1" class="text-danger"></span>
                     </div>
-
-                    <div class="mb-3 row">
-                        <label class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9">
-                            <img id="preview" src="~/uploads/News/@Model.NewsImg1" style="max-width:200px;max-height:200px;" />
-                            <input asp-for="NewsImg1" class="form-control" type="hidden" />
-                        </div>
-                    </div>
-
 
 
                     <div class="mb-3 row">
@@ -134,21 +122,16 @@
 </div>
 
 <script>
-    function previewFile(input) {
-        var preview = document.getElementById('preview');
-        var file = input.files[0];
-        var reader = new FileReader();
+    var imgPreview = document.querySelector('#imgPreview');
 
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
+    var file = document.querySelector('#imgPreview');
 
-        if (file) {
-            reader.readAsDataURL(file);
-            document.getElementById('NewsImg1').value = file.name;
-        } else {
-            preview.src = "";
-            document.getElementById('NewsImg1').value = "";
+
+    function showPreview(event) {
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            imgPreview.src = src;
+            imgPreview.style.display = "block";
         }
     }
 

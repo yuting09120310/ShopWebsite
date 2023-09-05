@@ -30,7 +30,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             GetMenu();
 
-            List<NewsViewModel> viewModel = _newsRepository.GetList();
+            List<NewsIndexViewModel> viewModel = _newsRepository.GetList();
 
             return View(viewModel);
         }
@@ -40,7 +40,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             GetMenu();
 
-            NewsViewModel newsViewModel = _newsRepository.Create();
+            NewsCreateViewModel newsViewModel = _newsRepository.Create();
 
             //取得分類選單資料
             ViewBag.newsClass = _newsRepository.GetNewsClasseList();

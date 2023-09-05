@@ -15,7 +15,7 @@ namespace ShopWebsite.FrontEnd.ViewModel
 
         public string NewsTypeName { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public DateTime? CreateTime { get; set; }
 
         public string NewsImg1 { get; set; }
 
