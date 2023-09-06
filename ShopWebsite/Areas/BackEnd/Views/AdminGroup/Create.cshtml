@@ -1,5 +1,5 @@
 ﻿@using ShopWebsite.Areas.BackEnd.Models;
-@model ShopWebsite.Areas.ViewModel.AdminGroupViewModel
+@model ShopWebsite.Areas.BackEnd.ViewModel.AdminGroupViewModel.AdminGroupCreateViewModel
 
 @{
     ViewData["Title"] = "新增群組";
@@ -15,22 +15,9 @@
     </div>
     <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="GroupNum" />
-        <input type="hidden" asp-for="CreateTime" />
-        <input type="hidden" asp-for="Creator" />
-        <input type="hidden" asp-for="Ip" />
         <div class="card-body">
             <div class="row">
                 <div class="col">
-
-                    <div class="mb-3 row">
-                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.CreatorName
-                        </div>
-                        <span asp-validation-for="CreatorName" class="text-danger"></span>
-                    </div>
-
 
                     <div class="mb-3 row">
                         <label asp-for="GroupName" class="col-sm-3 col-form-label"></label>
@@ -205,7 +192,6 @@
                             </table>*@
 
                         </div>
-                        <input type="hidden" asp-for="Auth" />
                         <span asp-validation-for="GroupPublish" class="text-danger"></span>
                     </div>
 

@@ -2,6 +2,7 @@
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
+using ShopWebsite.Areas.BackEnd.ViewModel.AdminGroupViewModel;
 using ShopWebsite.Areas.ViewModel;
 using System.Data;
 
@@ -22,7 +23,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             GetMenu();
 
-            List<AdminGroupViewModel> viewModel = _adminGroupRepository.GetList();
+            List<AdminGroupIndexViewModel> viewModel = _adminGroupRepository.GetList();
 
             return View(viewModel);
         }
@@ -32,7 +33,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             GetMenu();
 
-            AdminGroupViewModel adminGroupViewModel = _adminGroupRepository.Create();
+            AdminGroupCreateViewModel adminGroupViewModel = _adminGroupRepository.Create();
 
             return View(adminGroupViewModel);
         }
@@ -56,7 +57,7 @@ namespace ShopWebsite.Areas.Controllers
         {
             GetMenu();
 
-            AdminGroupViewModel adminGroupViewModel = _adminGroupRepository.Edit(id);
+            AdminGroupEditViewModel adminGroupViewModel = _adminGroupRepository.Edit(id);
 
             return View(adminGroupViewModel);
         }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.BackEnd.ViewModel.AdminGroupViewModel;
 using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository
@@ -20,39 +21,27 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得列表
         /// </summary>
         /// <returns></returns>
-        public List<AdminGroupViewModel> GetList()
+        public List<AdminGroupIndexViewModel> GetList()
         {
             var admins = _context.Admins.ToList();
             var adminGroups = _context.AdminGroups.ToList();
 
             var viewModel = (from g in adminGroups
-                             join a1 in admins on g.Creator equals a1.AdminNum into ag1
-                             from subg1 in ag1.DefaultIfEmpty()
-                             join amenuSubNum in admins on g.Editor equals amenuSubNum.AdminNum into agmenuSubNum
-                             from subgmenuSubNum in agmenuSubNum.DefaultIfEmpty()
-                             select new AdminGroupViewModel
+                             select new AdminGroupIndexViewModel
                              {
                                  GroupNum = g.GroupNum,
                                  GroupName = g.GroupName,
-                                 GroupInfo = g.GroupInfo,
                                  GroupPublish = g.GroupPublish,
                                  CreateTime = g.CreateTime,
-                                 Creator = g.Creator,
-                                 EditTime = g.EditTime,
-                                 Editor = g.Editor,
-                                 Ip = g.Ip,
-
-                                 CreatorName = subg1?.AdminName,
-                                 EditorName = subgmenuSubNum?.AdminName,
                              }).ToList();
 
             return viewModel;
         }
 
 
-        public AdminGroupViewModel Create()
+        public AdminGroupCreateViewModel Create()
         {
-            AdminGroupViewModel agv = new AdminGroupViewModel()
+            AdminGroupCreateViewModel viewModel = new AdminGroupCreateViewModel()
             {
                 GroupName = "",
                 GroupInfo = "",
@@ -63,7 +52,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 MenuSubModels = _context.MenuSubs.Where(x => x.MenuSubPublish == true).ToList(),
             };
 
-            return agv;
+            return viewModel;
         }
 
 
@@ -107,11 +96,11 @@ namespace ShopWebsite.Areas.BackEnd.Repository
 
 
 
-        public AdminGroupViewModel Edit(long? id)
+        public AdminGroupEditViewModel Edit(long? id)
         {
             AdminGroup adminGroup = _context.AdminGroups.Find(id);
             
-            AdminGroupViewModel adminGroupViewModel = new AdminGroupViewModel()
+            AdminGroupEditViewModel adminGroupViewModel = new AdminGroupEditViewModel()
             {
                 GroupName = adminGroup.GroupName,
                 GroupInfo = adminGroup.GroupInfo,
