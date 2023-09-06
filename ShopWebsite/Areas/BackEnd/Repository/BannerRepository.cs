@@ -97,19 +97,18 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         
         public void Edit(BannerEditViewModel bannerViewModel, long AdminNum)
         {
+            Banner banner = _context.Banners.Where(x => x.BannerNum == bannerViewModel.BannerNum).FirstOrDefault()!;
+
             //將資料寫入db
-            Banner banner = new Banner()
-            {
-                BannerNum = bannerViewModel.BannerNum,
-                BannerTitle = bannerViewModel.BannerTitle,
-                BannerDescription = bannerViewModel.BannerDescription,
-                BannerContxt = bannerViewModel.BannerContxt,
-                BannerPublish = bannerViewModel.BannerPublish,
-                BannerPutTime = bannerViewModel.BannerPutTime,
-                BannerOffTime = bannerViewModel.BannerOffTime,
-                EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                Editor = AdminNum,
-            };
+            banner.BannerNum = bannerViewModel.BannerNum;
+            banner.BannerTitle = bannerViewModel.BannerTitle;
+            banner.BannerDescription = bannerViewModel.BannerDescription;
+            banner.BannerContxt = bannerViewModel.BannerContxt;
+            banner.BannerPublish = bannerViewModel.BannerPublish;
+            banner.BannerPutTime = bannerViewModel.BannerPutTime;
+            banner.BannerOffTime = bannerViewModel.BannerOffTime;
+            banner.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            banner.Editor = AdminNum;
 
             if (bannerViewModel.BannerImg1 != null)
             {

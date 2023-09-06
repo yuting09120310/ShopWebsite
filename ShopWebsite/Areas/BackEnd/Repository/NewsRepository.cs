@@ -101,20 +101,18 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         
         public void Edit(NewsEditViewModel newsViewModel, long AdminNum)
         {
+            News news = _context.News.Where(x => x.NewsNum == newsViewModel.NewsNum).FirstOrDefault()!;
+
             //將資料寫入db
-            News news = new News()
-            {
-                NewsNum = newsViewModel.NewsNum,
-                NewsTitle = newsViewModel.NewsTitle,
-                NewsClass = newsViewModel.NewsClass,
-                NewsDescription = newsViewModel.NewsDescription,
-                NewsContxt = newsViewModel.NewsContxt,
-                NewsPublish = newsViewModel.NewsPublish,
-                NewsPutTime = newsViewModel.NewsPutTime,
-                NewsOffTime = newsViewModel.NewsOffTime,
-                EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                Editor = AdminNum,
-            };
+            news.NewsTitle = newsViewModel.NewsTitle;
+            news.NewsClass = newsViewModel.NewsClass;
+            news.NewsDescription = newsViewModel.NewsDescription;
+            news.NewsContxt = newsViewModel.NewsContxt;
+            news.NewsPublish = newsViewModel.NewsPublish;
+            news.NewsPutTime = newsViewModel.NewsPutTime;
+            news.NewsOffTime = newsViewModel.NewsOffTime;
+            news.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            news.Editor = AdminNum;
 
             if (newsViewModel.NewsImg1 != null)
             {
