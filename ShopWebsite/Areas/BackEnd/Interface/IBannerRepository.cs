@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel;
-using ShopWebsite.Areas.ViewModel;
+﻿using ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {
