@@ -1,12 +1,8 @@
-﻿using ShopWebsite.Areas.BackEnd.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel;
-using System.IO;
-using Microsoft.Extensions.Hosting.Internal;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShopWebsite.Areas.BackEnd.Interface;
+using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
+using ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel;
 
 namespace ShopWebsite.Areas.Controllers
 {

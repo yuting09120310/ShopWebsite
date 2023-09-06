@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel;
-using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {

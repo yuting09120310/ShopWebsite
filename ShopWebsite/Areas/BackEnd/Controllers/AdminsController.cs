@@ -3,7 +3,6 @@ using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
 using ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel;
-using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.Controllers
 {

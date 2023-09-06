@@ -1,6 +1,4 @@
-﻿using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.Controllers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ShopWebsite.Areas.BackEnd.Controllers
 {

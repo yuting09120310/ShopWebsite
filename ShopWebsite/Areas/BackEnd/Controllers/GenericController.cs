@@ -1,7 +1,7 @@
-﻿using ShopWebsite.Areas.BackEnd.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ShopWebsite.Areas.BackEnd.Filter;
+using ShopWebsite.Areas.BackEnd.Models;
 
 namespace ShopWebsite.Areas.Controllers
 {

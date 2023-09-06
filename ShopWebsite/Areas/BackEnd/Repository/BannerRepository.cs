@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.ViewModel.BannerViewModel;
-using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository
 {
