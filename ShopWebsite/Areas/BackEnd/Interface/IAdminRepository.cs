@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel;
 using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {
     public interface IAdminRepository
     {
-        public List<AdminViewModel> GetList();
+        public List<AdminIndexViewModel> GetList();
 
 
         public List<SelectListItem> GetAdminGroups();
 
 
-        public void Create(AdminViewModel adminViewModel);
+        public AdminCreateViewModel Create();
+        public void Create(AdminCreateViewModel adminViewModel, long AdminNum);
 
 
-        public AdminViewModel Edit(long? id);
-        public void Edit(AdminViewModel adminViewModel);
+        public AdminEditViewModel Edit(long? id);
+        public void Edit(AdminEditViewModel adminViewModel, long AdminNum);
 
 
         public string Delete(long? id);

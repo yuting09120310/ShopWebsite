@@ -1,4 +1,4 @@
-﻿@model ShopWebsite.Areas.ViewModel.AdminViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel.AdminCreateViewModel
 
 @{
     ViewData["Title"] = "新增帳號";
@@ -17,14 +17,6 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-
-                     <div class="mb-3 row">
-                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.CreatorName
-                        </div>
-                        <span asp-validation-for="CreatorName" class="text-danger"></span>
-                    </div>
 
                     <div class="mb-3 row">
                         <label asp-for="GroupNum" class="col-sm-3 col-form-label"></label>

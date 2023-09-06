@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel;
 using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository
@@ -22,26 +23,20 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得列表
         /// </summary>
         /// <returns></returns>
-        public List<AdminViewModel> GetList()
+        public List<AdminIndexViewModel> GetList()
         {
             var admins = _context.Admins.ToList();
             var adminGroups = _context.AdminGroups.ToList();
 
-            List<AdminViewModel> viewModel = (from a in admins
+            List<AdminIndexViewModel> viewModel = (from a in admins
                                                      join g in adminGroups on a.GroupNum equals g.GroupNum into ag
                                                      from subg in ag.DefaultIfEmpty()
-                                                     select new AdminViewModel
+                                                     select new AdminIndexViewModel
                                                      {
                                                          AdminNum = a.AdminNum,
                                                          AdminAcc = a.AdminAcc,
                                                          AdminName = a.AdminName,
                                                          AdminPublish = a.AdminPublish,
-                                                         AdminPwd = a.AdminPwd,
-                                                         CreateTime = a.CreateTime,
-                                                         Creator = a.Creator,
-                                                         EditTime = a.EditTime,
-                                                         Editor = a.Editor,
-                                                         GroupNum = a.GroupNum,
                                                          GroupName = subg?.GroupName,
                                                          LastLogin = a.LastLogin,
                                                      }).ToList();
@@ -62,23 +57,28 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                                     .ToList();
         }
 
+       
+        public AdminCreateViewModel Create()
+        {
+            return new AdminCreateViewModel();
+        }
+
 
         /// <summary>
         /// 建立新資料
         /// </summary>
         /// <param name="adminViewModel"></param>
-        public void Create(AdminViewModel adminViewModel)
+        public void Create(AdminCreateViewModel adminViewModel, long AdminNum)
         {
             Admin admin = new Admin()
             {
-                AdminNum = adminViewModel.AdminNum,
                 GroupNum = adminViewModel.GroupNum,
                 AdminAcc = adminViewModel.AdminAcc,
                 AdminPwd = adminViewModel.AdminPwd,
                 AdminName = adminViewModel.AdminName,
                 AdminPublish = adminViewModel.AdminPublish,
                 CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                Creator = Convert.ToInt32(adminViewModel.Creator),
+                Creator = AdminNum,
             };
 
             _context.Add(admin);
@@ -90,7 +90,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得用戶
         /// </summary>
         /// <param name="adminViewModel"></param>
-        public AdminViewModel Edit(long? id)
+        public AdminEditViewModel Edit(long? id)
         {
             //進入DB搜尋資料
             var adminViewModel = (
@@ -98,23 +98,14 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 join adminGroup in _context.AdminGroups on admins.GroupNum equals adminGroup.GroupNum into adminGroups
                 from adminGroup in adminGroups.DefaultIfEmpty()
                 where admins.AdminNum == id
-                select new AdminViewModel
+                select new AdminEditViewModel
                 {
+                    GroupNum = admins.GroupNum,
                     AdminNum = admins.AdminNum,
-                    GroupName = adminGroup.GroupName,
                     AdminAcc = admins.AdminAcc,
                     AdminPwd = null,
                     AdminName = admins.AdminName,
                     AdminPublish = admins.AdminPublish,
-                    LastLogin = admins.LastLogin,
-                    CreateTime = admins.CreateTime,
-                    Creator = admins.Creator,
-                    CreatorName = (from creator in _context.Admins where creator.AdminNum == admins.Creator select creator.AdminName).FirstOrDefault(),
-                    EditTime = admins.EditTime,
-                    Editor = admins.Editor,
-                    EditorName = (from editor in _context.Admins where editor.AdminNum == admins.Editor select editor.AdminName).FirstOrDefault(),
-                    Ip = admins.Ip,
-                    GroupNum = admins.GroupNum
                 }
             ).FirstOrDefault();
 
@@ -126,25 +117,17 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得用戶
         /// </summary>
         /// <param name="adminViewModel"></param>
-        public void Edit(AdminViewModel adminViewModel)
+        public void Edit(AdminEditViewModel adminViewModel, long AdminNum)
         {
-            adminViewModel.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            Admin admin = _context.Admins.Where(x => x.AdminNum == adminViewModel.AdminNum).FirstOrDefault()!;
 
-            Admin admin = new Admin()
-            {
-                AdminNum = adminViewModel.AdminNum,
-                GroupNum = adminViewModel.GroupNum,
-                AdminAcc = adminViewModel.AdminAcc,
-                AdminPwd = adminViewModel.AdminPwd,
-                AdminName = adminViewModel.AdminName,
-                LastLogin = adminViewModel.LastLogin,
-                AdminPublish = adminViewModel.AdminPublish,
-                CreateTime = adminViewModel.CreateTime,
-                Creator = adminViewModel.Creator,
-                EditTime = adminViewModel.EditTime,
-                Editor = adminViewModel.Editor,
-                Ip = adminViewModel.Ip,
-            };
+            admin.GroupNum = adminViewModel.GroupNum;
+            admin.AdminAcc = adminViewModel.AdminAcc;
+            admin.AdminPwd = adminViewModel.AdminPwd;
+            admin.AdminName = adminViewModel.AdminName;
+            admin.AdminPublish = adminViewModel.AdminPublish;
+            admin.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            admin.Editor = AdminNum;
 
             _context.Update(admin);
             _context.SaveChanges();

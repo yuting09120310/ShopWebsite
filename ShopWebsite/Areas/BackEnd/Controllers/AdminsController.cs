@@ -2,6 +2,7 @@
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
+using ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel;
 using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.Controllers
@@ -17,18 +18,16 @@ namespace ShopWebsite.Areas.Controllers
         }
 
 
-        // GET: Admins
         public IActionResult Index()
         {
             GetMenu();
 
-            List<AdminViewModel> viewModel = _adminRepository.GetList();
+            List<AdminIndexViewModel> viewModel = _adminRepository.GetList();
 
             return View(viewModel);
         }
 
 
-        // GET: Admins/Create
         public async Task<IActionResult> Create()
         {
             GetMenu();
@@ -36,27 +35,21 @@ namespace ShopWebsite.Areas.Controllers
             //取得群組選單資料
             ViewBag.adminGroup = _adminRepository.GetAdminGroups();
 
-            AdminViewModel viewModel = new AdminViewModel()
-            {
-                CreatorName = HttpContext.Session.GetString("AdminName")
-            };
+            AdminCreateViewModel viewModel = _adminRepository.Create();
 
             return View(viewModel);
         }
 
 
-        // POST: Admins/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=3menuSubNum7598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,Creator")] AdminViewModel adminViewModel)
+        public async Task<IActionResult> Create(AdminCreateViewModel adminViewModel)
         {
             GetMenu();
 
             if (ModelState.IsValid)
             {
-                _adminRepository.Create(adminViewModel);
+                _adminRepository.Create(adminViewModel, Convert.ToInt64(HttpContext.Session.GetString("AdminNum")));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -81,7 +74,7 @@ namespace ShopWebsite.Areas.Controllers
                 return NotFound();
             }
 
-            AdminViewModel adminViewModel = _adminRepository.Edit(id);
+            AdminEditViewModel adminViewModel = _adminRepository.Edit(id);
 
             //如果搜尋是空的 就返回找不到
             if (adminViewModel == null)
@@ -96,20 +89,15 @@ namespace ShopWebsite.Areas.Controllers
         }
 
 
-        // POST: Admins/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=3menuSubNum7598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("AdminNum,GroupNum,AdminAcc,AdminPwd,AdminName,AdminPublish,LastLogin,CreateTime,Creator,EditTime,Editor,Ip")] AdminViewModel adminViewModel)
+        public async Task<IActionResult> Edit(AdminEditViewModel adminViewModel)
         {
             GetMenu();
 
             if (ModelState.IsValid)
             {
-                adminViewModel.Editor = Convert.ToInt32(HttpContext.Session.GetString("AdminNum"));
-
-                _adminRepository.Edit(adminViewModel);
+                _adminRepository.Edit(adminViewModel, Convert.ToInt64(HttpContext.Session.GetString("AdminNum")));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -119,7 +107,7 @@ namespace ShopWebsite.Areas.Controllers
             }
         }
 
-        // GET: Admins/Delete/5
+
         public async Task<IActionResult> Delete(long id)
         {
             GetMenu();
