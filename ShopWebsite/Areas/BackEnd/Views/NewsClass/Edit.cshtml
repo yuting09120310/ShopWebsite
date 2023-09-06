@@ -1,5 +1,4 @@
-﻿@model ShopWebsite.Areas.ViewModel.NewsClassViewModel
-
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.NewsClassViewModel.NewsClassEditViewModel
 @{
     ViewData["Title"] = "編輯消息類別";
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯消息類別", new string[] { "消息管理", "消息類別", "編輯消息類別" } } };
@@ -15,23 +14,9 @@
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="NewsClassNum" />
-
-        <input type="hidden" asp-for="CreateTime" />
-        <input type="hidden" asp-for="Creator" />
-        <input type="hidden" asp-for="Ip" />
         <div class="card-body">
             <div class="row">
                 <div class="col">
-
-                    <div class="mb-3 row">
-                        <label asp-for="EditorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.EditorName
-                        </div>
-                        <span asp-validation-for="EditorName" class="text-danger"></span>
-                    </div>
-
-
 
                     <div class="mb-3 row">
                         <label asp-for="NewsClassName" class="col-sm-3 col-form-label"></label>
