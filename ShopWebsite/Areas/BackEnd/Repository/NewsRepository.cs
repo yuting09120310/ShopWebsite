@@ -159,7 +159,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
             var filePath = Path.Combine(direPath, file.FileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                file.CopyToAsync(fileStream);
+                file.CopyTo(fileStream);
             }
         }
 
