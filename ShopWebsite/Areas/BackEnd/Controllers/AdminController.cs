@@ -6,13 +6,13 @@ using ShopWebsite.Areas.BackEnd.ViewModel.AdminViewModel;
 
 namespace ShopWebsite.Areas.Controllers
 {
-    public class AdminsController : GenericController
+    public class AdminController : GenericController
     {
 
         IAdminRepository _adminRepository;
 
 
-        public AdminsController(ShopWebsiteContext context) : base(context){
+        public AdminController(ShopWebsiteContext context) : base(context){
             _adminRepository = new AdminRepository(_context);
         }
 

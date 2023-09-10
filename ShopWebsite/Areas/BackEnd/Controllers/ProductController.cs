@@ -2,72 +2,51 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.BackEnd.Repository;
 using ShopWebsite.Areas.ViewModel;
+using System.Collections.Generic;
 
 namespace ShopWebsite.Areas.Controllers
 {
     public class ProductController : GenericController
     {
 
+        IProcutRepository _procutRepository;
+
         private readonly IWebHostEnvironment _hostingEnvironment;
 
         public ProductController(ShopWebsiteContext context, IWebHostEnvironment hostingEnvironment) : base(context)
         {
             _hostingEnvironment = hostingEnvironment;
+            _procutRepository = new ProductRepository(context);
         }
 
 
-        // GET: Product
         public async Task<IActionResult> Index()
         {
             GetMenu();
 
-            IEnumerable<ProductViewModel> viewModel = from n in _context.Products
-                                                   select new ProductViewModel
-                                                   {
-                                                       ProductNum = n.ProductNum,
-                                                       ProductTitle = n.ProductTitle,
-                                                       ProductDescription = n.ProductDescription,
-                                                       ProductImg1 = n.ProductImg1,
-                                                       ProductPutTime = n.ProductPutTime,
-                                                       CreateTime = n.CreateTime,
-                                                       EditTime = n.EditTime,
-                                                       ProductOffTime = n.ProductOffTime,
-                                                       ProductPublish = n.ProductPublish,
-                                                       ProductPrice = n.ProductPrice
-                                                   };
-
+            List<ProductViewModel> viewModel = _procutRepository.GetList();
 
             return View(viewModel);
         }
 
 
-
-        // GET: Product/Create
         public async Task<IActionResult> Create()
         {
             GetMenu();
 
-            ProductViewModel newsViewModel = new ProductViewModel()
-            {
-                CreatorName = HttpContext.Session.GetString("AdminName")
-            };
-
+            ProductViewModel newsViewModel = _procutRepository.Create();
 
             //取得分類選單資料
-            ViewBag.newsClass = await _context.ProductClasses
-                                    .Where(g => g.ProductClassPublish == true)
-                                    .Select(g => new SelectListItem { Text = g.ProductClassName, Value = g.ProductClassNum.ToString() })
-                                    .ToListAsync();
-
+            ViewBag.newsClass = _procutRepository.GetClassList();
 
             return View(newsViewModel);
         }
 
-        // POST: Product/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductViewModel productViewModel)
@@ -119,7 +98,7 @@ namespace ShopWebsite.Areas.Controllers
             return View(productViewModel);
         }
 
-        // GET: Product/Edit/5
+
         public async Task<IActionResult> Edit(long? id)
         {
             GetMenu();
