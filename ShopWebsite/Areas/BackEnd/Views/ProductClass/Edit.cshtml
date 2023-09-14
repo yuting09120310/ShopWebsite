@@ -1,9 +1,7 @@
-﻿@model ShopWebsite.Areas.ViewModel.ProductClassViewModel
-
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel.ProductClassEditViewModel
 @{
     ViewData["Title"] = "編輯產品類別";
     var breadcrumbDict = new Dictionary<string, string[]> { { "編輯產品類別", new string[] { "產品管理", "產品類別", "編輯產品類別" } } };
-}
 }
 
 <!-- 麵包屑及標題-->
@@ -13,26 +11,12 @@
     <div class="card-header">
         <h5>編輯產品類別</h5>
     </div>
-    <form asp-action="edit">
+    <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ProductClassNum" />
         <div class="card-body">
             <div class="row">
                 <div class="col">
-
-                    <input type="hidden" asp-for="CreateTime" />
-                    <input type="hidden" asp-for="Creator" />
-                    <input type="hidden" asp-for="ProductClassNum" />
-                    <input type="hidden" asp-for="Ip" />
-
-                    <div class="mb-3 row">
-                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.CreatorName
-                        </div>
-                        <span asp-validation-for="CreatorName" class="text-danger"></span>
-                    </div>
-
-
 
                     <div class="mb-3 row">
                         <label asp-for="ProductClassName" class="col-sm-3 col-form-label"></label>
@@ -76,7 +60,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

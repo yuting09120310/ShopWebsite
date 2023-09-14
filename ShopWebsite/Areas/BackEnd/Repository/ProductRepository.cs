@@ -2,12 +2,11 @@
 using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
-using ShopWebsite.Areas.ViewModel;
+using ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository
 {
-    public class ProductRepository : IProcutRepository
+    public class ProductRepository : IProductRepository
     {
 
         private ShopWebsiteContext _context;
@@ -22,10 +21,10 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得列表
         /// </summary>
         /// <returns></returns>
-        public List<ProductViewModel> GetList()
+        public List<ProductIndexViewModel> GetList()
         {
-            List<ProductViewModel> viewModel = _context.Products
-                                            .Select(n => new ProductViewModel
+            List<ProductIndexViewModel> viewModel = _context.Products
+                                            .Select(n => new ProductIndexViewModel
                                             {
                                                 ProductNum = n.ProductNum,
                                                 ProductTitle = n.ProductTitle,
@@ -35,99 +34,98 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                                                 CreateTime = n.CreateTime,
                                                 EditTime = n.EditTime,
                                                 ProductOffTime = n.ProductOffTime,
-                                                ProductPublish = n.ProductPublish,
-                                                ProductPrice = n.ProductPrice
+                                                ProductPublish = n.ProductPublish
                                             }).ToList();
 
             return viewModel;
         }
 
 
-        public ProductViewModel Create()
+        public ProductCreateViewModel Create()
         {
-            ProductViewModel viewModel = new ProductViewModel();
+            ProductCreateViewModel viewModel = new ProductCreateViewModel();
             return viewModel;
         }
 
 
-        public void Create(NewsCreateViewModel newsViewModel, long AdminNum)
+        public void Create(ProductCreateViewModel ProductViewModel, long AdminNum)
         {
-            News news = new News()
+            Product Product = new Product()
             {
-                NewsClass = newsViewModel.NewsClass,
-                NewsTitle = newsViewModel.NewsTitle,
-                NewsDescription = newsViewModel.NewsDescription,
-                NewsContxt = newsViewModel.NewsContxt,
-                NewsImg1 = newsViewModel.NewsImg1.FileName,
-                NewsPublish = newsViewModel.NewsPublish,
-                NewsPutTime = newsViewModel.NewsPutTime,
-                NewsOffTime = newsViewModel.NewsOffTime,
+                ProductClass = ProductViewModel.ProductClass,
+                ProductTitle = ProductViewModel.ProductTitle,
+                ProductDescription = ProductViewModel.ProductDescription,
+                ProductContxt = ProductViewModel.ProductContxt,
+                ProductImg1 = ProductViewModel.ProductImg1.FileName,
+                ProductPublish = ProductViewModel.ProductPublish,
+                ProductPutTime = ProductViewModel.ProductPutTime,
+                ProductOffTime = ProductViewModel.ProductOffTime,
                 Creator = AdminNum,
                 CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                Tag = newsViewModel.Tag
+                Tag = ProductViewModel.Tag
             };
 
-            _context.Add(news);
+            _context.Add(Product);
             _context.SaveChanges();
         }
 
 
-        public NewsEditViewModel Edit(long? id)
+        public ProductEditViewModel Edit(long? id)
         {
             //進入DB搜尋資料
-            NewsEditViewModel newsViewModel = (
-                from news in _context.News
-                where news.NewsNum == id
-                select new NewsEditViewModel
+            ProductEditViewModel ProductViewModel = (
+                from Product in _context.Products
+                where Product.ProductNum == id
+                select new ProductEditViewModel
                 {
-                    NewsNum = news.NewsNum,
-                    NewsTitle = news.NewsTitle,
-                    NewsClass = news.NewsClass,
-                    NewsDescription = news.NewsDescription,
-                    NewsContxt = news.NewsContxt,
-                    NewsPublish = news.NewsPublish,
-                    NewsPutTime = news.NewsPutTime,
-                    NewsOffTime = news.NewsOffTime,
-                    NewsImg1 = new FormFile(new MemoryStream(), 0, 0, news.NewsImg1.ToString(), news.NewsImg1.ToString()),
-                    Tag = news.Tag
+                    ProductNum = Product.ProductNum,
+                    ProductTitle = Product.ProductTitle,
+                    ProductClass = Product.ProductClass,
+                    ProductDescription = Product.ProductDescription,
+                    ProductContxt = Product.ProductContxt,
+                    ProductPublish = Product.ProductPublish,
+                    ProductPutTime = Product.ProductPutTime,
+                    ProductOffTime = Product.ProductOffTime,
+                    ProductImg1 = new FormFile(new MemoryStream(), 0, 0, Product.ProductImg1.ToString(), Product.ProductImg1.ToString()),
+                    Tag = Product.Tag
                 }
             ).FirstOrDefault()!;
 
-            return newsViewModel;
+            return ProductViewModel;
         }
 
         
-        public void Edit(NewsEditViewModel newsViewModel, long AdminNum)
+        public void Edit(ProductEditViewModel ProductViewModel, long AdminNum)
         {
-            News news = _context.News.Where(x => x.NewsNum == newsViewModel.NewsNum).FirstOrDefault()!;
+            Product Product = _context.Products.Where(x => x.ProductNum == ProductViewModel.ProductNum).FirstOrDefault()!;
 
             //將資料寫入db
-            news.NewsTitle = newsViewModel.NewsTitle;
-            news.NewsClass = newsViewModel.NewsClass;
-            news.NewsDescription = newsViewModel.NewsDescription;
-            news.NewsContxt = newsViewModel.NewsContxt;
-            news.NewsPublish = newsViewModel.NewsPublish;
-            news.NewsPutTime = newsViewModel.NewsPutTime;
-            news.NewsOffTime = newsViewModel.NewsOffTime;
-            news.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            news.Editor = AdminNum;
+            Product.ProductTitle = ProductViewModel.ProductTitle;
+            Product.ProductClass = ProductViewModel.ProductClass;
+            Product.ProductDescription = ProductViewModel.ProductDescription;
+            Product.ProductContxt = ProductViewModel.ProductContxt;
+            Product.ProductPublish = ProductViewModel.ProductPublish;
+            Product.ProductPutTime = ProductViewModel.ProductPutTime;
+            Product.ProductOffTime = ProductViewModel.ProductOffTime;
+            Product.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            Product.Editor = AdminNum;
 
-            if (newsViewModel.NewsImg1 != null)
+            if (ProductViewModel.ProductImg1 != null)
             {
-                news.NewsImg1 = newsViewModel.NewsImg1.FileName;
+                Product.ProductImg1 = ProductViewModel.ProductImg1.FileName;
             }
 
-            _context.Update(news);
+            _context.Update(Product);
             _context.SaveChanges();
         }
 
 
         public string Delete(long? id)
         {
-            var news = _context.News
-               .FirstOrDefault(m => m.NewsNum == id);
+            var Product = _context.Products
+               .FirstOrDefault(m => m.ProductNum == id);
 
-            string result = JsonConvert.SerializeObject(news);
+            string result = JsonConvert.SerializeObject(Product);
 
             return result;
         }
@@ -135,24 +133,24 @@ namespace ShopWebsite.Areas.BackEnd.Repository
 
         public void DeleteConfirmed(long? id, string path)
         {
-            var news = _context.News.Find(id);
-            if (news != null)
+            var Product = _context.Products.Find(id);
+            if (Product != null)
             {
-                _context.News.Remove(news);
+                _context.Products.Remove(Product);
             }
 
             _context.SaveChanges();
 
             //取得該篇文章的圖片並刪除
-            var direPath = Path.Combine(path, "uploads", "News");
-            var filePath = Path.Combine(direPath, news.NewsImg1);
+            var direPath = Path.Combine(path, "uploads", "Product");
+            var filePath = Path.Combine(direPath, Product.ProductImg1);
             System.IO.File.Delete(filePath);
         }
 
 
         public void SaveFile(IFormFile file, string path)
         {
-            var direPath = Path.Combine(path, "uploads", "News");
+            var direPath = Path.Combine(path, "uploads", "Product");
             if (!Directory.Exists(direPath))
             {
                 Directory.CreateDirectory(direPath);
@@ -166,7 +164,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         }
 
         
-        public List<SelectListItem> GetClassList()
+        public List<SelectListItem> GetProductClasseList()
         {
             return _context.ProductClasses
                            .Where(g => g.ProductClassPublish == true)

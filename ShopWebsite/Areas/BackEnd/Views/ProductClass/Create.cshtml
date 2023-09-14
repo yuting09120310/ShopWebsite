@@ -1,8 +1,8 @@
-﻿@model ShopWebsite.Areas.ViewModel.ProductClassViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel.ProductClassCreateViewModel
 
 @{
     ViewData["Title"] = "新增產品類別";
-    var breadcrumbDict = new Dictionary<string, string[]> { { "新增產品類別", new string[] { "產品管理", "產品設定", "新增產品類別" } } };
+    var breadcrumbDict = new Dictionary<string, string[]> { { "新增產品類別", new string[] { "產品管理", "產品類別", "新增產品類別" } } };
 }
 
 <!-- 麵包屑及標題-->
@@ -18,16 +18,6 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-
-                    <div class="mb-3 row">
-                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.CreatorName
-                        </div>
-                        <span asp-validation-for="CreatorName" class="text-danger"></span>
-                    </div>
-
-
 
                     <div class="mb-3 row">
                         <label asp-for="ProductClassName" class="col-sm-3 col-form-label"></label>

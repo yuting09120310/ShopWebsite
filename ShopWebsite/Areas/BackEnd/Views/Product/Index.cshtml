@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopWebsite.Areas.ViewModel.ProductViewModel>
+﻿@model IEnumerable<ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel.ProductIndexViewModel>
 
 @{
     ViewData["Title"] = "產品列表";
@@ -8,14 +8,12 @@
 <!-- 麵包屑及標題-->
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
 
-
 <style>
     .responsive-image {
         max-width: 100%;
         max-height: 200px; /* 調整圖片的最大高度 */
     }
 </style>
-
 
 <div class="container-fluid">
     <div class="row">
@@ -24,7 +22,7 @@
             <div class="card">
                 <div class="card-header pb-0 card-no-border">
                     <div class="title d-flex">
-                        <div class="col-11"><h3>產品列表</h3></div>
+                        <div class="col-11"><h3>產品設定列表</h3></div>
                         <div class="col-1 text-end"><a asp-controller="Product" asp-action="Create" class="btn btn-primary btn-sm">新增</a></div>
                     </div>
                     <hr />
@@ -40,7 +38,7 @@
                                     </th>
                                     <th class="col-2">
                                         @Html.DisplayNameFor(model => model.ProductTitle)
-                                    </th>
+                                    </th >
                                     <th class="col-2">
                                         @Html.DisplayNameFor(model => model.ProductDescription)
                                     </th>
@@ -62,7 +60,7 @@
                                     <th class="col-1">
                                         @Html.DisplayNameFor(model => model.ProductPublish)
                                     </th>
-                                    <th class="col-1">處理</th>
+                                    <th class ="col-1">處理</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,7 +161,7 @@
                 $('.modal-body').html(`
                                             <p>編號: ${obj.ProductNum}</p>
                                             <p>名稱: ${obj.ProductTitle}</p>
-                                            <p>圖片: <img src="${imageUrl}" alt="Product Image" class="responsive-image" /></p>
+                                            <p>圖片: <img src="${imageUrl}" alt="Banner Image" class="responsive-image" /></p>
                                             <p>描述: ${obj.ProductDescription}</p>
                                         `);
 

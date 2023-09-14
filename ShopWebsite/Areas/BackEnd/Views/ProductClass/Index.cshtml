@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopWebsite.Areas.ViewModel.ProductClassViewModel>
+﻿@model IEnumerable<ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel.ProductClassIndexViewModel>
 
 @{
     ViewData["Title"] = "產品類別列表";
@@ -55,7 +55,7 @@
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreateTime)
                                         </td>
-
+                                       
                                         <td>
                                             @{
                                                 if (@item.ProductClassPublish == true)
@@ -123,9 +123,9 @@
                 var content = response.data;
                 var obj = JSON.parse(content);
                 $('.modal-body').html(`
-                                                <p>編號: ${obj.ProductClassNum}</p>
-                                                <p>名稱: ${obj.ProductClassName}</p>
-                                            `);
+                <p>編號: ${obj.ProductClassNum}</p>
+                <p>名稱: ${obj.ProductClassName}</p>
+                `);
 
                 // 開啟模態對話框
                 $('#exampleModal').modal('show');
@@ -170,7 +170,6 @@
     });
 
 </script>
-
 
 <script>
     //設定中的"_XXXX_"是套件的數據替換, 可以不帶入, 另外, 名稱不同的話會被當作純文字顯示

@@ -1,9 +1,15 @@
-﻿@model ShopWebsite.Areas.ViewModel.ProductViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel.ProductCreateViewModel
 
 @{
     ViewData["Title"] = "新增產品";
     var breadcrumbDict = new Dictionary<string, string[]> { { "新增產品", new string[] { "產品管理", "產品設定", "新增產品" } } };
 }
+
+<style>
+    .cke_editor_ProductContxt {
+        border: solid 1px #ced4da;
+    }
+</style>
 
 <!-- 麵包屑及標題-->
 @Html.Partial("_PageTitlePartial", breadcrumbDict)
@@ -12,29 +18,16 @@
     <div class="card-header">
         <h5>新增產品</h5>
     </div>
-    <form asp-action="create" enctype="multipart/form-data">
+    <form asp-action="Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="card-body">
             <div class="row">
                 <div class="col">
 
-                    <input type="hidden" asp-for="CreateTime" />
-                    <input type="hidden" asp-for="Creator" />
-                    <input type="hidden" asp-for="ProductNum" />
-                    <input type="hidden" asp-for="Ip" />
-
-                    <div class="mb-3 row">
-                        <label asp-for="CreatorName" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9 col-form-label">
-                            @Model.CreatorName
-                        </div>
-                        <span asp-validation-for="CreatorName" class="text-danger"></span>
-                    </div>
-
                     <div class="mb-3 row">
                         <label asp-for="ProductClass" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            @Html.DropDownListFor(model => model.ProductClass, new SelectList(ViewBag.newsClass, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.ProductClass, new SelectList(ViewBag.ProductClass, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
                         </div>
                         <span asp-validation-for="ProductClass" class="text-danger"></span>
                     </div>
@@ -55,13 +48,6 @@
                         <span asp-validation-for="ProductDescription" class="text-danger"></span>
                     </div>
 
-                    <div class="mb-3 row">
-                        <label asp-for="ProductPrice" class="col-sm-3 col-form-label"></label>
-                        <div class="col-sm-9">
-                            <input asp-for="ProductPrice" class="form-control" />
-                        </div>
-                        <span asp-validation-for="ProductPrice" class="text-danger"></span>
-                    </div>
 
                     <div class="mb-3 row">
                         <label asp-for="ProductContxt" class="col-sm-3 col-form-label"></label>
@@ -71,6 +57,7 @@
                         </div>
                         <span asp-validation-for="ProductContxt" class="text-danger"></span>
                     </div>
+
 
                     <div class="mb-3 row">
                         <label asp-for="Tag" class="col-sm-3 col-form-label"></label>
@@ -84,15 +71,19 @@
                     <div class="mb-3 row">
                         <label asp-for="ProductImg1" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="FileData" class="form-control" type="file" onchange="previewFile(this)" accept="image/*" />
+                            <label style="display:block; border: solid 1px #ced4da;">
+                                <img id="imgPreview" src="~/BackEnd/cloud-upload.jpg" style="width:50%" />
+                                <input asp-for="ProductImg1" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" />
+                            </label>
                         </div>
-                        <span asp-validation-for="FileData" class="text-danger"></span>
+                        <span asp-validation-for="ProductImg1" class="text-danger"></span>
                     </div>
+
 
                     <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <img id="preview" src="~/uploads/Product/@Model.ProductImg1" style="max-width:200px;max-height:200px;" />
+                            <img id="preview" src="" style="max-width:200px;max-height:200px;" />
                             <input asp-for="ProductImg1" class="form-control" type="hidden" />
                         </div>
                     </div>
@@ -140,21 +131,16 @@
 </div>
 
 <script>
-    function previewFile(input) {
-        var preview = document.getElementById('preview');
-        var file = input.files[0];
-        var reader = new FileReader();
+    var imgPreview = document.querySelector('#imgPreview');
 
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
+    var file = document.querySelector('#imgPreview');
 
-        if (file) {
-            reader.readAsDataURL(file);
-            document.getElementById('ProductImg1').value = file.name;
-        } else {
-            preview.src = "";
-            document.getElementById('ProductImg1').value = "";
+
+    function showPreview(event) {
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            imgPreview.src = src;
+            imgPreview.style.display = "block";
         }
     }
 
@@ -178,3 +164,4 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+

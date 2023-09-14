@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
-using ShopWebsite.Areas.ViewModel;
+using ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel;
+using ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {
-    public interface IProcutRepository
+    public interface IProductRepository
     {
-        public List<ProductViewModel> GetList();
+        public List<ProductIndexViewModel> GetList();
 
 
-        public ProductViewModel Create();
-        public void Create(ProductViewModel newsViewModel, long AdminNum);
+        public ProductCreateViewModel Create();
+        public void Create(ProductCreateViewModel ProductViewModel, long AdminNum);
 
 
-        public NewsEditViewModel Edit(long? id);
-        public void Edit(NewsEditViewModel newsViewModel, long AdminNum);
+        public ProductEditViewModel Edit(long? id);
+        public void Edit(ProductEditViewModel ProductViewModel, long AdminNum);
 
 
         public string Delete(long? id);
@@ -28,6 +28,6 @@ namespace ShopWebsite.Areas.BackEnd.Interface
         /// 取得分類選單
         /// </summary>
         /// <returns>List<SelectListItem></returns>
-        public List<SelectListItem> GetClassList();
+        public List<SelectListItem> GetProductClasseList();
     }
 }
