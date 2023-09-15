@@ -6,7 +6,6 @@ using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
 using ShopWebsite.Areas.BackEnd.ViewModel.NewsClassViewModel;
 using ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel;
-using ShopWebsite.Areas.ViewModel;
 
 namespace ShopWebsite.Areas.Controllers
 {

@@ -1,5 +1,4 @@
-﻿@using ShopWebsite.Areas.ViewModel;
-@model ShopWebsite.Areas.ViewModel.OrderViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel.OrderEditViewModel
 
 @{
     ViewData["Title"] = "編輯訂單";
@@ -15,9 +14,9 @@
     </div>
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="order.OrderId" />
-        <input type="hidden" asp-for="order.TotalAmount" />
-        <input type="hidden" asp-for="order.OrderDate" />
+        <input type="hidden" asp-for="@Model.OrderID" />
+        <input type="hidden" asp-for="@Model.TotalAmount" />
+        <input type="hidden" asp-for="@Model.OrderDate" />
 
         <div class="card-body">
             <div class="row">
@@ -25,71 +24,71 @@
                 <div class="col">
 
                     <div class="mb-3 row">
-                        <label asp-for="order.CustomerName" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.CustomerName" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="order.CustomerName" class="form-control" placeholder="訂購人姓名" />
+                            <input asp-for="@Model.CustomerName" class="form-control" placeholder="訂購人姓名" />
                         </div>
-                        <span asp-validation-for="order.CustomerName" class="text-danger"></span>
+                        <span asp-validation-for="@Model.CustomerName" class="text-danger"></span>
                     </div>
 
 
 
                     <div class="mb-3 row">
-                        <label asp-for="order.OrderDate" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.OrderDate" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9 col-form-label">
-                            @Model.order.OrderDate
+                            @Model.OrderDate
                         </div>
-                        <span asp-validation-for="order.OrderDate" class="text-danger"></span>
+                        <span asp-validation-for="@Model.OrderDate" class="text-danger"></span>
                     </div>
 
 
                     <div class="mb-3 row">
-                        <label asp-for="order.Email" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.Email" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="order.Email" class="form-control" placeholder="信箱" />
+                            <input asp-for="@Model.Email" class="form-control" placeholder="信箱" />
                         </div>
-                        <span asp-validation-for="order.Email" class="text-danger"></span>
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
                     </div>
 
 
                     <div class="mb-3 row">
-                        <label asp-for="order.PaymentMethod" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.PaymentMethod" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="order.PaymentMethod" class="form-control" placeholder="付款方式" />
+                            <input asp-for="@Model.PaymentMethod" class="form-control" placeholder="付款方式" />
                         </div>
-                        <span asp-validation-for="order.PaymentMethod" class="text-danger"></span>
+                        <span asp-validation-for="@Model.PaymentMethod" class="text-danger"></span>
                     </div>
 
 
                     <div class="mb-3 row">
-                        <label asp-for="order.ShippingAddress" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.ShippingAddress" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <input asp-for="order.ShippingAddress" class="form-control" placeholder="寄送地址" />
+                            <input asp-for="@Model.ShippingAddress" class="form-control" placeholder="寄送地址" />
                         </div>
-                        <span asp-validation-for="order.ShippingAddress" class="text-danger"></span>
+                        <span asp-validation-for="@Model.ShippingAddress" class="text-danger"></span>
                     </div>
 
 
                     <div class="mb-3 row">
-                        <label asp-for="order.TotalAmount" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.TotalAmount" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9 col-form-label">
-                            @Model.order.TotalAmount
+                            @Model.TotalAmount
                         </div>
-                        <span asp-validation-for="order.TotalAmount" class="text-danger"></span>
+                        <span asp-validation-for="@Model.TotalAmount" class="text-danger"></span>
                     </div>
 
 
                     <div class="mb-3 row">
-                        <label asp-for="order.OrderStatus" class="col-sm-3 col-form-label"></label>
+                        <label asp-for="@Model.OrderStatus" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
-                            <select asp-for="order.OrderStatus" class="form-control">
+                            <select asp-for="@Model.OrderStatus" class="form-control">
                                 <option value="確認中">確認中</option>
                                 <option value="揀貨中">揀貨中</option>
                                 <option value="已出貨">已出貨</option>
                                 <option value="已到貨">已到貨</option>
                             </select>
                         </div>
-                        <span asp-validation-for="order.OrderStatus" class="text-danger"></span>
+                        <span asp-validation-for="@Model.OrderStatus" class="text-danger"></span>
                     </div>
 
                 </div>
@@ -98,7 +97,7 @@
             <hr class="my-4">
 
             <div class="row">
-                @Html.EditorFor(model => model.orderProduct)
+                @Html.EditorFor(model => model.orderProductViewModels)
             </div>
 
         </div>

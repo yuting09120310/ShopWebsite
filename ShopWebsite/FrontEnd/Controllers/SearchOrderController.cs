@@ -1,9 +1,9 @@
 ﻿using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net.Mail;
 using System.Net;
+using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 
 namespace ShopWebsite.FrontEnd.Controllers
 {
@@ -37,27 +37,31 @@ namespace ShopWebsite.FrontEnd.Controllers
         /// <returns></returns>
         public IActionResult SearchResult(int OrderID)
         {
-            OrderViewModel orderViewModel = _context.Orders
+            OrderEditViewModel orderViewModel = _context.Orders
                                                 .Where(x => x.OrderId == OrderID)
-                                                .Select(o => new OrderViewModel
+                                                .Select(o => new OrderEditViewModel
                                                 {
-                                                    order = o,
-                                                    orderProduct = _context.OrderProducts
+                                                    OrderID = o.OrderId,
+                                                    CustomerName = o.CustomerName,
+                                                    Email = o.Email,
+                                                    OrderDate = o.OrderDate,
+                                                    PaymentMethod = o.PaymentMethod,
+                                                    ShippingAddress = o.ShippingAddress,
+                                                    TotalAmount = o.TotalAmount,
+                                                    OrderStatus = o.OrderStatus,
+
+                                                    orderProductViewModels = _context.OrderProducts
                                                     .Where(x => x.OrderId == o.OrderId)
                                                     .Select(op => new OrderProductViewModel
                                                     {
-                                                        OrderProductId = op.OrderProductId,
-                                                        OrderId = op.OrderId,
                                                         ProductName = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductTitle).FirstOrDefault()!,
                                                         ProductImg = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductImg1).FirstOrDefault()!,
-                                                        ProductId = op.ProductId,
                                                         Quantity = op.Quantity,
                                                         Price = op.Price,
-                                                        Discount = op.Discount
                                                     }).ToList()
-                                                }).FirstOrDefault();
+                                                }).FirstOrDefault()!;
 
-            if(orderViewModel == null)
+            if (orderViewModel == null)
             {
                 TempData["ErrorMessage"] = "查無此訂單資訊";
             }

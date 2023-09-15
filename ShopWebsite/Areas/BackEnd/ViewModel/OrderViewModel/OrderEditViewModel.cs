@@ -2,36 +2,41 @@
 
 namespace ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel
 {
-    public class NewsEditViewModel
+    public class OrderEditViewModel
     {
         [Display(Name = "編號")]
-        public long NewsNum { get; set; }
+        public long OrderID { get; set; }
 
-        [Display(Name = "標題")]
-        public string? NewsTitle { get; set; }
+        [Display(Name = "姓名")]
+        public string? CustomerName { get; set; }
 
-        [Display(Name = "分類")]
-        public long NewsClass { get; set; }
+        [Display(Name = "信箱")]
+        public string? Email { get; set; }
 
-        [Display(Name = "說明")]
-        public string? NewsDescription { get; set; }
+        [Display(Name = "訂單日期")]
+        public DateTime OrderDate { get; set; }
 
-        [Display(Name = "內容")]
-        public string? NewsContxt { get; set; }
+        [Display(Name = "付款方式")]
+        public string? PaymentMethod { get; set; }
 
-        [Display(Name = "圖片")]
-        public IFormFile? NewsImg1 { get; set; }
+        [Display(Name = "訂單地址")]
+        public string? ShippingAddress { get; set; }
 
-        [Display(Name = "狀態")]
-        public bool? NewsPublish { get; set; }
+        [Display(Name = "訂單總額")]
+        public int TotalAmount { get; set; }
 
-        [Display(Name = "上架時間")]
-        public DateTime? NewsPutTime { get; set; }
+        [Display(Name = "訂單狀態")]
+        public string? OrderStatus { get; set; }
 
-        [Display(Name = "下架時間")]
-        public DateTime? NewsOffTime { get; set; }
 
-        [Display(Name = "標籤")]
-        public string? Tag { get; set; }
+        public List<OrderProductViewModel> orderProductViewModels { get; set; }
+    }
+
+    public class OrderProductViewModel
+    {
+        public string? ProductName { get; set; }
+        public string? ProductImg { get; set; }
+        public int Quantity { get; set; }
+        public int Price { get; set; }
     }
 }

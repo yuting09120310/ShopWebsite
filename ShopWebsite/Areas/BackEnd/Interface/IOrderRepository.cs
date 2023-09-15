@@ -1,26 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
+using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {
     public interface IOrderRepository
     {
-        public List<NewsIndexViewModel> GetList();
+        public List<OrderIndexViewModel> GetList();
 
 
-        public NewsCreateViewModel Create();
-        public void Create(NewsCreateViewModel newsViewModel, long AdminNum);
+        public OrderEditViewModel Edit(long id);
+        public void Edit(OrderEditViewModel newsViewModel, long AdminNum);
 
 
-        public NewsEditViewModel Edit(long? id);
-        public void Edit(NewsEditViewModel newsViewModel, long AdminNum);
-
-
-        public string Delete(long? id);
-        public void DeleteConfirmed(long? id, string path);
-
-
-        public void SaveFile(IFormFile file, string path);
+        public string Delete(long id);
+        public void DeleteConfirmed(long id);
 
 
         /// <summary>

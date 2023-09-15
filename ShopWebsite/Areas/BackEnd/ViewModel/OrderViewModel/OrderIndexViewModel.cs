@@ -2,35 +2,30 @@
 
 namespace ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel
 {
-    public class NewsIndexViewModel
+    public class OrderIndexViewModel
     {
         [Display(Name = "編號")]
-        public long NewsNum { get; set; }
+        public long OrderID { get; set; }
 
-        [Display(Name = "標題")]
-        public string? NewsTitle { get; set; }
+        [Display(Name = "姓名")]
+        public string? CustomerName { get; set; }
 
-        [Display(Name = "說明")]
-        public string? NewsDescription { get; set; }
+        [Display(Name = "信箱")]
+        public string? Email { get; set; }
 
-        [Display(Name = "圖片")]
-        public string? NewsImg1 { get; set; }
+        [Display(Name = "訂單日期")]
+        public DateTime? OrderDate { get; set; }
 
-        [Display(Name = "狀態")]
-        public bool? NewsPublish { get; set; }
+        [Display(Name = "付款方式")]
+        public string? PaymentMethod { get; set; }
 
-        [Display(Name = "上架時間")]
-        public DateTime? NewsPutTime { get; set; }
+        [Display(Name = "訂單地址")]
+        public string? ShippingAddress { get; set; }
 
-        [Display(Name = "建立時間")]
-        public DateTime? CreateTime { get; set; }
+        [Display(Name = "訂單總額")]
+        public int? TotalAmount { get; set; }
 
-        [Display(Name = "編輯時間")]
-        public DateTime? EditTime { get; set; }
-
-        public string? Ip { get; set; }
-
-        [Display(Name = "下架時間")]
-        public DateTime? NewsOffTime { get; set; }
+        [Display(Name = "訂單狀態")]
+        public string? OrderStatus { get; set; }
     }
 }

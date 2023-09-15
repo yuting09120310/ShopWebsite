@@ -1,4 +1,4 @@
-﻿@model ShopWebsite.Areas.ViewModel.OrderProductViewModel
+﻿@model ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel.OrderProductViewModel
 
 <div class="row mb-4 d-flex justify-content-between align-items-center">
     <div class="col-md-2 col-lg-2 col-xl-2">
@@ -20,11 +20,7 @@
 
 <hr class="my-4">
 
-<input type="hidden" asp-for="@Model.OrderProductId" />
-<input type="hidden" asp-for="@Model.OrderId" />
-<input type="hidden" asp-for="@Model.ProductId" />
 <input type="hidden" asp-for="@Model.Quantity" />
 <input type="hidden" asp-for="@Model.Price" />
-<input type="hidden" asp-for="@Model.Discount" />
 <input type="hidden" asp-for="@Model.ProductImg" />
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopWebsite.Areas.ViewModel.OrderViewModel>;
+﻿@model IEnumerable<ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel.OrderIndexViewModel>;
 
 @{
     ViewData["Title"] = "訂單列表";
@@ -26,25 +26,25 @@
                             <thead>
                                 <tr>
                                     <th class="col-1">
-                                        @Html.DisplayNameFor(model => model.order.OrderId)
+                                        @Html.DisplayNameFor(model => model.OrderID)
                                     </th>
                                     <th class="col-2">
-                                        @Html.DisplayNameFor(model => model.order.CustomerName)
+                                        @Html.DisplayNameFor(model => model.CustomerName)
                                     </th>
                                     <th class="col-2">
-                                        @Html.DisplayNameFor(model => model.order.OrderDate)
+                                        @Html.DisplayNameFor(model => model.OrderDate)
                                     </th>
                                     <th class="col-1">
-                                        @Html.DisplayNameFor(model => model.order.PaymentMethod)
+                                        @Html.DisplayNameFor(model => model.PaymentMethod)
                                     </th>
                                     <th class="col-1">
-                                        @Html.DisplayNameFor(model => model.order.ShippingAddress)
+                                        @Html.DisplayNameFor(model => model.ShippingAddress)
                                     </th>
                                     <th class="col-1">
-                                        @Html.DisplayNameFor(model => model.order.TotalAmount)
+                                        @Html.DisplayNameFor(model => model.TotalAmount)
                                     </th>
                                     <th class="col-1">
-                                        @Html.DisplayNameFor(model => model.order.OrderStatus)
+                                        @Html.DisplayNameFor(model => model.OrderStatus)
                                     </th>
                                     <th class="col-1">處理</th>
                                 </tr>
@@ -54,30 +54,30 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.OrderId)
+                                            @Html.DisplayFor(modelItem => item.OrderID)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.CustomerName)
+                                            @Html.DisplayFor(modelItem => item.CustomerName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.OrderDate)
+                                            @Html.DisplayFor(modelItem => item.OrderDate)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.PaymentMethod)
+                                            @Html.DisplayFor(modelItem => item.PaymentMethod)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.ShippingAddress)
+                                            @Html.DisplayFor(modelItem => item.ShippingAddress)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.TotalAmount)
+                                            @Html.DisplayFor(modelItem => item.TotalAmount)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.order.OrderStatus)
+                                            @Html.DisplayFor(modelItem => item.OrderStatus)
                                         </td>
                                         <td>
                                             <ul class="action">
-                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.order.OrderId"><i class="icon-pencil-alt"></i></a></li>
-                                                <li class="delete"><a href="#" class="deletes" data-id="@item.order.OrderId"><i class="icon-trash"></i></a></li>
+                                                <li class="edit"> <a asp-action="Edit" asp-route-id="@item.OrderID"><i class="icon-pencil-alt"></i></a></li>
+                                                <li class="delete"><a href="#" class="deletes" data-id="@item.OrderID"><i class="icon-trash"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>

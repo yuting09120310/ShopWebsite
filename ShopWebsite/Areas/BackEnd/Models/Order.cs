@@ -7,7 +7,7 @@ namespace ShopWebsite.Areas.BackEnd.Models;
 public partial class Order
 {
     [Display(Name = "訂單編號")]
-    public int OrderId { get; set; }
+    public long OrderId { get; set; }
 
     [Display(Name = "客戶姓名")]
     public string CustomerName { get; set; } = null!;

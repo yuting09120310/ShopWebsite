@@ -6,7 +6,6 @@ using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
 using ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel;
-using ShopWebsite.Areas.ViewModel;
 using System.Collections.Generic;
 
 namespace ShopWebsite.Areas.Controllers
@@ -42,7 +41,7 @@ namespace ShopWebsite.Areas.Controllers
             ProductCreateViewModel createViewModel = _productRepository.Create();
 
             //取得分類選單資料
-            ViewBag.newsClass = _productRepository.GetProductClasseList();
+            ViewBag.ProductClass = _productRepository.GetProductClasseList();
 
             return View(createViewModel);
         }
@@ -87,7 +86,7 @@ namespace ShopWebsite.Areas.Controllers
             }
 
             //取得分類選單資料
-            ViewBag.newsClass = _productRepository.GetProductClasseList();
+            ViewBag.ProductClass = _productRepository.GetProductClasseList();
 
             return View(productViewModel);
         }

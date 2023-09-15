@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
+using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository
 {
@@ -21,130 +23,99 @@ namespace ShopWebsite.Areas.BackEnd.Repository
         /// 取得列表
         /// </summary>
         /// <returns></returns>
-        public List<NewsIndexViewModel> GetList()
+        public List<OrderIndexViewModel> GetList()
         {
-            List<NewsIndexViewModel> viewModel = _context.News
-                                            .Select(n => new NewsIndexViewModel
-                                            {
-                                                NewsNum = n.NewsNum,
-                                                NewsTitle = n.NewsTitle,
-                                                NewsDescription = n.NewsDescription,
-                                                NewsImg1 = n.NewsImg1,
-                                                NewsPutTime = n.NewsPutTime,
-                                                CreateTime = n.CreateTime,
-                                                EditTime = n.EditTime,
-                                                NewsOffTime = n.NewsOffTime,
-                                                NewsPublish = n.NewsPublish
-                                            }).ToList();
+            List<OrderIndexViewModel> viewModel = _context.Orders
+                                               .Select(o => new OrderIndexViewModel
+                                               {
+                                                   OrderID = o.OrderId,
+                                                   CustomerName = o.CustomerName,
+                                                   Email = o.Email,
+                                                   OrderDate = o.OrderDate,
+                                                   PaymentMethod = o.PaymentMethod,
+                                                   ShippingAddress = o.ShippingAddress,
+                                                   TotalAmount = o.TotalAmount,
+                                                   OrderStatus = o.OrderStatus
+                                               }).ToList();
 
             return viewModel;
         }
 
 
-        public NewsCreateViewModel Create()
+        public OrderEditViewModel Edit(long id)
         {
-            NewsCreateViewModel viewModel = new NewsCreateViewModel();
+            OrderEditViewModel viewModel = _context.Orders
+                                                .Where(x => x.OrderId == id)
+                                                .Select(o => new OrderEditViewModel
+                                                {
+                                                    OrderID = o.OrderId,
+                                                    CustomerName = o.CustomerName,
+                                                    Email = o.Email,
+                                                    OrderDate = o.OrderDate,
+                                                    PaymentMethod = o.PaymentMethod,
+                                                    ShippingAddress = o.ShippingAddress,
+                                                    TotalAmount = o.TotalAmount,
+                                                    OrderStatus = o.OrderStatus,
+
+                                                    orderProductViewModels = _context.OrderProducts
+                                                    .Where(x => x.OrderId == o.OrderId)
+                                                    .Select(op => new OrderProductViewModel
+                                                    {
+                                                        ProductName = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductTitle).FirstOrDefault()!,
+                                                        ProductImg = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductImg1).FirstOrDefault()!,
+                                                        Quantity = op.Quantity,
+                                                        Price = op.Price,
+                                                    }).ToList()
+                                                }).FirstOrDefault()!;
+
             return viewModel;
-        }
-
-
-        public void Create(NewsCreateViewModel newsViewModel, long AdminNum)
-        {
-            News news = new News()
-            {
-                NewsClass = newsViewModel.NewsClass,
-                NewsTitle = newsViewModel.NewsTitle,
-                NewsDescription = newsViewModel.NewsDescription,
-                NewsContxt = newsViewModel.NewsContxt,
-                NewsImg1 = newsViewModel.NewsImg1.FileName,
-                NewsPublish = newsViewModel.NewsPublish,
-                NewsPutTime = newsViewModel.NewsPutTime,
-                NewsOffTime = newsViewModel.NewsOffTime,
-                Creator = AdminNum,
-                CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
-                Tag = newsViewModel.Tag
-            };
-
-            _context.Add(news);
-            _context.SaveChanges();
-        }
-
-
-        public NewsEditViewModel Edit(long? id)
-        {
-            //進入DB搜尋資料
-            NewsEditViewModel newsViewModel = (
-                from news in _context.News
-                where news.NewsNum == id
-                select new NewsEditViewModel
-                {
-                    NewsNum = news.NewsNum,
-                    NewsTitle = news.NewsTitle,
-                    NewsClass = news.NewsClass,
-                    NewsDescription = news.NewsDescription,
-                    NewsContxt = news.NewsContxt,
-                    NewsPublish = news.NewsPublish,
-                    NewsPutTime = news.NewsPutTime,
-                    NewsOffTime = news.NewsOffTime,
-                    NewsImg1 = new FormFile(new MemoryStream(), 0, 0, news.NewsImg1.ToString(), news.NewsImg1.ToString()),
-                    Tag = news.Tag
-                }
-            ).FirstOrDefault()!;
-
-            return newsViewModel;
         }
 
         
-        public void Edit(NewsEditViewModel newsViewModel, long AdminNum)
+        public void Edit(OrderEditViewModel orderViewModel, long AdminNum)
         {
-            News news = _context.News.Where(x => x.NewsNum == newsViewModel.NewsNum).FirstOrDefault()!;
-
-            //將資料寫入db
-            news.NewsTitle = newsViewModel.NewsTitle;
-            news.NewsClass = newsViewModel.NewsClass;
-            news.NewsDescription = newsViewModel.NewsDescription;
-            news.NewsContxt = newsViewModel.NewsContxt;
-            news.NewsPublish = newsViewModel.NewsPublish;
-            news.NewsPutTime = newsViewModel.NewsPutTime;
-            news.NewsOffTime = newsViewModel.NewsOffTime;
-            news.EditTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            news.Editor = AdminNum;
-
-            if (newsViewModel.NewsImg1 != null)
+            Order orders = new Order()
             {
-                news.NewsImg1 = newsViewModel.NewsImg1.FileName;
-            }
+                OrderId = orderViewModel.OrderID,
+                CustomerName = orderViewModel.CustomerName,
+                Email = orderViewModel.Email,
+                OrderDate = orderViewModel.OrderDate,
+                PaymentMethod = orderViewModel.PaymentMethod,
+                ShippingAddress = orderViewModel.ShippingAddress,
+                TotalAmount = orderViewModel.TotalAmount,
+                OrderStatus = orderViewModel.OrderStatus
+            };
 
-            _context.Update(news);
+            // 更新訂單
+            _context.Orders.Update(orders);
             _context.SaveChanges();
         }
 
 
-        public string Delete(long? id)
+        public string Delete(long id)
         {
-            var news = _context.News
-               .FirstOrDefault(m => m.NewsNum == id);
+            var order = _context.Orders
+               .FirstOrDefault(m => m.OrderId == id);
 
-            string result = JsonConvert.SerializeObject(news);
+            string result = JsonConvert.SerializeObject(order);
 
             return result;
         }
 
 
-        public void DeleteConfirmed(long? id, string path)
+        public void DeleteConfirmed(long id)
         {
-            var news = _context.News.Find(id);
-            if (news != null)
-            {
-                _context.News.Remove(news);
-            }
+            // 刪除Order
+            Order order = _context.Orders.Where(x => x.OrderId == id).FirstOrDefault();
+            _context.Orders.Remove(order);
+
+            // 取得符合條件的 OrderProduct
+            List<OrderProduct> orderProducts = _context.OrderProducts.Where(x => x.OrderId == id).ToList();
+
+            // 刪除 OrderProduct
+            _context.OrderProducts.RemoveRange(orderProducts);
 
             _context.SaveChanges();
-
-            //取得該篇文章的圖片並刪除
-            var direPath = Path.Combine(path, "uploads", "News");
-            var filePath = Path.Combine(direPath, news.NewsImg1);
-            System.IO.File.Delete(filePath);
         }
 
 

@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
+using ShopWebsite.Areas.BackEnd.Repository;
+using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 using ShopWebsite.Areas.Controllers;
-using ShopWebsite.Areas.ViewModel;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace ShopWebsite.Areas.BackEnd.Controllers
 {
     [Area("BackEnd")]
     public class OrdersController : GenericController
     {
-        int menuSubNum = 12;
+        IOrderRepository _orderRepository;
 
-        public OrdersController(ShopWebsiteContext context) : base(context) { }
+        public OrdersController(ShopWebsiteContext context) : base(context) 
+        {
+            _orderRepository = new OrderRepository(context);
+        }
 
 
         // GET: BackEnd/Orders
@@ -20,51 +26,18 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
         {
             GetMenu();
 
-            List<OrderViewModel> orderViewModel = _context.Orders
-                                                .Select(o => new OrderViewModel
-                                                {
-                                                    order = o,
-                                                    orderProduct = _context.OrderProducts
-                                                    .Where(x => x.OrderId == o.OrderId)
-                                                    .Select(op => new OrderProductViewModel
-                                                    {
-                                                        OrderProductId = op.OrderProductId,
-                                                        ProductId = op.ProductId,
-                                                        Quantity = op.Quantity,
-                                                        Price = op.Price,
-                                                        Discount = op.Discount
-                                                    }).ToList()
-                                                })
-                                                .ToList();
+            List<OrderIndexViewModel> orderViewModel = _orderRepository.GetList();
 
             return View(orderViewModel);
         }
 
 
         // GET: BackEnd/Orders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             GetMenu();
 
-            OrderViewModel orderViewModel = _context.Orders
-                                                .Where(x => x.OrderId == id)
-                                                .Select(o => new OrderViewModel
-                                                {
-                                                    order = o,
-                                                    orderProduct = _context.OrderProducts
-                                                    .Where(x => x.OrderId == o.OrderId)
-                                                    .Select(op => new OrderProductViewModel
-                                                    {
-                                                        OrderProductId = op.OrderProductId,
-                                                        OrderId  = op.OrderId,
-                                                        ProductName = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductTitle).FirstOrDefault()!,
-                                                        ProductImg = (from product in _context.Products where product.ProductNum == op.ProductId select product.ProductImg1).FirstOrDefault()!,
-                                                        ProductId = op.ProductId,
-                                                        Quantity = op.Quantity,
-                                                        Price = op.Price,
-                                                        Discount = op.Discount
-                                                    }).ToList()
-                                                }).FirstOrDefault()!;
+            OrderEditViewModel orderViewModel = _orderRepository.Edit(id);
 
             if (orderViewModel == null)
             {
@@ -80,62 +53,26 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(OrderViewModel orderViewModel)
+        public async Task<IActionResult> Edit(OrderEditViewModel orderViewModel)
         {
             GetMenu();
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    // 更新訂單
-                    _context.Orders.Update(orderViewModel.order);
+                _orderRepository.Edit(orderViewModel, Convert.ToInt64(HttpContext.Session.GetString("AdminNum")));
 
-                    // 更新訂單產品
-                    foreach (OrderProductViewModel item in orderViewModel.orderProduct)
-                    {
-                        OrderProduct orderProduct = new OrderProduct()
-                        {
-                            OrderProductId = item.OrderProductId,
-                            OrderId = item.OrderId,
-                            ProductId = item.ProductId,
-                            Quantity = item.Quantity,
-                            Price = item.Price,
-                            Discount = item.Discount
-                        };
-                        _context.OrderProducts.Update(orderProduct);
-                    }
-
-                    // 儲存變更
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    // 處理同時更新衝突的例外錯誤
-                    ViewBag.result = "更新資料異常，請聯繫管理員。";
-                }
-
-                // 重新導向到 Index 頁面
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                // 模型驗證未通過，返回包含 orderViewModel 的 View
-                ViewBag.result = "驗證未通過，請聯繫管理員。";
-                return View(orderViewModel);
-            }
 
+            return View(orderViewModel);
         }
 
 
         //詢問視窗
         // GET: BackEnd/Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-
-            string res =  JsonConvert.SerializeObject(order);
+            string res =  _orderRepository.Delete(id);
 
             return Json(res);
         }
@@ -145,17 +82,7 @@ namespace ShopWebsite.Areas.BackEnd.Controllers
         // POST: BackEnd/Orders/Delete/5
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // 刪除Order
-            Order order = _context.Orders.Where(x => x.OrderId == id).FirstOrDefault();
-            _context.Orders.Remove(order);
-
-            // 取得符合條件的 OrderProduct
-            List<OrderProduct> orderProducts = _context.OrderProducts.Where(x => x.OrderId == id).ToList();
-
-            // 刪除 OrderProduct
-            _context.OrderProducts.RemoveRange(orderProducts);
-
-            await _context.SaveChangesAsync();
+            _orderRepository.DeleteConfirmed(id);
 
             return Json("刪除成功");
         }
