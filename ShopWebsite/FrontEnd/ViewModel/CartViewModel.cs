@@ -6,7 +6,7 @@ namespace ShopWebsite.FrontEnd.ViewModel
     {
         public  List<SingleProductViewModel> singleProductViewModels { get; set; }
 
-        public int Total { get; set; }
+        public long Total { get; set; }
 
         [RegularExpression(@"^[\u4e00-\u9fa5]+$", ErrorMessage = "名字應為中文")]
         public string Name { get; set; }

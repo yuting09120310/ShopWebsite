@@ -23,7 +23,7 @@ namespace ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel
         public string? ShippingAddress { get; set; }
 
         [Display(Name = "訂單總額")]
-        public int TotalAmount { get; set; }
+        public long TotalAmount { get; set; }
 
         [Display(Name = "訂單狀態")]
         public string? OrderStatus { get; set; }
@@ -36,7 +36,7 @@ namespace ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel
     {
         public string? ProductName { get; set; }
         public string? ProductImg { get; set; }
-        public int Quantity { get; set; }
-        public int Price { get; set; }
+        public long Quantity { get; set; }
+        public long Price { get; set; }
     }
 }

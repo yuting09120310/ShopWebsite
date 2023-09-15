@@ -23,9 +23,9 @@
 
         public string? contxt { get; set; }
 
-        public int Price { get; set; }
+        public long Price { get; set; }
 
-        public int amount { get; set; }
+        public long amount { get; set; }
 
         public string tag { get; set; }
     }

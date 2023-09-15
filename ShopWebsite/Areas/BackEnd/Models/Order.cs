@@ -25,7 +25,7 @@ public partial class Order
     public string ShippingAddress { get; set; } = null!;
 
     [Display(Name = "總金額")]
-    public int TotalAmount { get; set; }
+    public long TotalAmount { get; set; }
 
     [Display(Name = "訂單狀態")]
     public string OrderStatus { get; set; } = null!;

@@ -5,7 +5,7 @@ namespace ShopWebsite.Areas.BackEnd.Models;
 
 public partial class Comment
 {
-    public int CommentId { get; set; }
+    public long CommentId { get; set; }
 
     public long NewsId { get; set; }
 

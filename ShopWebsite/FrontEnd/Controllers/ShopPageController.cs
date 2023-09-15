@@ -51,7 +51,7 @@ namespace ShopWebsite.FrontEnd.Controllers
 
 
             // 取得最多訂單的 ProductId
-            List<int> topProductIds = _context.OrderProducts
+            List<long> topProductIds = _context.OrderProducts
                                         .GroupBy(p => p.ProductId)
                                         .OrderByDescending(g => g.Count())
                                         .Take(3)
