@@ -68,6 +68,9 @@ namespace ShopWebsite.Areas.BackEnd.Interface
         /// <param name="path">儲存路徑。</param>
         void SaveFile(IFormFile file, string path);
 
+        void SaveFile(List<IFormFile> file, string path);
+
+
 
         /// <summary>
         /// 取得產品分類選單的檢視模型。

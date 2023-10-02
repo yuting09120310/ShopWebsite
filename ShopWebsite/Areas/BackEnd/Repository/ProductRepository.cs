@@ -163,7 +163,27 @@ namespace ShopWebsite.Areas.BackEnd.Repository
             }
         }
 
-        
+
+        public void SaveFile(List<IFormFile> file, string path)
+        {
+            var direPath = Path.Combine(path, "uploads", "Product");
+            if (!Directory.Exists(direPath))
+            {
+                Directory.CreateDirectory(direPath);
+            }
+
+            foreach( var item in file)
+            {
+                var filePath = Path.Combine(direPath, item.FileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    item.CopyTo(fileStream);
+                }
+            }
+        }
+
+
+
         public List<SelectListItem> GetProductClasseList()
         {
             return _context.ProductClasses
