@@ -131,14 +131,5 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 file.CopyTo(fileStream);
             }
         }
-
-        
-        public List<SelectListItem> GetNewsClasseList()
-        {
-            return _context.NewsClasses
-                           .Where(g => g.NewsClassPublish == true)
-                           .Select(g => new SelectListItem { Text = g.NewsClassName, Value = g.NewsClassNum.ToString() })
-                           .ToList();
-        }
     }
 }
