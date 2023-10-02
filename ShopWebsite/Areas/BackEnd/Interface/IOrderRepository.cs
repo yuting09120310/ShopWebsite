@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
 using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface

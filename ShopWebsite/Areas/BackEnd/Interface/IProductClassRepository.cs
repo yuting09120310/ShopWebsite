@@ -1,5 +1,4 @@
-﻿using ShopWebsite.Areas.BackEnd.ViewModel.NewsClassViewModel;
-using ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel;
+﻿using ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {

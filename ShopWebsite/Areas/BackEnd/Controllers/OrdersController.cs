@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.Repository;
 using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 using ShopWebsite.Areas.Controllers;
-using static NuGet.Packaging.PackagingConstants;
 
 namespace ShopWebsite.Areas.BackEnd.Controllers
 {

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
 using ShopWebsite.Areas.BackEnd.ViewModel.OrderViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository

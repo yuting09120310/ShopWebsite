@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel;
-using ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Interface
 {

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
-using ShopWebsite.Areas.BackEnd.ViewModel.NewsClassViewModel;
 using ShopWebsite.Areas.BackEnd.ViewModel.ProductClassViewModel;
 
 namespace ShopWebsite.Areas.BackEnd.Repository

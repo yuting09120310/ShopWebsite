@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ShopWebsite.Areas.BackEnd.Models;
+﻿namespace ShopWebsite.Areas.BackEnd.Models;
 
 public partial class News
 {
