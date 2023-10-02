@@ -16,6 +16,13 @@ namespace ShopWebsite.Areas.BackEnd.Interface
 
 
         /// <summary>
+        /// 建立產品的檢視模型。
+        /// </summary>
+        /// <returns>建立產品的檢視模型。</returns>
+        ProductCreateViewModel Create();
+
+
+        /// <summary>
         /// 建立新的產品。
         /// </summary>
         /// <param name="ProductViewModel">產品的建立檢視模型。</param>
