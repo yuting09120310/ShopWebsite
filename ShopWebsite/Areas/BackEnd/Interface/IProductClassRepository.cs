@@ -14,6 +14,9 @@ namespace ShopWebsite.Areas.BackEnd.Interface
         List<ProductClassIndexViewModel> GetList();
 
 
+        ProductClassCreateViewModel Create();
+
+
         /// <summary>
         /// 建立新的產品分類。
         /// </summary>

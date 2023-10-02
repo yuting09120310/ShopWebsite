@@ -81,6 +81,18 @@
 
 
                     <div class="mb-3 row">
+                        <label asp-for="ProductImgList" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <label style="display:block; border: solid 1px #ced4da;">
+                                <img id="imgPreview" src="~/BackEnd/cloud-upload.jpg" style="width:50%" />
+                                <input asp-for="ProductImgList" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" multiple />
+                            </label>
+                        </div>
+                        <span asp-validation-for="ProductImgList" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <img id="preview" src="" style="max-width:200px;max-height:200px;" />
