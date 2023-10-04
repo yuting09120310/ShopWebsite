@@ -57,6 +57,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 ProductDescription = ProductViewModel.ProductDescription,
                 ProductContxt = ProductViewModel.ProductContxt,
                 ProductImg1 = ProductViewModel.ProductImg1.FileName,
+                ProductImgList = string.Join(",", ProductViewModel.ProductImgList.Select(item => item.FileName)),
                 ProductPublish = ProductViewModel.ProductPublish,
                 ProductPutTime = ProductViewModel.ProductPutTime,
                 ProductOffTime = ProductViewModel.ProductOffTime,
@@ -64,6 +65,14 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 CreateTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")),
                 Tag = ProductViewModel.Tag
             };
+
+            //List<string> lst = new List<string>();
+
+            //for (int i = 0; i < ProductViewModel.ProductImgList.Count; i++)
+            //{
+            //    lst.Add(ProductViewModel.ProductImgList[i].FileName);
+            //}
+            //Product.ProductImgList = string.Join(",", lst);
 
             _context.Add(Product);
             _context.SaveChanges();

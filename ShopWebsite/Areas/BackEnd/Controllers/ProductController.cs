@@ -74,8 +74,9 @@ namespace ShopWebsite.Areas.Controllers
 
             if (ModelState.IsValid)
             {
-                // 儲存產品圖片並建立新的產品，然後轉向產品列表
+                // 儲存產品圖片並建立新的產品，然後轉向產品列表 封面圖
                 _productRepository.SaveFile(productViewModel.ProductImg1, _hostingEnvironment.WebRootPath);
+                //產品圖
                 _productRepository.SaveFile(productViewModel.ProductImgList, _hostingEnvironment.WebRootPath);
                 _productRepository.Create(productViewModel, Convert.ToInt64(HttpContext.Session.GetString("AdminNum")));
 
