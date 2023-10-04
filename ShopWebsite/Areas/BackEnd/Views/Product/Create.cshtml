@@ -84,8 +84,10 @@
                         <label asp-for="ProductImgList" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <label style="display:block; border: solid 1px #ced4da;">
-                                <img id="imgPreview" src="~/BackEnd/cloud-upload.jpg" style="width:50%" />
-                                <input asp-for="ProductImgList" class="form-control" type="file" style="display:none;" onchange="showPreview(event)" multiple />
+                                <div id="imagePreviews">
+                                    <img id="imagePreviews" src="~/BackEnd/cloud-upload.jpg" style="width:50%" />
+                                </div>
+                                <input asp-for="ProductImgList" class="form-control" type="file" style="display:none;" onchange="handleFileSelect(event)" multiple />
                             </label>
                         </div>
                         <span asp-validation-for="ProductImgList" class="text-danger"></span>
@@ -152,6 +154,34 @@
             imgPreview.style.display = "block";
         }
     }
+
+
+    function handleFileSelect(event) {
+        
+        var imagePreviews = document.getElementById('imagePreviews');
+        imagePreviews.innerHTML = ''; // 清空預覽圖
+
+        if (event.target.files.length > 0) {
+            for (var i = 0; i < event.target.files.length; i++) {
+                // 建立 img 
+                var img = document.createElement('img');
+                img.src = URL.createObjectURL(event.target.files[i]);
+                img.className = 'preview-image';
+
+                console.log(img.src);
+
+                img.style.width = '500px';
+
+                // 將 img 加到預覽容器中
+                imagePreviews.appendChild(img);
+
+                // 換行
+                var hr = document.createElement('hr');
+                imagePreviews.appendChild(hr);
+            }
+        }
+    }
+
 
 
 

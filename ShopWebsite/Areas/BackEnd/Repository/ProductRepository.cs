@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
@@ -81,7 +82,6 @@ namespace ShopWebsite.Areas.BackEnd.Repository
 
         public ProductEditViewModel Edit(long? id)
         {
-            //進入DB搜尋資料
             ProductEditViewModel ProductViewModel = (
                 from Product in _context.Products
                 where Product.ProductNum == id
@@ -95,10 +95,24 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                     ProductPublish = Product.ProductPublish,
                     ProductPutTime = Product.ProductPutTime,
                     ProductOffTime = Product.ProductOffTime,
+                    Tag = Product.Tag,
                     ProductImg1 = new FormFile(new MemoryStream(), 0, 0, Product.ProductImg1.ToString(), Product.ProductImg1.ToString()),
-                    Tag = Product.Tag
+                    ProductImgList = new List<IFormFile>(),
                 }
             ).FirstOrDefault()!;
+
+            // 查詢資料庫取得ProductImgList
+            string[] productImgList = _context.Products
+                .Where(x => x.ProductNum.Equals(id))
+                .Select(x => x.ProductImgList)
+                .FirstOrDefault()?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)!;
+
+            foreach(var fileName in productImgList)
+            {
+                var memoryStream = new MemoryStream();
+                ProductViewModel.ProductImgList!.Add(new FormFile(memoryStream, 0, memoryStream.Length, null, fileName));
+            }
+
 
             return ProductViewModel;
         }

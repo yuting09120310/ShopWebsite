@@ -82,6 +82,25 @@
 
 
                     <div class="mb-3 row">
+                        <label asp-for="ProductImgList" class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                            <label style="display:block; border: solid 1px #ced4da;">
+                                <div id="imagePreviews">
+                                    @{
+                                        foreach(var item in Model.ProductImgList)
+                                        {
+                                            <img id="imagePreviews" src="~/uploads/Product/@item.FileName" style="width:50%" />
+                                        }
+                                    }
+                                </div>
+                                <input asp-for="ProductImgList" class="form-control" type="file" style="display:none;" onchange="handleFileSelect(event)" multiple />
+                            </label>
+                        </div>
+                        <span asp-validation-for="ProductImgList" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 row">
                         <label asp-for="ProductPutTime" class="col-sm-3 col-form-label"></label>
                         <div class="col-sm-9">
                             <input asp-for="ProductPutTime" class="form-control" type="date" autocomplete="off" />

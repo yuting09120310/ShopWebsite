@@ -22,6 +22,9 @@ namespace ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel
         [Display(Name = "圖片")]
         public IFormFile? ProductImg1 { get; set; }
 
+        [Display(Name = "產品圖")]
+        public List<IFormFile>? ProductImgList { get; set; }
+
         [Display(Name = "狀態")]
         public bool? ProductPublish { get; set; }
 
