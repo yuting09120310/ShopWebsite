@@ -31,9 +31,13 @@
                             </ul>
 
                             <ul class="thumbs-carousel">
-                                @{
-                                    <li><img src="@Url.Content("~/uploads/Product/" + Model.ProductImg1)" alt=""></li>
+                            @{
+                                string[] img = Model.ProductImgList.Split(',');
+                                foreach (var item in img)
+                                {
+                                    <li><img src="@Url.Content("~/uploads/Product/" + item)" alt=""></li>
                                 }
+                            }
                             </ul>
 
                         </div>

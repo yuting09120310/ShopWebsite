@@ -140,6 +140,7 @@ namespace ShopWebsite.FrontEnd.Controllers
                                                    Description = n.ProductDescription,
                                                    contxt = n.ProductContxt,
                                                    ProductImg1 = n.ProductImg1,
+                                                   ProductImgList = n.ProductImgList,
                                                    CreateTime = n.CreateTime,
                                                    ClassId = n.ProductClass,
                                                    ProductTypeName = (from creator in _context.ProductClasses
