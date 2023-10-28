@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    Dictionary<string, string[]> keyValuePairs = Model as Dictionary<string, string[]>;
 }
 
 <section class="page-title" style="background-image:url('@Url.Content("~/uploads/Banner/" + ViewBag.Banner)');">
@@ -7,7 +8,7 @@
                 <div class="clearfix">
                     <!--Title -->
                     <div class="title-column">
-                        @foreach (var item in Model)
+                        @foreach (var item in keyValuePairs)
                         {
                             <h1>@item.Key</h1>
                             
@@ -16,7 +17,7 @@
                     <!--Bread Crumb -->
                     <div class="breadcrumb-column">
                         <ul class="bread-crumb clearfix">
-                            @foreach (var item in Model)
+                            @foreach (var item in keyValuePairs)
                             {
                                 @foreach (string subItem in item.Value)
                                 {

@@ -16,6 +16,9 @@ namespace ShopWebsite.Areas.BackEnd.ViewModel.ProductViewModel
         [Display(Name = "說明")]
         public string? ProductDescription { get; set; }
 
+        [Display(Name = "價格")]
+        public long ProductPrice { get; set; }
+
         [Display(Name = "內容")]
         public string? ProductContxt { get; set; }
 

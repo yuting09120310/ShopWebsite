@@ -56,6 +56,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 ProductClass = ProductViewModel.ProductClass,
                 ProductTitle = ProductViewModel.ProductTitle,
                 ProductDescription = ProductViewModel.ProductDescription,
+                ProductPrice = ProductViewModel.ProductPrice,
                 ProductContxt = ProductViewModel.ProductContxt,
                 ProductImg1 = ProductViewModel.ProductImg1.FileName,
                 ProductImgList = string.Join(",", ProductViewModel.ProductImgList.Select(item => item.FileName)),
@@ -91,6 +92,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                     ProductTitle = Product.ProductTitle,
                     ProductClass = Product.ProductClass,
                     ProductDescription = Product.ProductDescription,
+                    ProductPrice= Product.ProductPrice,
                     ProductContxt = Product.ProductContxt,
                     ProductPublish = Product.ProductPublish,
                     ProductPutTime = Product.ProductPutTime,
@@ -126,6 +128,7 @@ namespace ShopWebsite.Areas.BackEnd.Repository
             Product.ProductTitle = ProductViewModel.ProductTitle;
             Product.ProductClass = ProductViewModel.ProductClass;
             Product.ProductDescription = ProductViewModel.ProductDescription;
+            Product.ProductPrice = ProductViewModel.ProductPrice;
             Product.ProductContxt = ProductViewModel.ProductContxt;
             Product.ProductPublish = ProductViewModel.ProductPublish;
             Product.ProductPutTime = ProductViewModel.ProductPutTime;
@@ -164,10 +167,18 @@ namespace ShopWebsite.Areas.BackEnd.Repository
 
             _context.SaveChanges();
 
-            //取得該篇文章的圖片並刪除
+            //取得該篇文章的封面並刪除
             var direPath = Path.Combine(path, "uploads", "Product");
             var filePath = Path.Combine(direPath, Product.ProductImg1);
             System.IO.File.Delete(filePath);
+
+            //取得該篇文章的圖片並刪除
+            string[] imgList = Product.ProductImgList.Split(',');
+            foreach (string item in imgList)
+            {
+                filePath = Path.Combine(direPath, item);
+                System.IO.File.Delete(filePath);
+            }
         }
 
 

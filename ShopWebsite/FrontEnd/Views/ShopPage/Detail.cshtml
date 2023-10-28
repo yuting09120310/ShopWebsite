@@ -1,216 +1,174 @@
 ﻿@model  ShopWebsite.FrontEnd.ViewModel.SingleProductViewModel
 @{
+    Layout = null;
     ViewData["Title"] = "商品頁面";
     var breadcrumbDict = new Dictionary<string, string[]> { { "商品頁面", new string[] { "Alex前台", "商品頁面" } } };
 }
 
-@Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict)
-<!--Shop Single-->
-    <div class="shop-single shop-page">
-        <div class="outer-container shop-container">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]</title>
+    <link href="~/FrontEnd/css/bootstrap.css" rel="stylesheet">
+    <link href="~/FrontEnd/css/nouislider.css" rel="stylesheet">
+    <link href="~/FrontEnd/css/nouislider.pips.css" rel="stylesheet">
+    <link href="~/FrontEnd/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="css/responsive.css" rel="stylesheet">
+</head>
 
-            <!--Prod Info Section-->
-            <section class="prod-info-section">
+<body class="default-theme">
 
-                <div class="row clearfix">
+    <div class="page-wrapper">
 
-                    <div class="carousel-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="carousel-outer wow fadeInLeft">
+        <div class="preloader"></div>
 
-                            <ul class="image-carousel">
+        @{
+            @Html.Partial("_FrontEndNavbarPartial")
+        }
+
+        @{
+            @Html.Partial("_FrontEndPageTitlePartial", breadcrumbDict);
+        }
+        <!--Shop Single-->
+        <div class="shop-single shop-page">
+            <div class="outer-container shop-container">
+
+                <!--Prod Info Section-->
+                <section class="prod-info-section">
+
+                    <div class="row clearfix">
+
+                        <div class="carousel-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="carousel-outer wow fadeInLeft">
+
                                 @{
-                                    //var Imagesitems = Model.ProductImgList.Split(',');
-                                    //foreach(string item in Model.ProductImg1)
-                                    //{
-                                    //    <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="~/FrontEnd/images/resource/products/shop-image-1.jpg" alt=""></a></li>
-                                    //}
+                                    string[] Imagesitems = Model.ProductImgList.Split(',');
+                                    <ul class="image-carousel">
+                                        @foreach (string item in Imagesitems)
+                                        {
+                                            <li><a href="~/FrontEnd/images/resource/products/shop-image-1.jpg" class="lightbox-image" title="Image Caption Here"><img src="@Url.Content("~/uploads/Product/" + item)" alt=""></a></li>
+                                        }
+                                    </ul>
 
-
-                                    <li><a href="@Url.Content("~/uploads/Product/" + Model.ProductImg1)" class="lightbox-image" title="Image Caption Here"><img src="@Url.Content("~/uploads/Product/" + Model.ProductImg1)" alt=""></a></li>
+                                    <ul class="thumbs-carousel">
+                                        @foreach (var item in Imagesitems)
+                                        {
+                                            <li><img src="@Url.Content("~/uploads/Product/" + item)" alt=""></li>
+                                        }
+                                    </ul>
                                 }
-                            </ul>
-
-                            <ul class="thumbs-carousel">
-                            @{
-                                string[] img = Model.ProductImgList.Split(',');
-                                foreach (var item in img)
-                                {
-                                    <li><img src="@Url.Content("~/uploads/Product/" + item)" alt=""></li>
-                                }
-                            }
-                            </ul>
-
-                        </div>
-                    </div>
-
-                    <!--Content Column-->
-                    <div class="content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="outer wow fadeInRight">
-                            <div class="title-box">
-                                <h2>@Model.Title</h2>
-                                <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span></div>
-                                <div class="price">$ @Model.Price </div>
                             </div>
-                        <div class="desc-text">@Model.Description</div>
+                        </div>
 
-                            <!--Options-->
-                            @using (Html.BeginForm("AddCart", "Cart", FormMethod.Get))
-                            {
-                            <input type="hidden" name="Id" value="@Model.ProductId" />
-                                <div class="prod-options">
-                                    <div class="clearfix">
-                                        <div class="form-group">
-                                            <strong>數量 : </strong>
-                                        @Html.DropDownList("amount", new SelectList(new List<string> { "1", "2", "3", "4", "5" }))
+                        <!--Content Column-->
+                        <div class="content-column col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="outer wow fadeInRight">
+                                <div class="title-box">
+                                    <h2>@Model.Title</h2>
+                                    <div class="price">$ @Model.Price </div>
+                                </div>
+                                <div class="desc-text">@Model.Description</div>
+
+                                <!--Options-->
+                                @using (Html.BeginForm("AddCart", "Cart", FormMethod.Get))
+                                {
+                                    <input type="hidden" name="Id" value="@Model.ProductId" />
+                                    <div class="prod-options">
+                                        <div class="clearfix">
+                                            <div class="form-group">
+                                                <strong>數量 : </strong>
+                                                @Html.DropDownList("amount", new SelectList(new List<string> { "1", "2", "3", "4", "5" }))
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!--Add-->
-                                <div class="add-options">
-                                    <button type="submit" class="theme-btn add-cart-btn" >加入購物車</button>
-@*                                    <button type="button" class="theme-btn add-fav"><span class="icon flaticon-heart-1"></span></button>
-*@                                </div>
-                            }
-                            <!--Share Options-->
-
-                        </div>
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!--Product Info Tabs-->
-            <div class="product-info-tabs">
-
-                <!--Product Tabs-->
-                <section class="prod-tabs" id="product-tabs">
-
-                    <!--Tab Btns-->
-                    <div class="tab-btns clearfix">
-                        <a href="#prod-description" class="tab-btn">商品詳細資訊</a>
-                        <a href="#prod-tags" class="tab-btn active-btn">商品標籤</a>  
-                    </div>
-
-                    <!--Tabs Container-->
-                    <div class="tabs-container">
-
-                        <!--Tab-->
-                        <div class="tab" id="prod-description">
-                            <h3>商品詳細資訊</h3>
-                            <div class="content">
-                                <p>@Html.Raw(Model.contxt)</p>
-                            </div>
-                        </div>
-
-                        <!--Tab-->
-                        <div class="tab active-tab" id="prod-tags">
-                            <h3>Product Tags</h3>
-                            <div class="content d-flex">
-                                @{
-                                    string[] Tags = Model.tag.Split(',');
-                                    foreach (string tag in Tags)
-                                    {
-                                        <h3><a asp-action="Index" asp-controller="ShopPage" asp-route-searchValue="@tag">@tag</a>&nbsp;&nbsp;</h3>
-                                    }
+                                    <!--Add-->
+                                    <div class="add-options">
+                                        <button type="submit" class="theme-btn add-cart-btn">加入購物車</button>
+                                        @*                                    <button type="button" class="theme-btn add-fav"><span class="icon flaticon-heart-1"></span></button>
+                                    *@
+                                    </div>
                                 }
+                                <!--Share Options-->
+
                             </div>
                         </div>
 
                     </div>
+
                 </section>
 
-            </div>
+                <!--Product Info Tabs-->
+                <div class="product-info-tabs">
 
+                    <!--Product Tabs-->
+                    <section class="prod-tabs" id="product-tabs">
+
+                        <!--Tab Btns-->
+                        <div class="tab-btns clearfix">
+                            <a href="#prod-description" class="tab-btn active-btn">商品詳細資訊</a>
+                            <a href="#prod-tags" class="tab-btn">商品標籤</a>
+                        </div>
+
+                        <!--Tabs Container-->
+                        <div class="tabs-container">
+
+                            <!--Tab-->
+                            <div class="tab active-tab" id="prod-description">
+                                <h3>商品詳細資訊</h3>
+                                <div class="content">
+                                    <p>@Html.Raw(Model.contxt)</p>
+                                </div>
+                            </div>
+
+                            <!--Tab-->
+                            <div class="tab" id="prod-tags">
+                                <h3>Product Tags</h3>
+                                <div class="content" style="display:flex">
+                                    @{
+                                        string[] Tags = Model.tag.Split(',');
+                                        foreach (string tag in Tags)
+                                        {
+                                            <h3><a asp-action="Index" asp-controller="ShopPage" asp-route-searchValue="@tag" style="color:red">@tag</a>&nbsp;&nbsp;</h3>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
         </div>
+
+        @{
+            @Html.Partial("_FrontEndFooterPartial")
+        }
     </div>
+    
+    @* @{
+        @Html.Partial("_FrontEndScriptPartial")
+    } *@
+
+    <script src="~/FrontEnd/js/jquery.js"></script>
+    <script src="~/FrontEnd/js/bootstrap.min.js"></script>
+    <script src="~/FrontEnd/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/FrontEnd/js/revolution.min.js"></script>
+    <script src="~/FrontEnd/js/jquery.fancybox.pack.js"></script>
+    <script src="~/FrontEnd/js/jquery.fancybox-media.js"></script>
+    <script src="~/FrontEnd/js/mixitup.js"></script>
+    <script src="~/FrontEnd/js/owl.js"></script>
+    <script src="~/FrontEnd/js/nouislider.js"></script>
+    <script src="~/FrontEnd/js/wow.js"></script>
+    <script src="~/FrontEnd/js/script.js"></script>
 
 
-@*    <!--Top Sellers Section-->
-    <section class="products-section top-sellers">
-        <div class="outer-container">
-            <div class="default-sec-title"><h2>Upsell Products</h2></div>
-
-            <div class="row clearfix">
-                <!--Product item-->
-                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                    <div class="inner-box">
-                        <figure class="image-box">
-                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-10.jpg" alt=""></a>
-                            <div class="options">
-                                <a href="~/FrontEnd/images/resource/products/image-10.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
-                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
-                            </div>
-                        </figure>
-                        <div class="prod-tag sale-tag">Sale</div>
-                        <div class="lower-content">
-                            <h3><a href="shop-single.html">DeWalt</a></h3>
-                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                            <div class="price">$ 18.00</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Product item-->
-                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                    <div class="inner-box">
-                        <figure class="image-box">
-                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-11.jpg" alt=""></a>
-                            <div class="options">
-                                <a href="~/FrontEnd/images/resource/products/image-11.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
-                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
-                            </div>
-                        </figure>
-                        <div class="lower-content">
-                            <h3><a href="shop-single.html">DeWalt</a></h3>
-                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                            <div class="price">$ 23.00</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Product item-->
-                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                    <div class="inner-box">
-                        <figure class="image-box">
-                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-12.jpg" alt=""></a>
-                            <div class="options">
-                                <a href="~/FrontEnd/images/resource/products/image-12.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
-                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
-                            </div>
-                        </figure>
-                        <div class="prod-tag new-tag">New</div>
-                        <div class="lower-content">
-                            <h3><a href="shop-single.html">Cumi</a></h3>
-                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                            <div class="price">$ 25.00</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Product item-->
-                <div class="product-item col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                    <div class="inner-box">
-                        <figure class="image-box">
-                            <a href="shop.html"><img src="~/FrontEnd/images/resource/products/image-13.jpg" alt=""></a>
-                            <div class="options">
-                                <a href="~/FrontEnd/images/resource/products/image-13.jpg" class="lightbox-image" title="Image Caption Here"><span class="icon flaticon-cross"></span></a>
-                                <a href="shop-single.html" class="add-cart-btn"><span class="icon fa fa-shopping-cart"></span></a>
-                                <a href="#" class="add-fav-btn"><span class="icon fa fa-heart-o"></span></a>
-                            </div>
-                        </figure>
-                        <div class="lower-content">
-                            <h3><a href="shop-single.html">Crocodile</a></h3>
-                            <div class="ratings"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div>
-                            <div class="price">$ 29.00</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>*@
+</body>
+</html>
