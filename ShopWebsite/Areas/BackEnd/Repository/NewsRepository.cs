@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 using ShopWebsite.Areas.BackEnd.Interface;
 using ShopWebsite.Areas.BackEnd.Models;
 using ShopWebsite.Areas.BackEnd.ViewModel.NewsViewModel;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace ShopWebsite.Areas.BackEnd.Repository
 {
@@ -156,14 +159,39 @@ namespace ShopWebsite.Areas.BackEnd.Repository
                 Directory.CreateDirectory(direPath);
             }
 
-            var filePath = Path.Combine(direPath, file.FileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            // 先將圖片儲存在記憶體內
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                file.CopyTo(fileStream);
+                file.CopyTo(memoryStream);
+
+                // 讀取圖片檔
+                using (var originalImage = Image.FromStream(memoryStream))
+                {
+                    int targetWidth = 370;
+                    int targetHeight = 280;
+
+                    double aspectRatio = (double)originalImage.Width / originalImage.Height;
+
+                    // 建立圖片
+                    using (var thumbnail = new Bitmap(targetWidth, targetHeight))
+                    using (var graphics = Graphics.FromImage(thumbnail))
+                    {
+                        graphics.CompositingQuality = CompositingQuality.HighQuality;
+                        graphics.SmoothingMode = SmoothingMode.HighQuality;
+                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                        graphics.DrawImage(originalImage, 0, 0, targetWidth, targetHeight);
+
+                        // 儲存圖片到路徑
+                        var thumbnailFilePath = Path.Combine(direPath, file.FileName);
+                        thumbnail.Save(thumbnailFilePath, ImageFormat.Jpeg);
+                    }
+                }
             }
         }
 
-        
+
+
         public List<SelectListItem> GetNewsClasseList()
         {
             return _context.NewsClasses
