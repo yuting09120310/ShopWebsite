@@ -1,6 +1,5 @@
 using ShopWebsite.Areas.BackEnd.Models;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +30,7 @@ builder.Services.AddDbContext<ShopWebsiteContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnectionString"));
 });
+
 
 var app = builder.Build();
 
